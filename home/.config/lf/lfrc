@@ -23,3 +23,4 @@ map L $lazygit
 map D :delete
 
 # custom ignore
+set hiddenFiles "**/.DS_Store:**/.git:**/.gitignore:~/[.ADLMP]*:!~/.config"
