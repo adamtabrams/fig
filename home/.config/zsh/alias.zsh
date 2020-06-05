@@ -110,8 +110,8 @@ ew() {
 #### Save lf Dir #################################
 lfcd () {
     tmp="$(mktemp)"
-    # ~/repos/lf/lf-hiddenfiles -last-dir-path="$tmp" "$@"
-    lf -last-dir-path="$tmp" "$@"
+    ~/repos/lf/lf-hiddenfiles -last-dir-path="$tmp" "$@"
+    # lf -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
         rm -f "$tmp"
