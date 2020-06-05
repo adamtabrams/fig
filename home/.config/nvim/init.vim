@@ -161,7 +161,7 @@ function! GetMotion()
     let c = ""
     if a >= char2nr("0") && a <= char2nr("9")
         let b = GetMotion()
-    elseif a == char2nr("i")
+    elseif a == char2nr("i") || a == char2nr("a")
         let c = getchar()
     elseif a == char2nr("t") || a == char2nr("f")
         let c = getchar()
@@ -177,9 +177,10 @@ function! ChangeReplace(...)
         let motion = GetMotion()
     endif
     let save_cursor = getcurpos()
-    exe 'norm "_c'.motion.trim(getreg("+"))
+    " exe 'norm "_c'.motion.trim(getreg("+")).'\<ESC>mm'
+    exe 'norm "_c'.motion.getreg("+")."\<ESC>mm"
     call setpos(".", save_cursor)
-    exe "norm =".motion
+    norm ='m
     call setpos(".", save_cursor)
     call repeat#set(":call ChangeReplace('".motion."')\<CR>",-1)
     return ""
