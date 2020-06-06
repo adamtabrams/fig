@@ -66,6 +66,7 @@ let g:vimwiki_list_ignore_newline = 0
 let g:vimwiki_text_ignore_newline = 0
 let g:vimwiki_hl_cb_checked = 2
 let g:vimwiki_conceallevel = 0
+let g:vimwiki_ext2syntax = {'.wiki': 'media'}
 
 let g:go_highlight_extra_types = 1
 let g:go_highlight_space_tab_error = 1

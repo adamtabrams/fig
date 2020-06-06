@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2020-06-06
+### Added
+- Replace htop with ytop. You'll have to install ytop. It's been given the alias `top`.
+
+### Fixed
+- Combine install package scripts into one.
+- Lf config got out of sync.
+- Fine tune ChangeReplace for nvim.
+
 ## [0.6.1] - 2020-06-05
 ### Fixed
 - Add script to extras for creating alacritty terminfo.
@@ -79,7 +88,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.6.1...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.7.0...HEAD
+[0.7.0]: https://github.com/adamtabrams/fig/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/adamtabrams/fig/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/adamtabrams/fig/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/adamtabrams/fig/compare/0.4.3...0.5.0

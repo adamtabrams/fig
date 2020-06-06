@@ -24,6 +24,7 @@ alias c="jump"
 alias loc="tokei -s code"
 alias page="$PAGER --paging=always"
 alias bat="bat --paging=never"
+alias top="ytop -p -c solarized-dark"
 
 #### Configs #####################################
 alias .zsh="$EDITOR $ZDOTDIR/.zshrc"
