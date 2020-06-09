@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1] - 2020-06-09
+### Fixed
+- Cleaned up vimrc.
+- Fixed Amethyst bindings.
+
 ## [0.7.0] - 2020-06-06
 ### Added
 - Replace htop with ytop. You'll have to install ytop. It's been given the alias `top`.
@@ -88,7 +93,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.7.0...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.7.1...HEAD
+[0.7.1]: https://github.com/adamtabrams/fig/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/adamtabrams/fig/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/adamtabrams/fig/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/adamtabrams/fig/compare/0.5.0...0.6.0

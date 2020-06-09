@@ -10,6 +10,7 @@ set findlen 0
 set previewer ~/.config/lf/preview.sh
 set sortby 'ctime'
 set reverse
+set hiddenfiles ".DS_Store:.git:.gitignore:~/[.ADLMP]*:!~/.config"
 
 ### Mappings ###
 map <c-g> $lf -remote "send $id cd '$(~/.config/lf/cd-fzf.sh)'"
@@ -21,6 +22,3 @@ map x $$f
 map X !$f
 map L $lazygit
 map D :delete
-
-# custom ignore
-set hiddenFiles "**/.DS_Store:**/.git:**/.gitignore:~/[.ADLMP]*:!~/.config"

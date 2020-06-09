@@ -1,4 +1,4 @@
-"##################### PLUG #########################
+"### Plug ########################################
 if ! filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
     echo "Downloading junegunn/vim-plug to manage plugins..."
     silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -17,16 +17,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'tomtom/tcomment_vim'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'dense-analysis/ale'
 Plug 'yggdroot/indentline'
+Plug 'easymotion/vim-easymotion'
+Plug 'junegunn/goyo.vim'
+Plug 'dense-analysis/ale'
 Plug 'fatih/vim-go'
-Plug 'vimwiki/vimwiki'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
-Plug 'easymotion/vim-easymotion'
+Plug 'vimwiki/vimwiki'
 call plug#end()
 
-"##################### PLUGINS ######################
+"### Plugins #####################################
 let g:fzf_layout = { 'down': '~70%' }
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
@@ -101,7 +102,7 @@ let g:indentLine_char = '│'
 let g:racer_insert_paren = 1
 let g:racer_experimental_completer = 1
 
-"##################### SETTINGS #####################
+"### Settings ####################################
 set fileformats=unix,mac,dos
 set wildmode=longest,list,full
 set clipboard+=unnamedplus
@@ -121,21 +122,23 @@ set nohlsearch
 set hidden
 set background=dark
 set iskeyword+=-
+set nojoinspaces
 colorscheme solarized
 syntax enable
 
-"##################### AUTOCMDS #####################
+"### Autocmds ####################################
 autocmd TermOpen           *           setlocal nonu nornu
 autocmd TermOpen           *           IndentLinesDisable
 autocmd TermOpen           *           startinsert
 autocmd BufWritePre        *           %s:\s\+$::e
-autocmd BufNewFile,BufRead *           setlocal formatoptions -=o
+autocmd BufNewFile,BufRead *           set formatoptions -=o
 autocmd BufNewFile,BufRead Jenkinsfile setlocal filetype=groovy
+autocmd BufNewFile,BufRead *.mom       setlocal filetype=groff
 autocmd FileType           yaml,json   set tabstop=2 shiftwidth=2
 autocmd FileType           json        IndentLinesDisable
 autocmd FileType           markdown    setlocal spell
 
-"################### FUNCTIONS ######################
+"### Functions ##################################
 function! ResizeMode()
     let key = nr2char(getchar())
     while key != "q" && key != "\<ESC>"
@@ -214,11 +217,11 @@ function! AlignWithMark(...)
     return ""
 endfunction
 
-"################### REMAPPINGS #####################
-"--- Hotfix -----------------------------------------
+"### Remappings ##################################
+"--- Hotfix --------------------------------------
 cnoremap 3636  <c-u>undo<CR>
 
-"--- Should-Be-Defaults -----------------------------
+"--- Should-Be-Defaults --------------------------
 cnoremap w!!    execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 nnoremap c      "_c
 nnoremap Y      y$
@@ -226,7 +229,7 @@ inoremap <c-v>  <c-o>p
 tnoremap <c-\>  <c-\><c-n>
 tmap     <c-w>  <c-\><c-w>
 
-"--- Functions ---------------------------------------
+"--- Functions -----------------------------------
 nnoremap <silent> <c-w>r   <c-w>t:call ResizeMode()<CR>
 nnoremap <silent> <c-w>R   :call ResizeMode()<CR>
 
@@ -240,52 +243,56 @@ inoremap <silent> <s-Tab>  <c-r>=OmniTab()<CR>
 nnoremap <silent> gA       :call AlignWithMark("i")<CR>
 vnoremap <silent> gA       :call AlignWithMark("s")<CR>
 
-"--- Testing ----------------------------------------
+"--- Testing -------------------------------------
 nnoremap <silent> gw  :w<CR>
 nnoremap <silent> gN  :tabnext<CR>
 nnoremap <silent> gP  :tabprevious<CR>
 nnoremap <c-d>        <c-d>zz
 nnoremap <c-u>        <c-u>zz
 
-"--- Autocomplete -----------------------------------
+"--- Autocomplete --------------------------------
 inoremap <c-f>  <c-x><c-f>
 inoremap <c-l>  <c-x><c-l>
 inoremap <c-b>  <c-x><c-p>
 "^ <c-x><c-p> block complete (continue completing where left off)
 
-"--- Splits/Buffers ---------------------------------
+"--- Splits/Buffers ------------------------------
 nnoremap <silent> gn   :bn<CR>
 nnoremap <silent> gp   :bp<CR>
 nnoremap <silent> gbd  :bd<CR>
 nnoremap <silent> gbD  :bd \| sbn<CR>
 
-"--- Coding -----------------------------------------
+"--- Writing -------------------------------------
+cnoremap Essayon   Goyo  \| ALEDisableBuffer \| setlocal fo+=a tw=81 nospell
+cnoremap Essayoff  Goyo! \| ALEEnableBuffer  \| setlocal fo-=a tw=0  spell
+
+"--- Coding --------------------------------------
 nnoremap goq  <c-w>j<c-w>q
 nnoremap gs   :%s//g<Left><Left>
 nnoremap gS   :%s/<c-r><c-w>//g<Left><Left>
 nnoremap gth  :set hlsearch!<CR>
 nnoremap gtl  :IndentLinesToggle<CR>
 
-"--- SURROUND ----------------------------------------
+"--- Surround ------------------------------------
 nmap dsf  dt(ds(
 nmap dsm  dt[ds[
 nmap dsl  dt{ds{
 nmap dsv  dt<ds<
 nmap g'   ysiW"
 
-"--- EASY MOTION ------------------------------------
+"--- Easy Motion ---------------------------------
 nmap gf      <Plug>(easymotion-overwin-w)
 nmap gF      <Plug>(easymotion-bd-wl)
 nmap g<c-f>  <Plug>(easymotion-jumptoanywhere)
 
-"--- ALE LINTING ------------------------------------
+"--- Ale Linting ---------------------------------
 nnoremap <silent> gaa  :ALEFirst<CR>
 nnoremap <silent> gan  :ALENextWrap<CR>
 nnoremap <silent> gap  :ALEPreviousWrap<CR>
 nnoremap <silent> gaf  :ALEFix<CR>
 nnoremap <silent> gad  :ALEDetail<CR>
 
-"--- VIM-GO -----------------------------------------
+"--- Vim-Go --------------------------------------
 autocmd FileType go nnoremap goi  :GoInfo<CR>
 autocmd FileType go nnoremap got  :GoTest<CR>
 autocmd FileType go nnoremap goT  :GoTestFunc!<CR>
@@ -303,7 +310,7 @@ autocmd FileType go IndentLinesDisable
 autocmd FileType go highlight link Whitespace Conceal
 autocmd FileType go set list listchars=tab:\|\ "keep trailing space
 
-"--- VIM-RUST ---------------------------------------
+"--- Vim-Rust ------------------------------------
 augroup Racer
     " autocmd!
     autocmd FileType rust nmap gd   <Plug>(rust-def)
@@ -318,10 +325,10 @@ augroup Racer
     autocmd FileType rust nmap gtR  :let g:ale_linters['rust'] = g:rustlint2<CR>
 augroup END
 
-"--- Leader Key -------------------------------------
+"--- Leader Key ----------------------------------
 let mapleader = ","
 
-"--- FZF --------------------------------------------
+"--- Fzf -----------------------------------------
 let maplocalleader = "\<Space>"
 nnoremap <LocalLeader><LocalLeader>  :Lines<CR>
 nnoremap <LocalLeader>f              :Files<CR>
