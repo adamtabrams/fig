@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.2] - 2020-06-10
+### Fixed
+- Removed vimwiki in favor of using the `ideas` tool.
+
 ## [0.7.1] - 2020-06-09
 ### Fixed
 - Cleaned up vimrc.
@@ -93,7 +97,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.7.1...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.7.2...HEAD
+[0.7.2]: https://github.com/adamtabrams/fig/compare/0.7.1...0.7.2
 [0.7.1]: https://github.com/adamtabrams/fig/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/adamtabrams/fig/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/adamtabrams/fig/compare/0.6.0...0.6.1

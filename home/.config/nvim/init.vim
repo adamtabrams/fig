@@ -24,7 +24,6 @@ Plug 'dense-analysis/ale'
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
-Plug 'vimwiki/vimwiki'
 call plug#end()
 
 "### Plugins #####################################
@@ -58,16 +57,6 @@ let g:ale_linters = {
 
 let g:ale_go_golangci_lint_options = "--enable-all -D lll,gomnd -E EXC0002 --skip-files _test.go"
 let g:ale_rust_ignore_error_codes = ['E0601']
-
-let g:vimwiki_list = [{'path': '~/.local/vimwiki'}]
-let g:vimwiki_url_maxsave = 0
-let g:vimwiki_listsyms = " ○◐●✔"
-let g:vimwiki_listsym_rejected = "✖"
-let g:vimwiki_list_ignore_newline = 0
-let g:vimwiki_text_ignore_newline = 0
-let g:vimwiki_hl_cb_checked = 2
-let g:vimwiki_conceallevel = 0
-let g:vimwiki_ext2syntax = {'.wiki': 'media'}
 
 let g:go_highlight_extra_types = 1
 let g:go_highlight_space_tab_error = 1

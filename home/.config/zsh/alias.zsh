@@ -6,9 +6,10 @@ alias bc="bc -q"
 alias vim="$EDITOR"
 alias vi="$EDITOR"
 alias v="$EDITOR"
+alias page="$PAGER --paging=always"
+alias bat="bat --paging=never"
 alias la="ls -HpA"
 alias ll="ls -Hpl"
-alias ww="$EDITOR ~/.local/vimwiki/index.wiki"
 alias ldk="lazydocker"
 alias yay="pacapt"
 alias lg="lazygit"
@@ -22,8 +23,6 @@ alias l="lfcd"
 alias j="jump"
 alias c="jump"
 alias loc="tokei -s code"
-alias page="$PAGER --paging=always"
-alias bat="bat --paging=never"
 alias top="ytop -p -c solarized-dark"
 
 #### Configs #####################################
@@ -100,12 +99,6 @@ gs() {
 es() {
     file="$(cd ~/save && fd -t f | fzf --reverse)"
     [ "$file" ] && "$EDITOR" "$HOME/save/$file"
-}
-
-# edit a vimwiki page
-ew() {
-    wiki=$(cd ~/.local/vimwiki && fd | fzf --reverse)
-    [ "$wiki" ] && "$EDITOR" "$HOME/.local/vimwiki/$wiki"
 }
 
 #### Save lf Dir #################################
