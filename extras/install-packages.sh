@@ -5,17 +5,12 @@ taps_list=" \
 homebrew/cask-fonts
 cjbassi/ytop"
 
-progs_list=" \
+cask_list=" \
 amethyst
 alacritty
 brave-browser
 font-firacode-nerd-font
 karabiner-elements"
-
-echo "$taps_list" | xargs brew tap
-
-echo "$progs_list" | xargs brew cask install
-
 
 # Generate list of installed progs: brew leaves
 progs_list=" \
@@ -46,4 +41,8 @@ kubernetes-helm
 golangci/tap/golangci-lint
 shellcheck"
 
-echo "$progs_list" | xargs brew install
+echo "$taps_list" | xargs -n 1 brew tap
+
+echo "$cask_list" | xargs -n 1 brew cask install
+
+echo "$progs_list" | xargs -n 1 brew install

@@ -2,6 +2,7 @@
 
 xdg_data_home=${XDG_DATA_HOME:-$HOME/.local/share}
 fig_root=$(dirname "$(realpath "$0")")
+[ "${fig_root%%/*}" ] && { echo "couldn't get fig's path" >&2; exit 1; }
 
 fig_swap="$xdg_data_home/fig/$(date +%FT%H:%M)"
 [ ! -d "$fig_swap" ] && mkdir -p "$fig_swap"
