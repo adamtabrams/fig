@@ -1,19 +1,19 @@
 #!/bin/sh
 
 # Generate list of installed progs: brew cask list
-taps_list=" \
+taps_list="\
 homebrew/cask-fonts
 cjbassi/ytop"
 
-cask_list=" \
+cask_list="\
 amethyst
 alacritty
 brave-browser
-font-firacode-nerd-font
+font-fira-code-nerd-font
 karabiner-elements"
 
 # Generate list of installed progs: brew leaves
-progs_list=" \
+progs_list="\
 neovim
 zsh
 zsh-syntax-highlighting
@@ -43,6 +43,6 @@ shellcheck"
 
 echo "$taps_list" | xargs -n 1 brew tap
 
-echo "$cask_list" | xargs -n 1 brew cask install
+echo "$cask_list" | xargs brew cask install
 
-echo "$progs_list" | xargs -n 1 brew install
+echo "$progs_list" | xargs brew install
