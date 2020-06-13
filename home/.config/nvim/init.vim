@@ -114,6 +114,7 @@ set iskeyword+=-
 set nojoinspaces
 colorscheme solarized
 syntax enable
+highlight! link MatchParen SpellBad
 
 "### Autocmds ####################################
 autocmd TermOpen           *           setlocal nonu nornu
