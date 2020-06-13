@@ -200,11 +200,9 @@ function! CompletionStatus()
     return ""
 endfunc
 
-function! AlignWithMark(...)
-    let cmd = get(a:, 1)
-    exe "norm ".cmd."\<c-r>=repeat(' ',col(\"'m\")-col('.'))\<CR>\<ESC>"
-    call repeat#set(":call AlignWithMark('".cmd."')\<CR>",-1)
-    return ""
+function! AlignWithMark()
+    call repeat#set("i\<c-r>=AlignWithMark()\<CR>\<ESC>",-1)
+    return "\<c-r>=repeat(' ',col(\"'m\")-col('.'))\<CR>\<ESC>"
 endfunction
 
 "### Remappings ##################################
@@ -230,8 +228,8 @@ nnoremap <silent> gC       :call ChangeReplace()<CR>
 inoremap <silent> <Tab>    <c-r>=CleverTab()<CR>
 inoremap <silent> <s-Tab>  <c-r>=OmniTab()<CR>
 
-nnoremap <silent> gA       :call AlignWithMark("i")<CR>
-vnoremap <silent> gA       :call AlignWithMark("s")<CR>
+nnoremap <silent> gA       i<c-r>=AlignWithMark()<CR><ESC>
+vnoremap <silent> gA       I<c-r>=AlignWithMark()<CR><ESC>
 
 "--- Testing -------------------------------------
 nnoremap <silent> gw  :w<CR>
