@@ -117,16 +117,16 @@ syntax enable
 highlight! link MatchParen SpellBad
 
 "### Autocmds ####################################
-autocmd TermOpen           *           setlocal nonu nornu
-autocmd TermOpen           *           IndentLinesDisable
-autocmd TermOpen           *           startinsert
-autocmd BufWritePre        *           %s:\s\+$::e
-autocmd BufNewFile,BufRead *           set formatoptions -=o
-autocmd BufNewFile,BufRead Jenkinsfile setlocal filetype=groovy
-autocmd BufNewFile,BufRead *.mom       setlocal filetype=groff
-autocmd FileType           yaml,json   set tabstop=2 shiftwidth=2
-autocmd FileType           json        IndentLinesDisable
-autocmd FileType           markdown    setlocal spell
+autocmd TermOpen           *              setlocal nonu nornu
+autocmd TermOpen           *              IndentLinesDisable
+autocmd TermOpen           *              startinsert
+autocmd BufWritePre        *              %s:\s\+$::e
+autocmd BufNewFile,BufRead *              set formatoptions-=o conceallevel=0
+autocmd BufNewFile,BufRead Jenkinsfile    setlocal filetype=groovy
+autocmd BufNewFile,BufRead *.mom          setlocal filetype=groff
+autocmd FileType           yaml,json      set tabstop=2 shiftwidth=2
+autocmd FileType           json,markdown  IndentLinesDisable
+autocmd FileType           markdown       setlocal spell
 
 "### Functions ##################################
 function! ResizeMode()
