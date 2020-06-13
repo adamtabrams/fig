@@ -39,6 +39,7 @@ docker-completion
 kubernetes-cli
 kubernetes-helm
 golangci/tap/golangci-lint
+write-good
 shellcheck"
 
 echo "$taps_list" | xargs -n 1 brew tap
