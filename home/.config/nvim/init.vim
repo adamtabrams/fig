@@ -251,8 +251,8 @@ nnoremap <silent> gbd  :bd<CR>
 nnoremap <silent> gbD  :bd \| sbn<CR>
 
 "--- Writing -------------------------------------
-cnoremap Essayon   Goyo  \| ALEDisableBuffer \| setlocal fo+=a tw=81 nospell
-cnoremap Essayoff  Goyo! \| ALEEnableBuffer  \| setlocal fo-=a tw=0  spell
+cnoremap <silent> Essayon   Goyo  \| ALEDisableBuffer \| setlocal fo+=a tw=81 nospell<CR>
+cnoremap <silent> Essayoff  Goyo! \| ALEEnableBuffer  \| setlocal fo-=a tw=0  spell<CR>
 
 "--- Coding --------------------------------------
 nnoremap goq  <c-w>j<c-w>q
@@ -267,11 +267,6 @@ nmap dsm  dt[ds[
 nmap dsl  dt{ds{
 nmap dsv  dt<ds<
 nmap g'   ysiW"
-
-"--- Easy Motion ---------------------------------
-nmap gf      <Plug>(easymotion-overwin-w)
-nmap gF      <Plug>(easymotion-bd-wl)
-nmap g<c-f>  <Plug>(easymotion-jumptoanywhere)
 
 "--- Ale Linting ---------------------------------
 nnoremap <silent> gaa  :ALEFirst<CR>
@@ -318,14 +313,15 @@ let mapleader = ","
 
 "--- Fzf -----------------------------------------
 let maplocalleader = "\<Space>"
-nnoremap <LocalLeader><LocalLeader>  :Lines<CR>
+" nnoremap <LocalLeader><LocalLeader>  :Lines<CR>
+nnoremap <LocalLeader>l              :Lines<CR>
 nnoremap <LocalLeader>f              :Files<CR>
 nnoremap <LocalLeader>g              :GFiles<CR>
 nnoremap <LocalLeader>s              :GFiles?<CR>
 nnoremap <LocalLeader>b              :Buffers<CR>
 nnoremap <LocalLeader>w              :Windows<CR>
 nnoremap <LocalLeader>r              :Rg<CR>
-nnoremap <LocalLeader>l              :History<CR>
+nnoremap <LocalLeader>h              :History<CR>
 nnoremap <LocalLeader>m              :Maps<CR>
 nnoremap <LocalLeader>t              :Filetypes<CR>
 nnoremap <LocalLeader>T              :set filetype=<CR>
@@ -335,3 +331,11 @@ nnoremap <LocalLeader>/              :BLines<CR>
 nnoremap <LocalLeader>'              :Marks<CR>
 nnoremap <LocalLeader>:              :Commands<CR>
 nnoremap <LocalLeader>?              :Helptags<CR>
+
+"--- Easy Motion ---------------------------------
+" nmap gf      <Plug>(easymotion-overwin-w)
+" nmap gF      <Plug>(easymotion-bd-wl)
+" nmap g<c-f>  <Plug>(easymotion-jumptoanywhere)
+nmap <LocalLeader><LocalLeader>  <Plug>(easymotion-overwin-w)
+nmap <LocalLeader>F              <Plug>(easymotion-bd-wl)
+nmap <LocalLeader>A              <Plug>(easymotion-jumptoanywhere)
