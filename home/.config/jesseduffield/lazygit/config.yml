@@ -1,22 +1,25 @@
 gui:
-  scrollheight: 2
-  scrollpastbottom: true
+  scrollHeight: 2
+  scrollPastBottom: true
   sidePanelWidth: 0.3333
+  expandFocusedSidePanel: false
+  mainPanelSplitMode: 'flexible' # one of 'horizontal' | 'flexible' | 'vertical'
   theme:
     lightTheme: false
-    activebordercolor:
+    activeBorderColor:
     - red
     - bold
-    inactivebordercolor:
+    inactiveBorderColor:
     - blue
-    optionstextcolor:
+    optionsTextColor:
     - blue
     selectedLineBgColor:
     - bold
-  commitlength:
+  commitLength:
     show: true
   mouseEvents: true
   skipUnstageLineWarning: false
+  skipStashWarning: false
 git:
   paging:
     colorArg: always
@@ -25,11 +28,27 @@ git:
     manualCommit: false
   skipHookPrefix: WIP
   autoFetch: true
+  overrideGpg: false
+  disableForcePushing: false
 update:
   method: prompt
   days: 14
-os:
-  opencommand: $EDITOR {{filename}}
 reporting: "off"
 confirmOnQuit: false
-startuppopupversion: 1
+quitOnTopLevelReturn: true
+disableStartupPopups: false
+os:
+  opencommand: $EDITOR {{filename}}
+customCommands:
+  - key: 'B'
+    command: 'hub browse'
+    context: 'global'
+  - key: 'B'
+    command: 'hub browse -- "tree/{{.SelectedLocalBranch.Name}}"'
+    context: 'localBranches'
+  - key: 'B'
+    command: 'hub browse -- "tree/{{.SelectedRemoteBranch.Name}}"'
+    context: 'remoteBranches'
+  - key: 'B'
+    command: 'hub browse -- "commit/{{.SelectedLocalCommit.Sha}}"'
+    context: 'commits'

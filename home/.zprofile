@@ -10,7 +10,7 @@ export SHELL="zsh"
 export OPENER="$EDITOR"
 export VISUAL="$EDITOR"
 export PAGER="bat"
-export GIT_PAGER="$PAGER"
+export GIT_PAGER="delta"
 export MANPAGER="col -bx | $PAGER --language=man"
 
 #### XDG #########################################

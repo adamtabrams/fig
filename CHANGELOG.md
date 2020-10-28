@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.6] - 2020-10-28
+### Fixed
+- Small changes for delta, aliases, lazygit.
+- Update alacritty config for new version.
+- Update lf configs for new version.
+
 ## [0.7.5] - 2020-06-12
 ### Fixed
 - Fixed Vim hiding style characters in markdown files.
@@ -118,7 +124,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.7.5...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.7.6...HEAD
+[0.7.6]: https://github.com/adamtabrams/fig/compare/0.7.5...0.7.6
 [0.7.5]: https://github.com/adamtabrams/fig/compare/0.7.4...0.7.5
 [0.7.4]: https://github.com/adamtabrams/fig/compare/0.7.3...0.7.4
 [0.7.3]: https://github.com/adamtabrams/fig/compare/0.7.2...0.7.3

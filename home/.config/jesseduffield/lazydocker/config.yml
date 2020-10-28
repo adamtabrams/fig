@@ -9,7 +9,7 @@ gui:
       - blue
     optionsTextColor:
       - blue
-  returnImmediately: true
+  returnImmediately: false
   wrapMainPanel: false
 reporting: "off"
 commandTemplates:
