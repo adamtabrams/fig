@@ -1,15 +1,12 @@
 ### General ###
-# set shell sh
-set shellopts '-eu'
+set shell zsh
+set shellopts '-eu:--shwordsplit'
 set ifs "\n"
 set scrolloff 10
-set color256
 set icons
 set incsearch
 set findlen 0
 set previewer ~/.config/lf/preview.sh
-set sortby 'ctime'
-set reverse
 set hiddenfiles ".DS_Store:.git:.gitignore:~/[.ADLMP]*:!~/.config"
 
 ### Mappings ###
@@ -20,5 +17,6 @@ map <esc> quit
 map H push <f-1>
 map x $$f
 map X !$f
-map L $lazygit
 map D :delete
+map L $lazygit
+map B $hub browse
