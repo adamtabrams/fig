@@ -52,3 +52,5 @@ customCommands:
   - key: 'B'
     command: 'hub browse -- "commit/{{.SelectedLocalCommit.Sha}}"'
     context: 'commits'
+# services:
+#   "github.company.com": "github:github.company.com"
