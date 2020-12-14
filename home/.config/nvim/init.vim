@@ -73,11 +73,16 @@ let g:go_highlight_diagnostic_errors = 1
 let g:go_highlight_diagnostic_warnings = 0
 
 let g:go_fmt_autosave = 0
-let g:go_imports_autosave = 0
 let g:go_imports_mode = "gopls"
 let g:go_gopls_complete_unimported = v:true
 let g:go_gopls_deep_completion = v:true
 let g:go_gopls_matcher = "fuzzy"
+" testing
+" let g:go_auto_type_info = 0
+" let g:go_auto_sameids = 1
+let g:go_updatetime = 2000
+let g:go_jump_to_error = 0
+let g:go_doc_popup_window = 1
 
 let g:solarized_termtrans = 1
 let g:solarized_visibility = "high"
@@ -100,7 +105,8 @@ set shell=/bin/zsh
 set history=200
 set mouse=a
 set go=a
-set scrolloff=2
+" set scrolloff=2
+set scrolloff=5
 set inccommand=split
 set tabstop=4 shiftwidth=4 expandtab shiftround
 set foldmethod=indent foldlevelstart=99 foldnestmax=3
@@ -124,6 +130,7 @@ autocmd BufWritePre        *              %s:\s\+$::e
 autocmd BufNewFile,BufRead *              set formatoptions-=o conceallevel=0
 autocmd BufNewFile,BufRead Jenkinsfile    setlocal filetype=groovy
 autocmd BufNewFile,BufRead *.mom          setlocal filetype=groff
+autocmd BufNewFile,BufRead *.avsc         setlocal filetype=json
 autocmd FileType           yaml,json      set tabstop=2 shiftwidth=2
 autocmd FileType           json,markdown  IndentLinesDisable
 autocmd FileType           markdown       setlocal spell
@@ -233,10 +240,12 @@ vnoremap <silent> gA       I<c-r>=AlignWithMark()<CR><ESC>
 
 "--- Testing -------------------------------------
 nnoremap <silent> gw  :w<CR>
-nnoremap <silent> gN  :tabnext<CR>
-nnoremap <silent> gP  :tabprevious<CR>
+" nnoremap <silent> gN  :tabnext<CR>
+" nnoremap <silent> gP  :tabprevious<CR>
 nnoremap <c-d>        <c-d>zz
 nnoremap <c-u>        <c-u>zz
+" nnoremap n            nzz
+" nnoremap N            Nzz
 
 "--- Autocomplete --------------------------------
 inoremap <c-f>  <c-x><c-f>
@@ -277,6 +286,7 @@ nnoremap <silent> gad  :ALEDetail<CR>
 
 "--- Vim-Go --------------------------------------
 autocmd FileType go nnoremap goi  :GoInfo<CR>
+autocmd FileType go nnoremap goI  :GoSameIdsToggle<CR>
 autocmd FileType go nnoremap got  :GoTest<CR>
 autocmd FileType go nnoremap goT  :GoTestFunc!<CR>
 autocmd FileType go nnoremap goa  :GoAlternate<CR>
@@ -333,9 +343,7 @@ nnoremap <LocalLeader>:              :Commands<CR>
 nnoremap <LocalLeader>?              :Helptags<CR>
 
 "--- Easy Motion ---------------------------------
-" nmap gf      <Plug>(easymotion-overwin-w)
-" nmap gF      <Plug>(easymotion-bd-wl)
-" nmap g<c-f>  <Plug>(easymotion-jumptoanywhere)
 nmap <LocalLeader><LocalLeader>  <Plug>(easymotion-overwin-w)
-nmap <LocalLeader>F              <Plug>(easymotion-bd-wl)
 nmap <LocalLeader>A              <Plug>(easymotion-jumptoanywhere)
+nmap <LocalLeader>F              <Plug>(easymotion-bd-wl)
+" nmap gf      <Plug>(easymotion-bd-wl)
