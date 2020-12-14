@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "5/22/2020, 5:22:08 PM",
-	"time": 1590186128242,
+	"@time": "12/13/2020, 7:32:01 PM",
+	"time": 1607909521269,
 	"environment": {
-		"extension": "1.83.2",
+		"extension": "1.87.2",
 		"platform": "mac",
-		"chrome": 81
+		"chrome": 87
 	},
 	"exclusionRules": [
 		{
@@ -23,6 +23,10 @@
 		{
 			"pattern": ":https://mail.google.com/",
 			"passKeys": "# / ? a c e j k o s x "
+		},
+		{
+			"pattern": ":https://outlook.office365.com/",
+			"passKeys": "# / ? a c e j k o s x "
 		}
 	],
 	"keyMappings": [
@@ -35,9 +39,13 @@
 	],
 	"linkHintCharacters": "asdfjklrtyugh",
 	"searchEngines": [
-		"r: https://doc.rust-lang.org/std/?search=%s Rust",
-		"g: https://github.com/search?q=%s Github",
+		"rd: https://doc.rust-lang.org/std/?search=%s RustDocs",
+		"gd: https://godoc.org/?q=%s GoDocs",
+		"G: https://github.com/search?q=%s Github",
+		"g: https://github.company.com/search?q=%s company Github",
+		""
 	],
+	"searchUrl": "https://www.google.com/search?q=$s Google",
 	"showAdvancedCommands": true,
 	"showAdvancedOptions": true,
 	"userDefinedCss": [

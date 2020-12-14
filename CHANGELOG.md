@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2020-12-13
+### Added
+- Switch `ytop` to `bottom` and add `curlie`.
+
+### Fixed
+- Update vimium config.
+- Add private git service to lazygit config.
+- Pretty big updates to zsh config!
+- Various nvim config fixes and some configs in testings.
+- Add shift modifier for clicking alacritty links.
+
 ## [0.7.6] - 2020-10-28
 ### Fixed
 - Small changes for delta, aliases, lazygit.
@@ -124,7 +135,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.7.6...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.8.0...HEAD
+[0.8.0]: https://github.com/adamtabrams/fig/compare/0.7.6...0.8.0
 [0.7.6]: https://github.com/adamtabrams/fig/compare/0.7.5...0.7.6
 [0.7.5]: https://github.com/adamtabrams/fig/compare/0.7.4...0.7.5
 [0.7.4]: https://github.com/adamtabrams/fig/compare/0.7.3...0.7.4
