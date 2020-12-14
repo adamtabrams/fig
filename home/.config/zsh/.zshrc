@@ -31,7 +31,7 @@ bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
 #### Dirstack ####################################
-DIRSTACKSIZE=20
+DIRSTACKSIZE=40
 DIRSTACKFILE="$XDG_CACHE_HOME/zsh/dirs"
 [ ! -f "$DIRSTACKFILE" ] &&
     mkdir -p "$(dirname "$DIRSTACKFILE")" && touch "$DIRSTACKFILE"

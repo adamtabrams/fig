@@ -6,24 +6,24 @@ alias bc="bc -q"
 alias vim="$EDITOR"
 alias vi="$EDITOR"
 alias v="$EDITOR"
+alias l="lfcd"
+alias lf="lfcd"
+alias lg="lazygit"
+alias L="lazygit"
+alias B="hub browse"
+alias j="jump"
 alias page="$PAGER --paging=always"
 alias bat="bat --paging=never"
 alias la="ls -HpA"
 alias ll="ls -Hpl"
 alias ldk="lazydocker"
 alias yay="pacapt"
-alias lg="lazygit"
 alias cl="clear"
 alias cls="clear && ls"
 alias cll="printf '\033\143'"
-alias hb="hub browse"
 alias :q="exit"
-alias k="kubectl"
-alias l="lfcd"
-alias j="jump"
-alias c="jump"
 alias loc="tokei -s code"
-alias top="ytop -p -c solarized-dark"
+alias top="btm -ufgl --autohide_time --hide_table_gap --mem_as_value"
 
 #### Configs #####################################
 alias .zsh="$EDITOR $ZDOTDIR/.zshrc"
@@ -77,70 +77,59 @@ lr() {
     done
 }
 
-# go to a dir in temp
+# go to a dir or open a file in temp
 gt() {
-    dir="$(cd ~/temp && fd -t d | fzf --reverse)"
-    [ "$dir" ] && cd "$HOME/temp/$dir"
+    sel="$HOME/temp/$(cd ~/temp && fd | fzf --reverse)"
+    [ -d "$sel" ] && cd "$sel"
+    [ -f "$sel" ] && "$EDITOR" "$sel"
 }
 
-# edit a file in temp
-et() {
-    file="$(cd ~/temp && fd -t f | fzf --reverse)"
-    [ "$file" ] && "$EDITOR" "$HOME/temp/$file"
-}
-
-# go to a dir in save
+# go to a dir or open a file in save
 gs() {
-    dir="$(cd ~/save && fd -t d | fzf --reverse)"
-    [ "$dir" ] && cd "$HOME/save/$dir"
-}
-
-# edit a file in temp
-es() {
-    file="$(cd ~/save && fd -t f | fzf --reverse)"
-    [ "$file" ] && "$EDITOR" "$HOME/save/$file"
+    sel="$HOME/save/$(cd ~/save && fd | fzf --reverse)"
+    [ -d "$sel" ] && cd "$sel"
+    [ -f "$sel" ] && "$EDITOR" "$sel"
 }
 
 #### Save lf Dir #################################
 lfcd () {
     tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
+    command lf -last-dir-path="$tmp" "$@"
+    [ -f "$tmp" ] && {
         dir="$(cat "$tmp")"
         rm -f "$tmp"
-        if [ -d "$dir" ]; then
-            if [ "$dir" != "$(pwd)" ]; then
+        [ -d "$dir" ] &&
+            [ "$dir" != "$(pwd)" ] &&
                 cd "$dir"
-            fi
-        fi
-    fi
+    }
 }
 
 #### Jump ########################################
-# jump FOO: jump to a mark named FOO
-# mark FOO: create a mark named FOO
-# unmark FOO: delete a mark
 # marks: lists all marks
+# jump: jump to a mark named FOO
+# mark z: create mark called "z" for current dir
+# unmark z: delete the mark called "z"
 
 markfile="$XDG_DATA_HOME/lf/marks"
 
-marks() {
-    cat "$markfile" | tr ':' ' '
-
-}
+marks() { cat "$markfile" | tr ':' ' ' }
 
 jump() {
     new_dir=$(marks | fzf --reverse | cut -f 2 -d ' ')
-    [ "$new_dir" ] && cd "$new_dir"
+    [ -d "$new_dir" ] && cd "$new_dir"
 }
 
 mark() {
     [[ $# != 1 ]] &&
-        echo "Must be 1 char" &&
+        echo "must provide 1 argument" &&
+        return 1
+
+    [ ${#1} != 1 ] &&
+        echo "argument must be 1 char" &&
         return 1
 
     grep "^${1}:" "$markfile" &&
-        echo "Char already assigned" &&
+        echo "that char is already assigned" &&
         return 1
 
     echo "${1}:$PWD" >> "$markfile"

@@ -11,6 +11,7 @@ export OPENER="$EDITOR"
 export VISUAL="$EDITOR"
 export PAGER="bat"
 export GIT_PAGER="delta"
+export GIT_EDITOR="$EDITOR"
 export MANPAGER="col -bx | $PAGER --language=man"
 
 #### XDG #########################################
