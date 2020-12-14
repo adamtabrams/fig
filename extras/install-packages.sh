@@ -3,7 +3,7 @@
 # Generate list of installed progs: brew cask list
 taps_list="\
 homebrew/cask-fonts
-cjbassi/ytop"
+clementtsang/bottom"
 
 cask_list="\
 amethyst
@@ -28,7 +28,7 @@ fd
 lf
 jq
 yq
-ytop
+bottom
 coreutils
 sc-im
 tree
@@ -38,6 +38,7 @@ lazydocker
 docker-completion
 kubernetes-cli
 kubernetes-helm
+rs/tap/curlie
 golangci/tap/golangci-lint
 write-good
 shellcheck"
