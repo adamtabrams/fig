@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2020-12-20
+### Added
+- Setup nonest_nvim to prevent nested Neovim instances!
+- Added YankAppend function to neovim with the `gy` mapping.
+- Added neovim integrations with lf and lazygit.
+
+### Fixed
+- Improved lf configs to switch to 3 or 2 panels.
+- Improve karabiner timing for "-" character it L_Shift.
+
 ## [0.8.0] - 2020-12-13
 ### Added
 - Switch `ytop` to `bottom` and add `curlie`.
@@ -135,7 +145,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.8.0...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.9.0...HEAD
+[0.9.0]: https://github.com/adamtabrams/fig/compare/0.8.0...0.9.0
 [0.8.0]: https://github.com/adamtabrams/fig/compare/0.7.6...0.8.0
 [0.7.6]: https://github.com/adamtabrams/fig/compare/0.7.5...0.7.6
 [0.7.5]: https://github.com/adamtabrams/fig/compare/0.7.4...0.7.5

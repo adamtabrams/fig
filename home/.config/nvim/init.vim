@@ -105,7 +105,6 @@ set shell=/bin/zsh
 set history=200
 set mouse=a
 set go=a
-" set scrolloff=2
 set scrolloff=5
 set inccommand=split
 set tabstop=4 shiftwidth=4 expandtab shiftround
@@ -186,6 +185,20 @@ function! ChangeReplace(...)
     return ""
 endfunction
 
+function! YankAppend(...)
+    let motion = get(a:, 1)
+    if a:0 == 0
+        let motion = GetMotion()
+    endif
+    let regA = @a
+    let @a = @+
+    exe 'norm "Ay'.motion
+    let @+ = @a
+    let @a = regA
+    call repeat#set(":call YankAppend('".motion."')\<CR>",-1)
+    return ""
+endfunction
+
 function! CleverTab()
     if pumvisible()
         return "\<c-n>"
@@ -210,6 +223,13 @@ endfunc
 function! AlignWithMark()
     call repeat#set("i\<c-r>=AlignWithMark()\<CR>\<ESC>",-1)
     return "\<c-r>=repeat(' ',col(\"'m\")-col('.'))\<CR>\<ESC>"
+endfunction
+
+function! TempTerm(...)
+    let command = get(a:, 1)
+    exe "au TermClose * ++once :b#|bd!#"
+    exe "terminal ".command
+    return ""
 endfunction
 
 "### Remappings ##################################
@@ -239,13 +259,14 @@ nnoremap <silent> gA       i<c-r>=AlignWithMark()<CR><ESC>
 vnoremap <silent> gA       I<c-r>=AlignWithMark()<CR><ESC>
 
 "--- Testing -------------------------------------
-nnoremap <silent> gw  :w<CR>
-" nnoremap <silent> gN  :tabnext<CR>
-" nnoremap <silent> gP  :tabprevious<CR>
-nnoremap <c-d>        <c-d>zz
-nnoremap <c-u>        <c-u>zz
-" nnoremap n            nzz
-" nnoremap N            Nzz
+nnoremap <silent> gw   :w<CR>
+nnoremap <c-m>         <c-]>
+nnoremap <silent> gy   :call YankAppend()<CR>
+
+nnoremap <c-d>         <c-d>zz
+nnoremap <c-u>         <c-u>zz
+" nnoremap n             nzz
+" nnoremap N             Nzz
 
 "--- Autocomplete --------------------------------
 inoremap <c-f>  <c-x><c-f>
@@ -320,14 +341,15 @@ augroup END
 
 "--- Leader Key ----------------------------------
 let mapleader = ","
+nnoremap <silent> <Leader>t  :call TempTerm()<CR>
+nnoremap <silent> <Leader>g  :call TempTerm("lazygit")<CR>
+nnoremap <silent> <Leader>l  :call TempTerm("lf")<CR>
 
 "--- Fzf -----------------------------------------
 let maplocalleader = "\<Space>"
-" nnoremap <LocalLeader><LocalLeader>  :Lines<CR>
-nnoremap <LocalLeader>l              :Lines<CR>
-nnoremap <LocalLeader>f              :Files<CR>
 nnoremap <LocalLeader>g              :GFiles<CR>
 nnoremap <LocalLeader>s              :GFiles?<CR>
+nnoremap <LocalLeader><c-f>          :Files<CR>
 nnoremap <LocalLeader>b              :Buffers<CR>
 nnoremap <LocalLeader>w              :Windows<CR>
 nnoremap <LocalLeader>r              :Rg<CR>
@@ -335,15 +357,15 @@ nnoremap <LocalLeader>h              :History<CR>
 nnoremap <LocalLeader>m              :Maps<CR>
 nnoremap <LocalLeader>t              :Filetypes<CR>
 nnoremap <LocalLeader>T              :set filetype=<CR>
-nnoremap <LocalLeader>~              :Files ~
-nnoremap <LocalLeader>.              :Files ../
+nnoremap <LocalLeader>l              :Lines<CR>
 nnoremap <LocalLeader>/              :BLines<CR>
 nnoremap <LocalLeader>'              :Marks<CR>
 nnoremap <LocalLeader>:              :Commands<CR>
 nnoremap <LocalLeader>?              :Helptags<CR>
+nnoremap <LocalLeader>~              :Files ~
+nnoremap <LocalLeader>.              :Files ../
 
 "--- Easy Motion ---------------------------------
 nmap <LocalLeader><LocalLeader>  <Plug>(easymotion-overwin-w)
-nmap <LocalLeader>A              <Plug>(easymotion-jumptoanywhere)
-nmap <LocalLeader>F              <Plug>(easymotion-bd-wl)
-" nmap gf      <Plug>(easymotion-bd-wl)
+nmap <LocalLeader>a              <Plug>(easymotion-jumptoanywhere)
+nmap <LocalLeader>f              <Plug>(easymotion-bd-wl)

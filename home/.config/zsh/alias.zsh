@@ -6,11 +6,11 @@ alias bc="bc -q"
 alias vim="$EDITOR"
 alias vi="$EDITOR"
 alias v="$EDITOR"
-alias l="lfcd"
 alias lf="lfcd"
+alias l="lfcd"
 alias lg="lazygit"
-alias L="lazygit"
-alias B="hub browse"
+alias g="lazygit"
+alias b="hub browse"
 alias j="jump"
 alias page="$PAGER --paging=always"
 alias bat="bat --paging=never"
@@ -31,6 +31,7 @@ alias .alias="$EDITOR $ZDOTDIR/alias.zsh"
 alias .env="$EDITOR $HOME/.zprofile"
 alias .nvim="$EDITOR $XDG_CONFIG_HOME/nvim/init.vim"
 alias .hist="$EDITOR $MYHIST"
+alias .conf="cd $XDG_CONFIG_HOME"
 
 #### Functions ###################################
 up() { fc -e "sed -i \"\" -e \"s| | $* |\"" }
@@ -45,23 +46,34 @@ unbak() { mv "$1" $(sed "s/.bak$//" <<< "$1") }
 
 mksh() { echo "#!/bin/sh" >> "$1" && chmod +x "$1" && "$EDITOR" "$1" }
 
-#### Fzf #########################################
+#### Quick Select ################################
+# list quick-select commands
+glist() {
+    echo "gl  - goto latest dirs"
+    echo "gr  - goto repo"
+    echo "grr - goto repo (deeper search)"
+    echo "or  - open repo in browser"
+    echo "lr  - open repo(s) in lazygit"
+    echo "gt  - goto/open from ~/temp"
+    echo "gs  - goto/open from ~/save"
+}
+
 # go to one of the lastest dirs
 gl() {
-    goto=$(cat "$DIRSTACKFILE" | fzf --reverse)
+    goto=$(cat "$DIRSTACKFILE" | $SELECTOR)
     [ "$goto" ] && cd "$goto"
 }
 
 # go to a repo
 gr() {
-    repo="$(cd ~/repos && fd -d1 | fzf --reverse)"
+    repo="$(cd ~/repos && fd -d1 | $SELECTOR)"
     [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
 # go to a repo (recursive)
 grr() {
     repo="$(cd ~/repos && fd -d3 -t d -I -H "^.git$" |
-        rev | cut -c 6- | rev | fzf --reverse)"
+        rev | cut -c 6- | rev | $SELECTOR)"
     [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
@@ -72,21 +84,21 @@ or() {
 
 # use lazygit on one or more repos
 lr() {
-    for repo in $(cd ~/repos && fd -d1 | fzf --reverse --multi); do
+    for repo in $(cd ~/repos && fd -d1 | $SELECTOR --multi); do
         lazygit -p "$HOME/repos/$repo"
     done
 }
 
 # go to a dir or open a file in temp
 gt() {
-    sel="$HOME/temp/$(cd ~/temp && fd | fzf --reverse)"
+    sel="$HOME/temp/$(cd ~/temp && fd | $SELECTOR)"
     [ -d "$sel" ] && cd "$sel"
     [ -f "$sel" ] && "$EDITOR" "$sel"
 }
 
 # go to a dir or open a file in save
 gs() {
-    sel="$HOME/save/$(cd ~/save && fd | fzf --reverse)"
+    sel="$HOME/save/$(cd ~/save && fd | $SELECTOR)"
     [ -d "$sel" ] && cd "$sel"
     [ -f "$sel" ] && "$EDITOR" "$sel"
 }
@@ -115,7 +127,7 @@ markfile="$XDG_DATA_HOME/lf/marks"
 marks() { cat "$markfile" | tr ':' ' ' }
 
 jump() {
-    new_dir=$(marks | fzf --reverse | cut -f 2 -d ' ')
+    new_dir=$(marks | $SELECTOR | cut -f 2 -d ' ')
     [ -d "$new_dir" ] && cd "$new_dir"
 }
 

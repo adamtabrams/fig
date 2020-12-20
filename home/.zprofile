@@ -1,9 +1,12 @@
 #!/bin/zsh
 
 #### General #####################################
-export EDITOR="nvim"
+export REALEDITOR="nvim"
+export EDITOR="nonest_nvim"
+# export EDITOR="/Users/aabrams7/repos/TEMP/neovim/build/bin/nvim"
 export TERMINAL="/Applications/Alacritty.app/Contents/MacOS/alacritty"
 export BROWSER="/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser"
+export SELECTOR="fzf"
 
 export LANG="en_US.UTF-8"
 export SHELL="zsh"
@@ -19,13 +22,14 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-#### Path ########################################
-export PATH="$HOME/.local/bin:$PATH"
-
 #### Files/Dirs ##################################
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export MYHIST="$HOME/.local/history/histfile"
 export LESSHISTFILE="-"
+
+#### Path ########################################
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$ZDOTDIR/nonest_nvim:$PATH"
 
 #### Bat #########################################
 export BAT_PAGER="less -R"
@@ -35,6 +39,7 @@ export BAT_CONFIG_PATH="$XDG_CONFIG_HOME/bat/bat.conf"
 fzf_base_command="fd --hidden --exclude .git --follow"
 export FZF_DEFAULT_COMMAND="$fzf_base_command --type file"
 export FZF_DEFAULT_OPTS="--preview='bat {} 2> /dev/null'"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --reverse"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview-window=':hidden'"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --bind=ctrl-u:page-up"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --bind=ctrl-d:page-down"
