@@ -8,10 +8,11 @@ set incsearch
 set findlen 0
 set previewer ~/.config/lf/preview.sh
 set hiddenfiles ".DS_Store:.git:.gitignore:~/[.ADLMP]*:!~/.config"
+set promptfmt "\033[33;1m%w\033[0m\033[34;1m%f\033[0m"
 
 ### Mappings ###
 map <c-g> $lf -remote "send $id cd '$(~/.config/lf/cd-fzf.sh)'"
-map <c-f> $(~/.config/lf/vim-fzf.sh)
+map <c-f> $(~/.config/lf/edit-fzf.sh)
 map <enter> shell
 map <esc> quit
 map H push <f-1>
@@ -20,3 +21,6 @@ map X !$f
 map D :delete
 map L $lazygit
 map B $hub browse
+map E push $nonest_nvim<space>
+map Z2 $lf -remote "send $id set ratios 1:2"
+map Z3 $lf -remote "send $id set ratios 1:2:3"
