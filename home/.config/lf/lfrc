@@ -22,5 +22,19 @@ map D :delete
 map L $lazygit
 map B $hub browse
 map E push $nonest_nvim<space>
+
+### Columns ###
+cmd recol ${{
+    w=$(tput cols)
+    if [ $w -le 95 ]; then
+        lf -remote "send $id set ratios 1:2"
+    else
+        lf -remote "send $id set ratios 1:2:3"
+    fi
+}}
+
+recol
+
+map ZZ $lf -remote "send $id recol"
 map Z2 $lf -remote "send $id set ratios 1:2"
 map Z3 $lf -remote "send $id set ratios 1:2:3"
