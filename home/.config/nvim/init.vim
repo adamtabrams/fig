@@ -7,7 +7,7 @@ if ! filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.local/share/nvim/site/plugged')
-Plug 'altercation/vim-colors-solarized'
+Plug 'overcache/NeoSolarized'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-surround'
@@ -84,9 +84,8 @@ let g:go_updatetime = 2000
 let g:go_jump_to_error = 0
 let g:go_doc_popup_window = 1
 
-let g:solarized_termtrans = 1
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
+let g:neosolarized_contrast = "high"
+let g:neosolarized_visibility = "high"
 
 let g:airline_powerline_fonts = 1
 let g:airline_solarized_bg = "dark"
@@ -117,7 +116,8 @@ set hidden
 set background=dark
 set iskeyword+=-
 set nojoinspaces
-colorscheme solarized
+set termguicolors
+colorscheme NeoSolarized
 syntax enable
 highlight! link MatchParen SpellBad
 
