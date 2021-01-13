@@ -9,8 +9,8 @@ alias v="$EDITOR"
 alias lf="lfcd"
 alias l="lfcd"
 alias lg="lazygit"
-alias g="lazygit"
-alias b="hub browse"
+alias L="lazygit"
+alias B="hub browse"
 alias j="jump"
 alias page="$PAGER --paging=always"
 alias bat="bat --paging=never"
@@ -48,7 +48,7 @@ mksh() { echo "#!/bin/sh" >> "$1" && chmod +x "$1" && "$EDITOR" "$1" }
 
 #### Quick Select ################################
 # list quick-select commands
-glist() {
+ghelp() {
     echo "gl  - goto latest dirs"
     echo "gr  - goto repo"
     echo "grr - goto repo (deeper search)"
