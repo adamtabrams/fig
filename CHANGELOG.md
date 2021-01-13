@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2021-01-13
+### Added
+- Use a better Solarized colorscheme package for NeoVim.
+
+### Fixed
+- Change some minor vim mappings.
+- Improve zsh aliases.
+- Improve alacritty colors and update config for latest version.
+- Setup automatic columns for lf.
+
 ## [0.9.0] - 2020-12-20
 ### Added
 - Setup nonest_nvim to prevent nested Neovim instances!
@@ -145,7 +155,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.9.0...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.10.0...HEAD
+[0.10.0]: https://github.com/adamtabrams/fig/compare/0.9.0...0.10.0
 [0.9.0]: https://github.com/adamtabrams/fig/compare/0.8.0...0.9.0
 [0.8.0]: https://github.com/adamtabrams/fig/compare/0.7.6...0.8.0
 [0.7.6]: https://github.com/adamtabrams/fig/compare/0.7.5...0.7.6

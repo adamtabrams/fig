@@ -341,15 +341,15 @@ augroup END
 
 "--- Leader Key ----------------------------------
 let mapleader = ","
-nnoremap <silent> <Leader>t  :call TempTerm()<CR>
-nnoremap <silent> <Leader>g  :call TempTerm("lazygit")<CR>
+nnoremap <silent> <Leader>t  :call TempTerm(" ")<CR>
+nnoremap <silent> <Leader>L  :call TempTerm("lazygit")<CR>
 nnoremap <silent> <Leader>l  :call TempTerm("lf")<CR>
 
 "--- Fzf -----------------------------------------
 let maplocalleader = "\<Space>"
 nnoremap <LocalLeader>g              :GFiles<CR>
 nnoremap <LocalLeader>s              :GFiles?<CR>
-nnoremap <LocalLeader><c-f>          :Files<CR>
+nnoremap <LocalLeader>F              :Files<CR>
 nnoremap <LocalLeader>b              :Buffers<CR>
 nnoremap <LocalLeader>w              :Windows<CR>
 nnoremap <LocalLeader>r              :Rg<CR>
