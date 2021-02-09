@@ -8,7 +8,7 @@ set incsearch
 set findlen 0
 set previewer ~/.config/lf/preview.sh
 set hiddenfiles ".DS_Store:.git:.gitignore:~/[.ADLMP]*:!~/.config"
-set promptfmt "\033[33;1m%w\033[0m\033[34;1m%f\033[0m"
+set promptfmt "\033[33;1m%d\033[0m\033[34;1m%f\033[0m"
 
 ### Mappings ###
 map <c-g> $lf -remote "send $id cd '$(~/.config/lf/cd-fzf.sh)'"
