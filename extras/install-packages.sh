@@ -1,17 +1,5 @@
 #!/bin/sh
 
-# Generate list of installed progs: brew cask list
-taps_list="\
-homebrew/cask-fonts
-clementtsang/bottom"
-
-cask_list="\
-amethyst
-alacritty
-brave-browser
-font-fira-code-nerd-font
-karabiner-elements"
-
 # Generate list of installed progs: brew leaves
 progs_list="\
 neovim
@@ -28,23 +16,31 @@ fd
 lf
 jq
 yq
-bottom
+clementtsang/bottom/bottom
 coreutils
 sc-im
 tree
 tokei
 watch
 lazydocker
+k9s
 docker-completion
 kubernetes-cli
 kubernetes-helm
 rs/tap/curlie
 golangci/tap/golangci-lint
-write-good
 shellcheck"
 
-echo "$taps_list" | xargs -n 1 brew tap
-
-echo "$cask_list" | xargs brew cask install
-
 echo "$progs_list" | xargs brew install
+
+
+# Generate list of installed progs: brew list --cask
+cask_list="\
+amethyst
+alacritty
+brave-browser
+caffeine
+homebrew/cask-fonts/font-fira-code-nerd-font
+karabiner-elements"
+
+echo "$cask_list" | xargs brew install
