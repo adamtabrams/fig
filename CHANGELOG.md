@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.0] - 2021-02-09
+### Added
+- Add new git-related functions to NeoVim config.
+- Add zsh function for jumping to repo root.
+
+### Fixed
+- Update lf prompt to follow format of the latest version.
+- Set cursor blinking state to never in Alacritty.
+- Update list for installing packages.
+- Clean up nvim config file.
+
 ## [0.10.0] - 2021-01-13
 ### Added
 - Use a better Solarized colorscheme package for NeoVim.
@@ -155,7 +166,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.10.0...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.11.0...HEAD
+[0.11.0]: https://github.com/adamtabrams/fig/compare/0.10.0...0.11.0
 [0.10.0]: https://github.com/adamtabrams/fig/compare/0.9.0...0.10.0
 [0.9.0]: https://github.com/adamtabrams/fig/compare/0.8.0...0.9.0
 [0.8.0]: https://github.com/adamtabrams/fig/compare/0.7.6...0.8.0
