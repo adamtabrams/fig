@@ -57,6 +57,7 @@ let g:ale_linters = {
 
 let g:ale_go_golangci_lint_options = "--enable-all -D lll,gomnd -E EXC0002 --skip-files _test.go"
 let g:ale_rust_ignore_error_codes = ['E0601']
+let g:ale_hover_cursor = 0
 
 let g:go_highlight_extra_types = 1
 let g:go_highlight_space_tab_error = 1
@@ -77,11 +78,6 @@ let g:go_imports_mode = "gopls"
 let g:go_gopls_complete_unimported = v:true
 let g:go_gopls_deep_completion = v:true
 let g:go_gopls_matcher = "fuzzy"
-" testing
-" let g:go_auto_type_info = 0
-" let g:go_auto_sameids = 1
-let g:go_updatetime = 2000
-let g:go_jump_to_error = 0
 let g:go_doc_popup_window = 1
 
 let g:neosolarized_contrast = "high"
@@ -232,41 +228,49 @@ function! TempTerm(...)
     return ""
 endfunction
 
+function! GitFileUrl()
+    let repo_url = substitute(FugitiveRemoteUrl(), "\.git$", "", "")
+    let branch = FugitiveHead()
+    let tree = substitute(FugitivePath(), "^".FugitiveWorkTree(), "", "")
+    let line = line(".")
+    return repo_url."/blob/".branch.tree."\\#L".line
+endfunction
+
 "### Remappings ##################################
-"--- Hotfix --------------------------------------
-cnoremap 3636  <c-u>undo<CR>
-
-"--- Should-Be-Defaults --------------------------
-cnoremap w!!    execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
-nnoremap c      "_c
-nnoremap Y      y$
-inoremap <c-v>  <c-o>p
-tnoremap <c-\>  <c-\><c-n>
-tmap     <c-w>  <c-\><c-w>
-
 "--- Functions -----------------------------------
+nnoremap <silent> gC       :call ChangeReplace()<CR>
+
 nnoremap <silent> <c-w>r   <c-w>t:call ResizeMode()<CR>
 nnoremap <silent> <c-w>R   :call ResizeMode()<CR>
 
-inoremap <silent> <c-c>    <c-r>=CompletionStatus()<CR>
+nnoremap <silent> gy       :call YankAppend()<CR>
 
-nnoremap <silent> gC       :call ChangeReplace()<CR>
-
-inoremap <silent> <Tab>    <c-r>=CleverTab()<CR>
-inoremap <silent> <s-Tab>  <c-r>=OmniTab()<CR>
+nnoremap <silent> gh       :let @+ = GitFileUrl()<CR>
+nnoremap <silent> gH       :silent exe "!open ".GitFileUrl()<CR>
 
 nnoremap <silent> gA       i<c-r>=AlignWithMark()<CR><ESC>
 vnoremap <silent> gA       I<c-r>=AlignWithMark()<CR><ESC>
 
-"--- Testing -------------------------------------
-nnoremap <silent> gw   :w<CR>
-nnoremap <c-m>         <c-]>
-nnoremap <silent> gy   :call YankAppend()<CR>
+inoremap <silent> <c-c>    <c-r>=CompletionStatus()<CR>
 
+inoremap <silent> <Tab>    <c-r>=CleverTab()<CR>
+inoremap <silent> <s-Tab>  <c-r>=OmniTab()<CR>
+
+"--- Hotfix --------------------------------------
+cnoremap <silent> 3636  <c-u>silent undo<CR>
+
+"--- Should-Be-Defaults --------------------------
+nnoremap <silent> c      "_c
+nnoremap <silent> Y      y$
+nnoremap <silent> gw     :w<CR>
+tnoremap <silent> <c-\>  <c-\><c-n>
+tmap     <silent> <c-w>  <c-\><c-w>
+
+cnoremap w!!  execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+
+"--- Testing -------------------------------------
 nnoremap <c-d>         <c-d>zz
 nnoremap <c-u>         <c-u>zz
-" nnoremap n             nzz
-" nnoremap N             Nzz
 
 "--- Autocomplete --------------------------------
 inoremap <c-f>  <c-x><c-f>
@@ -292,11 +296,11 @@ nnoremap gth  :set hlsearch!<CR>
 nnoremap gtl  :IndentLinesToggle<CR>
 
 "--- Surround ------------------------------------
-nmap dsf  dt(ds(
-nmap dsm  dt[ds[
-nmap dsl  dt{ds{
-nmap dsv  dt<ds<
-nmap g'   ysiW"
+nmap <silent> dsf  dt(ds(
+nmap <silent> dsm  dt[ds[
+nmap <silent> dsl  dt{ds{
+nmap <silent> dsv  dt<ds<
+nmap <silent> g'   ysiW"
 
 "--- Ale Linting ---------------------------------
 nnoremap <silent> gaa  :ALEFirst<CR>
@@ -306,9 +310,11 @@ nnoremap <silent> gaf  :ALEFix<CR>
 nnoremap <silent> gad  :ALEDetail<CR>
 
 "--- Vim-Go --------------------------------------
+autocmd FileType go nnoremap gd   :GoDef<CR>
+autocmd FileType go nnoremap gD   :sp<CR>:GoDef<CR>
 autocmd FileType go nnoremap goi  :GoInfo<CR>
 autocmd FileType go nnoremap goI  :GoSameIdsToggle<CR>
-autocmd FileType go nnoremap got  :GoTest<CR>
+autocmd FileType go nnoremap got  :GoTest!<CR>
 autocmd FileType go nnoremap goT  :GoTestFunc!<CR>
 autocmd FileType go nnoremap goa  :GoAlternate<CR>
 autocmd FileType go nnoremap goA  :e <c-r>%<LEFT><LEFT><LEFT>_test<CR>
@@ -316,10 +322,12 @@ autocmd FileType go nnoremap goc  :GoCoverageToggle<CR>
 autocmd FileType go nnoremap goC  :GoCoverageBrowser<CR>
 autocmd FileType go nnoremap gor  :GoRun %<CR>
 autocmd FileType go nnoremap goR  :GoRun %<Space>
-autocmd FileType go nnoremap gd   :GoDef<CR>
-autocmd FileType go nnoremap gD   :sp<CR>:GoDef<CR>
 autocmd FileType go nnoremap gob  :GoTestCompile<CR>
 autocmd FileType go nnoremap gtl  :set list!<CR>
+
+autocmd FileType go nnoremap <silent> goo  :silent exe "!open ".
+    \ substitute('<c-r><c-l>', '^.*"\([^/]*/[^/]*/[^/]*\)\(.*\)"', 'https://\1/tree/master\2', '')<CR>
+
 autocmd FileType go IndentLinesDisable
 autocmd FileType go highlight link Whitespace Conceal
 autocmd FileType go set list listchars=tab:\|\ "keep trailing space
@@ -347,23 +355,23 @@ nnoremap <silent> <Leader>l  :call TempTerm("lf")<CR>
 
 "--- Fzf -----------------------------------------
 let maplocalleader = "\<Space>"
-nnoremap <LocalLeader>g              :GFiles<CR>
-nnoremap <LocalLeader>s              :GFiles?<CR>
-nnoremap <LocalLeader>F              :Files<CR>
-nnoremap <LocalLeader>b              :Buffers<CR>
-nnoremap <LocalLeader>w              :Windows<CR>
-nnoremap <LocalLeader>r              :Rg<CR>
-nnoremap <LocalLeader>h              :History<CR>
-nnoremap <LocalLeader>m              :Maps<CR>
-nnoremap <LocalLeader>t              :Filetypes<CR>
-nnoremap <LocalLeader>T              :set filetype=<CR>
-nnoremap <LocalLeader>l              :Lines<CR>
-nnoremap <LocalLeader>/              :BLines<CR>
-nnoremap <LocalLeader>'              :Marks<CR>
-nnoremap <LocalLeader>:              :Commands<CR>
-nnoremap <LocalLeader>?              :Helptags<CR>
-nnoremap <LocalLeader>~              :Files ~
-nnoremap <LocalLeader>.              :Files ../
+nnoremap <LocalLeader>g  :GFiles<CR>
+nnoremap <LocalLeader>s  :GFiles?<CR>
+nnoremap <LocalLeader>F  :Files<CR>
+nnoremap <LocalLeader>b  :Buffers<CR>
+nnoremap <LocalLeader>w  :Windows<CR>
+nnoremap <LocalLeader>r  :Rg<CR>
+nnoremap <LocalLeader>h  :History<CR>
+nnoremap <LocalLeader>m  :Maps<CR>
+nnoremap <LocalLeader>t  :Filetypes<CR>
+nnoremap <LocalLeader>T  :set filetype=<CR>
+nnoremap <LocalLeader>l  :Lines<CR>
+nnoremap <LocalLeader>/  :BLines<CR>
+nnoremap <LocalLeader>'  :Marks<CR>
+nnoremap <LocalLeader>:  :Commands<CR>
+nnoremap <LocalLeader>?  :Helptags<CR>
+nnoremap <LocalLeader>~  :Files ~
+nnoremap <LocalLeader>.  :Files ../
 
 "--- Easy Motion ---------------------------------
 nmap <LocalLeader><LocalLeader>  <Plug>(easymotion-overwin-w)
