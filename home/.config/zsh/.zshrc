@@ -1,7 +1,7 @@
 #### General #####################################
 eval $(gdircolors $ZDOTDIR/dircolors.ansi-dark)
 export KEYTIMEOUT=1
-setopt autocd notify
+setopt autocd notify interactivecomments
 
 #### Prompt ######################################
 autoload -Uz promptinit

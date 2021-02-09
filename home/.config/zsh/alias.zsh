@@ -56,6 +56,7 @@ ghelp() {
     echo "lr  - open repo(s) in lazygit"
     echo "gt  - goto/open from ~/temp"
     echo "gs  - goto/open from ~/save"
+    echo "gg  - goto root of repo"
 }
 
 # go to one of the lastest dirs
@@ -101,6 +102,12 @@ gs() {
     sel="$HOME/save/$(cd ~/save && fd | $SELECTOR)"
     [ -d "$sel" ] && cd "$sel"
     [ -f "$sel" ] && "$EDITOR" "$sel"
+}
+
+# goto root dir of current repo
+gg() {
+    dot_git_path="$(git rev-parse --git-dir 2>/dev/null)"
+    [  "$dot_git_path" ] && cd "$(dirname "$dot_git_path")"
 }
 
 #### Save lf Dir #################################
