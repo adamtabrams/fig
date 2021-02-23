@@ -216,6 +216,10 @@
         {
             "id": "io.alacritty",
             "window-titles": [ "float" ]
+        },
+        {
+            "id": "com.cisco.Cisco-AnyConnect-Secure-Mobility-Client",
+            "window-titles": [ "" ]
         }
     ],
     "floating-is-blacklist": true,

@@ -2,8 +2,8 @@ gui:
   scrollHeight: 2
   scrollPastBottom: true
   sidePanelWidth: 0.3333
-  expandFocusedSidePanel: false
-  mainPanelSplitMode: 'flexible' # one of 'horizontal' | 'flexible' | 'vertical'
+  expandFocusedSidePanel: true
+  mainPanelSplitMode: 'horizontal' # one of 'horizontal' | 'flexible' | 'vertical'
   theme:
     lightTheme: false
     activeBorderColor:
@@ -23,7 +23,7 @@ gui:
 git:
   paging:
     colorArg: always
-    pager: delta --dark --paging=never --24-bit-color=never
+    pager: delta --paging=never --dark --24-bit-color=never
   merging:
     manualCommit: false
   skipHookPrefix: WIP
@@ -52,5 +52,5 @@ customCommands:
   - key: 'B'
     command: 'hub browse -- "commit/{{.SelectedLocalCommit.Sha}}"'
     context: 'commits'
-# services:
-#   "github.company.com": "github:github.company.com"
+services:
+  "github.optum.com": "github:github.optum.com"

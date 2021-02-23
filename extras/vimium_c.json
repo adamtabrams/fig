@@ -1,40 +1,39 @@
 {
 	"name": "Vimium C",
-	"@time": "12/13/2020, 7:32:01 PM",
-	"time": 1607909521269,
+	"@time": "2/20/2021, 1:20:30 AM",
+	"time": 1613805630300,
 	"environment": {
-		"extension": "1.87.2",
+		"extension": "1.88.2",
 		"platform": "mac",
-		"chrome": 87
+		"chrome": 88
 	},
 	"exclusionRules": [
-		{
-			"pattern": ":https://leetcode.com/",
-			"passKeys": ""
-		},
-		{
-			"pattern": ":https://www.flowdock.com/",
-			"passKeys": "? "
-		},
-		{
-			"pattern": ":https://play.rust-lang.org/",
-			"passKeys": ""
-		},
 		{
 			"pattern": ":https://mail.google.com/",
 			"passKeys": "# / ? a c e j k o s x "
 		},
 		{
-			"pattern": ":https://outlook.office365.com/",
+			"pattern": ":https://monkeytype.com/",
+			"passKeys": "^ <c-f> <c-x> J K O T "
+		},
+		{
+			"pattern": ":https://outlook.office.com/",
 			"passKeys": "# / ? a c e j k o s x "
+		},
+		{
+			"pattern": ":https://play.rust-lang.org/",
+			"passKeys": "^ <c-f> <c-x> J K O T "
 		}
 	],
 	"keyMappings": [
 		"map R reload hard",
 		"map ' Marks.activate",
+		"map <c-x> removeTab",
+		"map <c-r> Vomnibar.activateHistoryInNewTab",
 		"map <c-g> Marks.activate",
 		"map <c-o> visitPreviousTab",
-		"map <c-f> LinkHints.activateModeWithQueue",
+		"map <c-f> LinkHints.activate",
+		"map <c-s-f> LinkHints.activateModeWithQueue",
 		""
 	],
 	"linkHintCharacters": "asdfjklrtyugh",
@@ -45,7 +44,7 @@
 		"g: https://github.company.com/search?q=%s company Github",
 		""
 	],
-	"searchUrl": "https://www.google.com/search?q=$s Google",
+	"searchUrl": "https://searx.ninja/?q=$s",
 	"showAdvancedCommands": true,
 	"showAdvancedOptions": true,
 	"userDefinedCss": [
