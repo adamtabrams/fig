@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.1] - 2021-02-23
+### Fixed
+- Made small updates Vimium, Amethyst, Lazygit, and lf.
+- Changed the repo's directory structure to separate documentation.
+
 ## [0.11.0] - 2021-02-09
 ### Added
 - Add new git-related functions to NeoVim config.
@@ -166,7 +171,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.11.0...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.11.1...HEAD
+[0.11.1]: https://github.com/adamtabrams/fig/compare/0.11.0...0.11.1
 [0.11.0]: https://github.com/adamtabrams/fig/compare/0.10.0...0.11.0
 [0.10.0]: https://github.com/adamtabrams/fig/compare/0.9.0...0.10.0
 [0.9.0]: https://github.com/adamtabrams/fig/compare/0.8.0...0.9.0
