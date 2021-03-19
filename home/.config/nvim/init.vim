@@ -118,17 +118,20 @@ syntax enable
 highlight! link MatchParen SpellBad
 
 "### Autocmds ####################################
-autocmd TermOpen           *              setlocal nonu nornu
-autocmd TermOpen           *              IndentLinesDisable
-autocmd TermOpen           *              startinsert
-autocmd BufWritePre        *              %s:\s\+$::e
-autocmd BufNewFile,BufRead *              set formatoptions-=o conceallevel=0
-autocmd BufNewFile,BufRead Jenkinsfile    setlocal filetype=groovy
-autocmd BufNewFile,BufRead *.mom          setlocal filetype=groff
-autocmd BufNewFile,BufRead *.avsc         setlocal filetype=json
-autocmd FileType           yaml,json      set tabstop=2 shiftwidth=2
-autocmd FileType           json,markdown  IndentLinesDisable
-autocmd FileType           markdown       setlocal spell
+autocmd TermOpen           *  setlocal nonu nornu
+autocmd TermOpen           *  IndentLinesDisable
+autocmd TermOpen           *  startinsert
+autocmd BufWritePre        *  %s:\s\+$::e
+autocmd BufNewFile,BufRead *  set formatoptions-=o conceallevel=0
+
+autocmd BufNewFile,BufRead Jenkinsfile     setlocal filetype=groovy
+autocmd BufNewFile,BufRead *.mom           setlocal filetype=groff
+autocmd BufNewFile,BufRead *.avsc          setlocal filetype=json
+autocmd BufNewFile,BufRead calcurse-note*  setlocal filetype=markdown
+
+autocmd FileType           yaml,json           set ts=2 sw=2
+autocmd FileType           json,markdown,text  IndentLinesDisable
+autocmd FileType           markdown,text       setlocal spell lbr
 
 "### Functions ##################################
 function! ResizeMode()
@@ -272,6 +275,9 @@ cnoremap w!!  execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 nnoremap <c-d>         <c-d>zz
 nnoremap <c-u>         <c-u>zz
 
+nnoremap <silent> gW     ZZ
+nnoremap <silent> gQ     ZQ
+
 "--- Autocomplete --------------------------------
 inoremap <c-f>  <c-x><c-f>
 inoremap <c-l>  <c-x><c-l>
@@ -285,8 +291,28 @@ nnoremap <silent> gbd  :bd<CR>
 nnoremap <silent> gbD  :bd \| sbn<CR>
 
 "--- Writing -------------------------------------
-cnoremap <silent> Essayon   Goyo  \| ALEDisableBuffer \| setlocal fo+=a tw=81 nospell<CR>
-cnoremap <silent> Essayoff  Goyo! \| ALEEnableBuffer  \| setlocal fo-=a tw=0  spell<CR>
+function! s:goyo_enter()
+    " setlocal fo+=a tw=81 lbr nospell
+    setlocal lbr nospell
+    nnoremap j  gj
+    nnoremap k  gk
+    ALEDisableBuffer
+    setlocal eventignore=FocusGained
+endfunction
+
+function! s:goyo_leave()
+    setlocal lbr spell
+    ALEEnableBuffer
+    setlocal eventignore=
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+autocmd FileType text nnoremap gan  ]s
+autocmd FileType text nnoremap gap  [s
+autocmd FileType text nnoremap gaf  z=
+autocmd FileType text nnoremap gaF  :spellrepall<CR>
 
 "--- Coding --------------------------------------
 nnoremap goq  <c-w>j<c-w>q

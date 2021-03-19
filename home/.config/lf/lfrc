@@ -6,7 +6,7 @@ set scrolloff 10
 set icons
 set incsearch
 set findlen 0
-set previewer ~/.config/lf/preview.sh
+set previewer ~/.config/lf/pv.sh
 set hiddenfiles ".DS_Store:.git:.gitignore:~/[.ADLMP]*:!~/.config:!~/.local"
 set promptfmt "\033[33;1m%d\033[0m\033[34;1m%f\033[0m"
 
@@ -15,6 +15,7 @@ map <c-g> $lf -remote "send $id cd '$(~/.config/lf/cd-fzf.sh)'"
 map <c-f> $(~/.config/lf/edit-fzf.sh)
 map <enter> shell
 map <esc> quit
+map i $$PAGER $f
 map H push <f-1>
 map x $$f
 map X !$f

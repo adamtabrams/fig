@@ -10,9 +10,13 @@ PROMPT='%F{blue}>%f '
 RPROMPT='%F{yellow}%3~%f'
 
 #### Completion ##################################
-autoload -Uz compinit
 zstyle ':completion:*' menu select
+zstyle ':completion:*' completer _expand _complete _ignored
+zstyle ':completion:*' matcher-list 'm:{a-z\-}={A-Z\_}'
+zstyle ':completion:*' substitute no
+zstyle ':completion:*' glob no
 zmodload zsh/complist
+autoload -Uz compinit
 compinit
 # Include hidden files.
 _comp_options+=(globdots)
