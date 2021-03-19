@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.2] - 2021-03-19
+### Fixed
+- Improve `lf` paging, `nvim` essay config, and `zsh` tab completion.
+
 ## [0.11.1] - 2021-02-23
 ### Fixed
 - Made small updates Vimium, Amethyst, Lazygit, and lf.
@@ -171,7 +175,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.11.1...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.11.2...HEAD
+[0.11.2]: https://github.com/adamtabrams/fig/compare/0.11.1...0.11.2
 [0.11.1]: https://github.com/adamtabrams/fig/compare/0.11.0...0.11.1
 [0.11.0]: https://github.com/adamtabrams/fig/compare/0.10.0...0.11.0
 [0.10.0]: https://github.com/adamtabrams/fig/compare/0.9.0...0.10.0
