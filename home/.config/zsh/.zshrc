@@ -93,7 +93,7 @@ preexec() { echo -ne '\e[5 q' ;}
 
 #### Mac OS ######################################
 FontSmoothing=$(defaults read -g CGFontRenderingFontSmoothingDisabled) 2&>/dev/null
-[ "$FontSmoothing" != 0 ] &&
+[ "$FontSmoothing" = 1 ] &&
     defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
 
 #### Plugins #####################################
@@ -101,6 +101,7 @@ FontSmoothing=$(defaults read -g CGFontRenderingFontSmoothingDisabled) 2&>/dev/n
 [ -f "$ZDOTDIR/alias.zsh" ] && source "$ZDOTDIR/alias.zsh"
 [ -f "$ZDOTDIR/rust.zsh" ] && source "$ZDOTDIR/rust.zsh"
 [ -f "$ZDOTDIR/go.zsh" ] && source "$ZDOTDIR/go.zsh"
+[ -f "$ZDOTDIR/gcloud.zsh" ] && source "$ZDOTDIR/gcloud.zsh"
 # source <(kubectl completion zsh)
 # source <(helm completion zsh)
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2> /dev/null

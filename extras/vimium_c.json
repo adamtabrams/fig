@@ -1,24 +1,24 @@
 {
 	"name": "Vimium C",
-	"@time": "2/20/2021, 1:20:30 AM",
-	"time": 1613805630300,
+	"@time": "7/16/2021, 8:49:43 AM",
+	"time": 1626443383115,
 	"environment": {
-		"extension": "1.88.2",
+		"extension": "1.90.2",
 		"platform": "mac",
-		"chrome": 88
+		"chrome": 91
 	},
 	"exclusionRules": [
 		{
 			"pattern": ":https://mail.google.com/",
-			"passKeys": "# / ? a c e j k o s x "
+			"passKeys": "# / <down> <up> ? a c e j k o s x "
 		},
 		{
 			"pattern": ":https://monkeytype.com/",
-			"passKeys": "^ <c-f> <c-x> J K O T "
+			"passKeys": "^ / <c-f> <c-x> J K O T n "
 		},
 		{
 			"pattern": ":https://outlook.office.com/",
-			"passKeys": "# / ? a c e j k o s x "
+			"passKeys": "# / <down> <up> ? a c e j k o s x "
 		},
 		{
 			"pattern": ":https://play.rust-lang.org/",
@@ -28,15 +28,25 @@
 	"keyMappings": [
 		"map R reload hard",
 		"map ' Marks.activate",
-		"map <c-x> removeTab",
-		"map <c-r> Vomnibar.activateHistoryInNewTab",
-		"map <c-g> Marks.activate",
-		"map <c-o> visitPreviousTab",
-		"map <c-f> LinkHints.activate",
+		"map t LinkHints.activate",
+		"map <c-t>   LinkHints.activate",
+		"map <c-x>   removeTab",
+		"map <c-r>   Vomnibar.activateHistoryInNewTab",
+		"map <c-g>   Marks.activate",
+		"map <c-o>   visitPreviousTab",
+		"map <c-f>   LinkHints.activate",
 		"map <c-s-f> LinkHints.activateModeWithQueue",
+		"map <down>   scrollDown",
+		"map <up>     scrollUp",
+		"map <left>   scrollLeft",
+		"map <right>  scrollRight",
+		"map <s-left>  goBack",
+		"map <s-down>  previousTab",
+		"map <s-up>    nextTab",
+		"map <s-right> goForward",
 		""
 	],
-	"linkHintCharacters": "asdfjklrtyugh",
+	"linkHintCharacters": "arseiodhflu",
 	"searchEngines": [
 		"rd: https://doc.rust-lang.org/std/?search=%s RustDocs",
 		"gd: https://godoc.org/?q=%s GoDocs",
@@ -44,7 +54,7 @@
 		"g: https://github.company.com/search?q=%s company Github",
 		""
 	],
-	"searchUrl": "https://searx.ninja/?q=$s",
+	"searchUrl": "https://search.brave.com/search?q=$s",
 	"showAdvancedCommands": true,
 	"showAdvancedOptions": true,
 	"userDefinedCss": [

@@ -1,15 +1,16 @@
 #!/bin/zsh
 
 #### General #####################################
-export REALEDITOR="nvim"
+# export EDITOR="nvim"
 export EDITOR="nonest_nvim"
-# export EDITOR="/Users/aabrams7/repos/TEMP/neovim/build/bin/nvim"
+export REALEDITOR="nvim"
 export TERMINAL="/Applications/Alacritty.app/Contents/MacOS/alacritty"
 export BROWSER="/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser"
 export SELECTOR="fzf"
 
 export LANG="en_US.UTF-8"
-export SHELL="zsh"
+# export SHELL="zsh"
+export SHELL="/usr/local/bin/zsh"
 export OPENER="$EDITOR"
 export VISUAL="$EDITOR"
 export PAGER="bat"
@@ -26,6 +27,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export MYHIST="$HOME/.local/history/histfile"
 export LESSHISTFILE="-"
+export CALDIR="$HOME/temp/cal"
 
 #### Path ########################################
 export PATH="$HOME/.local/bin:$PATH"

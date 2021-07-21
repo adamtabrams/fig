@@ -91,6 +91,8 @@ let g:indentLine_char = '│'
 let g:racer_insert_paren = 1
 let g:racer_experimental_completer = 1
 
+let g:EasyMotion_keys = "ohlurfdaies"
+
 "### Settings ####################################
 set fileformats=unix,mac,dos
 set wildmode=longest,list,full
@@ -129,9 +131,9 @@ autocmd BufNewFile,BufRead *.mom           setlocal filetype=groff
 autocmd BufNewFile,BufRead *.avsc          setlocal filetype=json
 autocmd BufNewFile,BufRead calcurse-note*  setlocal filetype=markdown
 
-autocmd FileType           yaml,json           set ts=2 sw=2
-autocmd FileType           json,markdown,text  IndentLinesDisable
-autocmd FileType           markdown,text       setlocal spell lbr
+autocmd FileType           yaml,json                set ts=2 sw=2
+autocmd FileType           json,markdown,text,help  IndentLinesDisable
+autocmd FileType           markdown,text            setlocal spell lbr
 
 "### Functions ##################################
 function! ResizeMode()
@@ -259,13 +261,12 @@ inoremap <silent> <c-c>    <c-r>=CompletionStatus()<CR>
 inoremap <silent> <Tab>    <c-r>=CleverTab()<CR>
 inoremap <silent> <s-Tab>  <c-r>=OmniTab()<CR>
 
-"--- Hotfix --------------------------------------
-cnoremap <silent> 3636  <c-u>silent undo<CR>
-
 "--- Should-Be-Defaults --------------------------
+nnoremap <silent> gw     :w<CR>
 nnoremap <silent> c      "_c
 nnoremap <silent> Y      y$
-nnoremap <silent> gw     :w<CR>
+nnoremap <silent> C      "_C
+nnoremap <silent> x      "_x
 tnoremap <silent> <c-\>  <c-\><c-n>
 tmap     <silent> <c-w>  <c-\><c-w>
 
@@ -384,14 +385,14 @@ let maplocalleader = "\<Space>"
 nnoremap <LocalLeader>g  :GFiles<CR>
 nnoremap <LocalLeader>s  :GFiles?<CR>
 nnoremap <LocalLeader>F  :Files<CR>
+nnoremap <LocalLeader>L  :Lines<CR>
+nnoremap <LocalLeader>t  :Filetypes<CR>
+nnoremap <LocalLeader>T  :set filetype=<CR>
 nnoremap <LocalLeader>b  :Buffers<CR>
 nnoremap <LocalLeader>w  :Windows<CR>
 nnoremap <LocalLeader>r  :Rg<CR>
 nnoremap <LocalLeader>h  :History<CR>
 nnoremap <LocalLeader>m  :Maps<CR>
-nnoremap <LocalLeader>t  :Filetypes<CR>
-nnoremap <LocalLeader>T  :set filetype=<CR>
-nnoremap <LocalLeader>l  :Lines<CR>
 nnoremap <LocalLeader>/  :BLines<CR>
 nnoremap <LocalLeader>'  :Marks<CR>
 nnoremap <LocalLeader>:  :Commands<CR>
@@ -403,3 +404,6 @@ nnoremap <LocalLeader>.  :Files ../
 nmap <LocalLeader><LocalLeader>  <Plug>(easymotion-overwin-w)
 nmap <LocalLeader>a              <Plug>(easymotion-jumptoanywhere)
 nmap <LocalLeader>f              <Plug>(easymotion-bd-wl)
+nmap <LocalLeader>l              <Plug>(easymotion-sol-bd-jk)
+nmap <LocalLeader>j              <Plug>(easymotion-sol-j)
+nmap <LocalLeader>k              <Plug>(easymotion-sol-k)

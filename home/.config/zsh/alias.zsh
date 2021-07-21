@@ -16,6 +16,7 @@ alias page="$PAGER --paging=always"
 alias bat="bat --paging=never"
 alias la="ls -HpA"
 alias ll="ls -Hpl"
+alias ca="calcurse"
 alias ldk="lazydocker"
 alias yay="pacapt"
 alias cl="clear"
@@ -24,6 +25,7 @@ alias cll="printf '\033\143'"
 alias :q="exit"
 alias loc="tokei -s code"
 alias top="btm -ufgl --autohide_time --hide_table_gap --mem_as_value"
+alias topgrade="topgrade --disable system node pip3 gcloud"
 
 #### Configs #####################################
 alias .zsh="$EDITOR $ZDOTDIR/.zshrc"
@@ -34,9 +36,6 @@ alias .hist="$EDITOR $MYHIST"
 alias .conf="cd $XDG_CONFIG_HOME"
 
 #### Functions ###################################
-up() { fc -e "sed -i \"\" -e \"s| | $* |\"" }
-up2() { fc -e "sed -i \"\" -e \"s| | $* |2\"" }
-
 ip() { ifconfig | grep "inet " | tail -1 | cut -d " " -f 2 }
 
 glog() { git log --oneline --no-decorate "-${1:-5}" ${@:2} }
@@ -45,6 +44,14 @@ bak() { cp -r "$1" "$1.bak" }
 unbak() { mv "$1" $(sed "s/.bak$//" <<< "$1") }
 
 mksh() { echo "#!/bin/sh" >> "$1" && chmod +x "$1" && "$EDITOR" "$1" }
+
+sep() {
+    printf "\n"
+    for i in $(seq "$(tput cols)"); do
+        printf "%s" "${1:-#}"
+    done
+    clear
+}
 
 #### Quick Select ################################
 # list quick-select commands
