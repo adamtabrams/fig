@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.4] - 2021-08-03
+### Fixed
+- Remove `alacritty` bindings conflict and update config for latest version.
+
 ## [0.11.3] - 2021-07-21
 ### Fixed
 - Various updates to `vimium`, `alacritty`, `nvim`, and `zsh`.
@@ -179,7 +183,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.11.3...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.11.4...HEAD
+[0.11.4]: https://github.com/adamtabrams/fig/compare/0.11.3...0.11.4
 [0.11.3]: https://github.com/adamtabrams/fig/compare/0.11.2...0.11.3
 [0.11.2]: https://github.com/adamtabrams/fig/compare/0.11.1...0.11.2
 [0.11.1]: https://github.com/adamtabrams/fig/compare/0.11.0...0.11.1
