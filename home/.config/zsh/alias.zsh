@@ -19,8 +19,6 @@ alias ll="ls -Hpl"
 alias ca="calcurse"
 alias ldk="lazydocker"
 alias yay="pacapt"
-alias cl="clear"
-alias cls="clear && ls"
 alias cll="printf '\033\143'"
 alias :q="exit"
 alias loc="tokei -s code"
@@ -38,15 +36,22 @@ alias .conf="cd $XDG_CONFIG_HOME"
 #### Functions ###################################
 ip() { ifconfig | grep "inet " | tail -1 | cut -d " " -f 2 }
 
-glog() { git log --oneline --no-decorate "-${1:-5}" ${@:2} }
+mksh() { echo "#!/bin/sh" >> "$1" && chmod +x "$1" && "$EDITOR" "$1" }
 
 bak() { cp -r "$1" "$1.bak" }
 unbak() { mv "$1" $(sed "s/.bak$//" <<< "$1") }
 
-mksh() { echo "#!/bin/sh" >> "$1" && chmod +x "$1" && "$EDITOR" "$1" }
+glog() { git log --oneline --no-decorate "-${1:-5}" ${@:2} }
+gcurl() {
+    url=$(echo "$1" | sed -e 's|://github\.com|://raw.githubusercontent.com|' -e 's|\(://github\..*\.com\)|\1/raw|' -e 's|/blob/|/|')
+    file=${2:-$(basename "$url")}
+    [ ! "$url" ] && { echo "no url provided"; return; }
+    [ -e "$file" ] && { echo "already exists: $file"; return; }
+    curl "$url" > "$file"
+}
 
-sep() {
-    printf "\n"
+cl() {
+    printf "\n\n"
     for i in $(seq "$(tput cols)"); do
         printf "%s" "${1:-#}"
     done
@@ -59,11 +64,13 @@ ghelp() {
     echo "gl  - goto latest dirs"
     echo "gr  - goto repo"
     echo "grr - goto repo (deeper search)"
+    echo "gg  - goto root of repo"
     echo "or  - open repo in browser"
     echo "lr  - open repo(s) in lazygit"
     echo "gt  - goto/open from ~/temp"
     echo "gs  - goto/open from ~/save"
-    echo "gg  - goto root of repo"
+    echo "g.c - goto/open from ~/.config"
+    echo "g.l - goto/open from ~/.local"
 }
 
 # go to one of the lastest dirs
@@ -85,6 +92,12 @@ grr() {
     [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
+# goto root dir of current repo
+gg() {
+    dot_git_path="$(git rev-parse --git-dir 2>/dev/null)"
+    [  "$dot_git_path" ] && cd "$(dirname "$dot_git_path")"
+}
+
 # open a repo in the browser
 or() {
     prev_dir=$(pwd) && gr && hub browse; cd "$prev_dir"
@@ -92,30 +105,23 @@ or() {
 
 # use lazygit on one or more repos
 lr() {
-    for repo in $(cd ~/repos && fd -d1 | $SELECTOR --multi); do
+    for repo in $(cd "~/repos" && fd -d1 | $SELECTOR --multi); do
         lazygit -p "$HOME/repos/$repo"
     done
 }
 
-# go to a dir or open a file in temp
-gt() {
-    sel="$HOME/temp/$(cd ~/temp && fd | $SELECTOR)"
+# helper funcion to go to dir or open file for a given path
+_goto_or_open() {
+    parent_path="$1"
+    sel="$parent_path/$(cd "$parent_path" && fd | $SELECTOR)"
     [ -d "$sel" ] && cd "$sel"
     [ -f "$sel" ] && "$EDITOR" "$sel"
 }
 
-# go to a dir or open a file in save
-gs() {
-    sel="$HOME/save/$(cd ~/save && fd | $SELECTOR)"
-    [ -d "$sel" ] && cd "$sel"
-    [ -f "$sel" ] && "$EDITOR" "$sel"
-}
-
-# goto root dir of current repo
-gg() {
-    dot_git_path="$(git rev-parse --git-dir 2>/dev/null)"
-    [  "$dot_git_path" ] && cd "$(dirname "$dot_git_path")"
-}
+gt() { _goto_or_open "$HOME/temp" }
+gs() { _goto_or_open "$HOME/save" }
+g.c() { _goto_or_open "$XDG_CONFIG_HOME" }
+g.l() { _goto_or_open "$XDG_DATA_HOME" }
 
 #### Save lf Dir #################################
 lfcd () {
