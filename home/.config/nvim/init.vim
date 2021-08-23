@@ -85,6 +85,13 @@ let g:neosolarized_visibility = "high"
 
 let g:airline_powerline_fonts = 1
 let g:airline_solarized_bg = "dark"
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" tracked file is modified: ''
+let g:airline_symbols.dirty = "\ue00a"
+" file is not tracked: ''
+let g:airline_symbols.notexists = "\ue009"
 
 let g:indentLine_char = '│'
 
@@ -137,21 +144,23 @@ autocmd FileType           markdown,text            setlocal spell lbr
 
 "### Functions ##################################
 function! ResizeMode()
-    let key = nr2char(getchar())
-    while key != "q" && key != "\<ESC>"
-        if key == "h"
+    let nr = getchar()
+    let char = nr2char(nr)
+    while char != "q" && char != "\<ESC>"
+        if char == "h" || nr == "\<Left>"
             vertical resize -5
-        elseif key == "l"
+        elseif char == "l" || nr == "\<Right>"
             vertical resize +5
-        elseif key == "j"
+        elseif char == "j" || nr == "\<Down>"
             resize +5
-        elseif key == "k"
+        elseif char == "k" || nr == "\<Up>"
             resize -5
-        elseif key == "="
+        elseif char == "="
             wincmd =
         endif
         redraw
-        let key = nr2char(getchar())
+        let nr = getchar()
+        let char = nr2char(nr)
     endwhile
     return ""
 endfunction
