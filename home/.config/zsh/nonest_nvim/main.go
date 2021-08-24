@@ -40,18 +40,14 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-
 	defer v.Close()
 
 	b := v.NewBatch()
-	b.Command(":file temp_terminal")
-
 	for _, filePath := range filePaths {
 		b.Command(":e " + filePath)
 	}
-
-	b.Command(":b temp_terminal")
-	b.Command(":bd!")
+	b.Command(":b term://")
+	b.Command(":bw!")
 
 	// fix airline statusbar
 	b.Command(":if exists(':AirlineRefresh') == 2 | AirlineRefresh | endif")

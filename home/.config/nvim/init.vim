@@ -127,20 +127,22 @@ syntax enable
 highlight! link MatchParen SpellBad
 
 "### Autocmds ####################################
-autocmd TermOpen           *  setlocal nonu nornu
-autocmd TermOpen           *  IndentLinesDisable
-autocmd TermOpen           *  startinsert
-autocmd BufWritePre        *  %s:\s\+$::e
-autocmd BufNewFile,BufRead *  set formatoptions-=o conceallevel=0
+autocmd BufWritePre  *  %s:\s\+$::e
+autocmd TermOpen     *  setlocal nonu nornu | IndentLinesDisable | startinsert
 
-autocmd BufNewFile,BufRead Jenkinsfile     setlocal filetype=groovy
-autocmd BufNewFile,BufRead *.mom           setlocal filetype=groff
-autocmd BufNewFile,BufRead *.avsc          setlocal filetype=json
-autocmd BufNewFile,BufRead calcurse-note*  setlocal filetype=markdown
+autocmd BufNewFile,BufRead  *               set formatoptions-=o conceallevel=0
+autocmd BufNewFile,BufRead  Jenkinsfile     setlocal filetype=groovy
+autocmd BufNewFile,BufRead  *.mom           setlocal filetype=groff
+autocmd BufNewFile,BufRead  *.avsc          setlocal filetype=json
+autocmd BufNewFile,BufRead  calcurse-note*  setlocal filetype=markdown
 
-autocmd FileType           yaml,json                set ts=2 sw=2
-autocmd FileType           json,markdown,text,help  IndentLinesDisable
-autocmd FileType           markdown,text            setlocal spell lbr
+autocmd FileType  yaml,json                set ts=2 sw=2
+autocmd FileType  json,markdown,text,help  IndentLinesDisable
+autocmd FileType  markdown,text            setlocal spell lbr
+
+let g:loaded_netrw = 1
+" autocmd VimEnter * silent! autocmd! FileExplorer *
+autocmd BufEnter * if isdirectory(expand('%')) | call NetrwReplacement("lf")
 
 "### Functions ##################################
 function! ResizeMode()
@@ -237,8 +239,26 @@ endfunction
 
 function! TempTerm(...)
     let command = get(a:, 1)
-    exe "au TermClose * ++once :b#|bd!#"
+    exe "autocmd TermClose * ++once b#|bd!#"
     exe "terminal ".command
+    return ""
+endfunction
+
+function! DelBufferOrQuit()
+    if len(getbufinfo({"buflisted":1})) == 1
+        exe "q"
+    else
+        exe "b#|bw!#"
+    endif
+    return ""
+endfunction
+
+function! NetrwReplacement(...)
+    let command = get(a:, 1)
+    exe "terminal ".command
+    exe "bw #"
+    exe "autocmd TermClose * ++once call DelBufferOrQuit()"
+    exe "setlocal nonu nornu | IndentLinesDisable | startinsert"
     return ""
 endfunction
 
