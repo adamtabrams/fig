@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.8] - 2021-09-10
+### Fixed
+- Small improvements to `alacritty` colors, `vim` directory handling, and aliases.
+
 ## [0.11.7] - 2021-08-24
 ### Fixed
 - Replace `netrw` with `lf` and harden `nonest_nvim`.
@@ -195,7 +199,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.11.7...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/0.11.8...HEAD
+[0.11.8]: https://github.com/adamtabrams/fig/compare/0.11.7...0.11.8
 [0.11.7]: https://github.com/adamtabrams/fig/compare/0.11.6...0.11.7
 [0.11.6]: https://github.com/adamtabrams/fig/compare/0.11.5...0.11.6
 [0.11.5]: https://github.com/adamtabrams/fig/compare/0.11.4...0.11.5
