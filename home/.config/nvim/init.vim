@@ -141,8 +141,7 @@ autocmd FileType  json,markdown,text,help  IndentLinesDisable
 autocmd FileType  markdown,text            setlocal spell lbr
 
 let g:loaded_netrw = 1
-" autocmd VimEnter * silent! autocmd! FileExplorer *
-autocmd BufEnter * if isdirectory(expand('%')) | call NetrwReplacement("lf")
+autocmd BufEnter * if isdirectory(expand('%')) | call DelBufferOrQuit()
 
 "### Functions ##################################
 function! ResizeMode()
@@ -248,17 +247,10 @@ function! DelBufferOrQuit()
     if len(getbufinfo({"buflisted":1})) == 1
         exe "q"
     else
+        let closedbufname = bufname()
         exe "b#|bw!#"
+        echo "closed buffer: ".closedbufname
     endif
-    return ""
-endfunction
-
-function! NetrwReplacement(...)
-    let command = get(a:, 1)
-    exe "terminal ".command
-    exe "bw #"
-    exe "autocmd TermClose * ++once call DelBufferOrQuit()"
-    exe "setlocal nonu nornu | IndentLinesDisable | startinsert"
     return ""
 endfunction
 

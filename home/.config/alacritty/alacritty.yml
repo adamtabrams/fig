@@ -235,7 +235,7 @@ colors:
     # Allowed values are CellForeground/CellBackground, which reference the
     # affected cell, or hexadecimal colors like #ff00ff.
     start:
-      foreground: '#b58900' # yellow
+      foreground: '#dc322f' # red
       background: '#002b36' # base03
 
     # All characters after the first one in the hint label
@@ -243,7 +243,7 @@ colors:
     # Allowed values are CellForeground/CellBackground, which reference the
     # affected cell, or hexadecimal colors like #ff00ff.
     end:
-      foreground: '#268bd2' # blue
+      foreground: '#dc322f' # red
       background: '#002b36' # base03
 
   # Line indicator
