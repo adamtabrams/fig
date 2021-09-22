@@ -3,7 +3,7 @@ gui:
   scrollPastBottom: true
   sidePanelWidth: 0.3333
   expandFocusedSidePanel: true
-  mainPanelSplitMode: 'horizontal' # one of 'horizontal' | 'flexible' | 'vertical'
+  mainPanelSplitMode: 'horizontal' # horizontal | flexible | vertical
   theme:
     lightTheme: false
     activeBorderColor:
@@ -20,6 +20,11 @@ gui:
   mouseEvents: true
   skipUnstageLineWarning: false
   skipStashWarning: false
+  showFileTree: false
+  showListFooter: false
+  showRandomTip: true
+  showCommandLog: true
+  commandLogSize: 8
 git:
   paging:
     colorArg: always
@@ -30,6 +35,12 @@ git:
   autoFetch: true
   overrideGpg: false
   disableForcePushing: false
+  parseEmoji: false
+os:
+  opencommand: $EDITOR {{filename}}
+refresher:
+  refreshInterval: 10
+  fetchInterval: 60
 update:
   method: prompt
   days: 14
@@ -37,8 +48,7 @@ reporting: "off"
 confirmOnQuit: false
 quitOnTopLevelReturn: true
 disableStartupPopups: false
-os:
-  opencommand: $EDITOR {{filename}}
+notARepository: 'skip' # prompt | create | skip
 customCommands:
   - key: 'B'
     command: 'hub browse'
