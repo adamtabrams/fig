@@ -7,10 +7,6 @@ export FLATNVIM_EXTRA_COMMAND="if exists(':AirlineRefresh') == 2 | AirlineRefres
 
 #### General #####################################
 # export EDITOR="nvim"
-# export EDITOR="nonest_nvim"
-# export REALEDITOR="nvim"
-# export TERMINAL="/Applications/Alacritty.app/Contents/MacOS/alacritty"
-# export BROWSER="/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser"
 export TERMINAL="alacritty"
 export SELECTOR="fzf"
 
@@ -37,7 +33,6 @@ export CALDIR="$HOME/temp/cal"
 
 #### Path ########################################
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$ZDOTDIR/nonest_nvim:$PATH"
 
 #### Bat #########################################
 export BAT_PAGER="less -R"
