@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "7/16/2021, 8:49:43 AM",
-	"time": 1626443383115,
+	"@time": "9/16/2021, 4:20:58 PM",
+	"time": 1631827258457,
 	"environment": {
-		"extension": "1.90.2",
+		"extension": "1.92.4",
 		"platform": "mac",
-		"chrome": 91
+		"chrome": 93
 	},
 	"exclusionRules": [
 		{
@@ -23,9 +23,14 @@
 		{
 			"pattern": ":https://play.rust-lang.org/",
 			"passKeys": "^ <c-f> <c-x> J K O T "
+		},
+		{
+			"pattern": ":https://app.sketchup.com/",
+			"passKeys": ""
 		}
 	],
 	"keyMappings": [
+		"#! no-check",
 		"map R reload hard",
 		"map ' Marks.activate",
 		"map t LinkHints.activate",
@@ -51,7 +56,7 @@
 		"rd: https://doc.rust-lang.org/std/?search=%s RustDocs",
 		"gd: https://godoc.org/?q=%s GoDocs",
 		"G: https://github.com/search?q=%s Github",
-		"g: https://github.company.com/search?q=%s company Github",
+		"g: https://github.company.com/search?q=%s Company Github",
 		""
 	],
 	"searchUrl": "https://search.brave.com/search?q=$s",

@@ -22,7 +22,7 @@ map X !$f
 map D :delete
 map L $lazygit
 map B $hub browse
-# map E push $nonest_nvim<space>
+map E $$EDITOR $fx
 
 ### Columns ###
 cmd recol ${{
