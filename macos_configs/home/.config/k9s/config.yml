@@ -14,6 +14,28 @@ k9s:
     fullScreenLogs: false
     textWrap: true
     showTime: false
+  currentContext: test
+  currentCluster: test
+  clusters:
+    test:
+      namespace:
+        active: test
+        favorites:
+        - test
+        - default
+      view:
+        active: pods
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.31
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
   thresholds:
     cpu:
       critical: 90
