@@ -5,8 +5,8 @@
 
 . ../.script_utils.sh
 
-set_debug_mode
-. ../.script_utils.sh
+# set_debug_mode
+# . ../.script_utils.sh
 
 fig_home=$(get_fig_home)
 fig_swap=$(get_fig_swap)
