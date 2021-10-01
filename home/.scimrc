@@ -1,6 +1,0 @@
-set autocalc=1
-set xlsx_readformulas=1
-
-inoremap "<C-l>" "<tab>"
-inoremap "<tab>" "<cr>kl"
-nnoremap "<tab>" ":autojus<cr>"
