@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2021-09-30
+### BREAKING CHANGE
+- Separate config files and scripts by operating system.
+- This changes the paths where configs are stored. Either update or use the `legacy` branch.
+
 ## [0.11.8] - 2021-09-10
 ### Fixed
 - Small improvements to `alacritty` colors, `vim` directory handling, and aliases.
@@ -199,7 +204,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/0.11.8...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/adamtabrams/fig/compare/0.11.8...1.0.0
 [0.11.8]: https://github.com/adamtabrams/fig/compare/0.11.7...0.11.8
 [0.11.7]: https://github.com/adamtabrams/fig/compare/0.11.6...0.11.7
 [0.11.6]: https://github.com/adamtabrams/fig/compare/0.11.5...0.11.6
