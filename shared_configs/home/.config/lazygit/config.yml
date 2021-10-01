@@ -1,0 +1,66 @@
+gui:
+  scrollHeight: 2
+  scrollPastBottom: true
+  sidePanelWidth: 0.3333
+  expandFocusedSidePanel: true
+  mainPanelSplitMode: 'horizontal' # horizontal | flexible | vertical
+  theme:
+    lightTheme: false
+    activeBorderColor:
+    - red
+    - bold
+    inactiveBorderColor:
+    - blue
+    optionsTextColor:
+    - blue
+    selectedLineBgColor:
+    - bold
+  commitLength:
+    show: true
+  mouseEvents: true
+  skipUnstageLineWarning: false
+  skipStashWarning: false
+  showFileTree: false
+  showListFooter: false
+  showRandomTip: true
+  showCommandLog: true
+  commandLogSize: 8
+git:
+  paging:
+    colorArg: always
+    pager: delta --paging=never --dark --24-bit-color=never
+  merging:
+    manualCommit: false
+  skipHookPrefix: WIP
+  autoFetch: true
+  overrideGpg: false
+  disableForcePushing: false
+  parseEmoji: false
+os:
+  opencommand: $EDITOR {{filename}}
+refresher:
+  refreshInterval: 10
+  fetchInterval: 60
+update:
+  method: prompt
+  days: 14
+reporting: "off"
+confirmOnQuit: false
+quitOnTopLevelReturn: true
+disableStartupPopups: false
+notARepository: 'skip' # prompt | create | skip
+customCommands:
+  - key: 'B'
+    command: 'hub browse'
+    context: 'global'
+  - key: 'B'
+    command: 'hub browse -- "tree/{{.SelectedLocalBranch.Name}}"'
+    context: 'localBranches'
+  - key: 'B'
+    command: 'hub browse -- "tree/{{.SelectedRemoteBranch.Name}}"'
+    context: 'remoteBranches'
+  - key: 'B'
+    command: 'hub browse -- "commit/{{.SelectedLocalCommit.Sha}}"'
+    context: 'commits'
+# services:
+#   "github.company.com": "github:github.company.com"

@@ -1,0 +1,76 @@
+{
+	"name": "Vimium C",
+	"@time": "9/16/2021, 4:20:58 PM",
+	"time": 1631827258457,
+	"environment": {
+		"extension": "1.92.4",
+		"platform": "mac",
+		"chrome": 93
+	},
+	"exclusionRules": [
+		{
+			"pattern": ":https://mail.google.com/",
+			"passKeys": "# / <down> <up> ? a c e j k o s x "
+		},
+		{
+			"pattern": ":https://monkeytype.com/",
+			"passKeys": "^ / <c-f> <c-x> J K O T n "
+		},
+		{
+			"pattern": ":https://outlook.office.com/",
+			"passKeys": "# / <down> <up> ? a c e j k o s x "
+		},
+		{
+			"pattern": ":https://play.rust-lang.org/",
+			"passKeys": "^ <c-f> <c-x> J K O T "
+		},
+		{
+			"pattern": ":https://app.sketchup.com/",
+			"passKeys": ""
+		}
+	],
+	"keyMappings": [
+		"#! no-check",
+		"map R reload hard",
+		"map ' Marks.activate",
+		"map t LinkHints.activate",
+		"map <c-t>   LinkHints.activate",
+		"map <c-x>   removeTab",
+		"map <c-r>   Vomnibar.activateHistoryInNewTab",
+		"map <c-g>   Marks.activate",
+		"map <c-o>   visitPreviousTab",
+		"map <c-f>   LinkHints.activate",
+		"map <c-s-f> LinkHints.activateModeWithQueue",
+		"map <down>   scrollDown",
+		"map <up>     scrollUp",
+		"map <left>   scrollLeft",
+		"map <right>  scrollRight",
+		"map <s-left>  goBack",
+		"map <s-down>  previousTab",
+		"map <s-up>    nextTab",
+		"map <s-right> goForward",
+		""
+	],
+	"linkHintCharacters": "arseiodhflu",
+	"searchEngines": [
+		"rd: https://doc.rust-lang.org/std/?search=%s RustDocs",
+		"gd: https://godoc.org/?q=%s GoDocs",
+		"G: https://github.com/search?q=%s Github",
+		"g: https://github.company.com/search?q=%s Company Github",
+		""
+	],
+	"searchUrl": "https://search.brave.com/search?q=$s",
+	"showAdvancedCommands": true,
+	"showAdvancedOptions": true,
+	"userDefinedCss": [
+		".D > .LH {",
+		"  background: white;",
+		"  border-color: black;",
+		"}",
+		".D > .LH > .MC {",
+		"  color: white;",
+		"}",
+		""
+	],
+	"vimSync": false
+}

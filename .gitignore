@@ -1,11 +1,13 @@
-**/.DS_Store
+!.figlink
 
-home/.config/jesseduffield/lazygit/
-home/.config/jesseduffield/lazydocker/development.log
-home/.config/karabiner/automatic_backups/
-home/.config/zsh/.zcompdump
-home/.config/zsh/.zcompcache/
-home/.config/nvim/.netrwhist
-home/.config/nvim/spell/
+.DS_Store
+.zcompdump
+.zcompcache
 
-extras/osx-config/
+**/lazydocker/development.log
+**/karabiner/automatic_backups/
+**/nvim/.netrwhist
+**/nvim/spell/
+
+**/lazygit/*/
+**/lazygit/state.yml
