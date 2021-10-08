@@ -3,6 +3,7 @@
 .DS_Store
 .zcompdump
 .zcompcache
+.zsh_sessions/
 
 **/lazydocker/development.log
 **/karabiner/automatic_backups/

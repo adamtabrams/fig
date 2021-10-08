@@ -1,7 +1,7 @@
 export BROWSER="/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser"
 
 FontSmoothing=$(defaults read -g CGFontRenderingFontSmoothingDisabled 2&>/dev/null)
-[ "$FontSmoothing" = 1 ] &&
+[ "$FontSmoothing" != 0 ] &&
     defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
 
 which gdircolors &>/dev/null &&

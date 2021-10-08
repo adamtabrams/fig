@@ -63,7 +63,6 @@ cl() {
 ghelp() {
     echo "gl  - goto latest dirs"
     echo "gr  - goto repo"
-    echo "grr - goto repo (deeper search)"
     echo "gg  - goto root of repo"
     echo "or  - open repo in browser"
     echo "lr  - open repo(s) in lazygit"
@@ -81,12 +80,6 @@ gl() {
 
 # go to a repo
 gr() {
-    repo="$(cd ~/repos && fd -d1 | $SELECTOR)"
-    [ "$repo" ] && cd "$HOME/repos/$repo"
-}
-
-# go to a repo (recursive)
-grr() {
     repo="$(cd ~/repos && fd -d3 -t d -I -H "^.git$" |
         rev | cut -c 6- | rev | $SELECTOR)"
     [ "$repo" ] && cd "$HOME/repos/$repo"

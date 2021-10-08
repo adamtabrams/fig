@@ -33,27 +33,22 @@ zsh-syntax-highlighting
 go
 golangci/tap/golangci-lint
 delve
-docker-completion
+docker
 lazydocker
 k9s
 kubernetes-cli
 dust
-rm-improved
-prm/pep/techctl
-sops
-awscli
-cassandra"
+rm-improved"
 
 echo "$progs_list" | xargs brew install
 
 # Generate list of installed progs: brew list --cask
 cask_list="\
-amethyst
-alacritty
-brave-browser
-caffeine
-font-fira-code-nerd-font
-google-cloud-sdk"
-# homebrew/cask-fonts/font-fira-code-nerd-font
+homebrew/cask/alacritty
+homebrew/cask/amethyst
+homebrew/cask/brave-browser
+homebrew/cask/caffeine
+homebrew/cask/docker
+homebrew/cask-fonts/font-fira-code-nerd-font"
 
 echo "$cask_list" | xargs brew install
