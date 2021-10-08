@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 2021-10-08
+### Fixed
+- Improve zsh and amethyst configs, update package list.
+
 ## [1.0.2] - 2021-10-01
 ### Fixed
 - Disable debugging mode by default for linking scripts.
@@ -212,7 +216,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/1.0.2...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/1.0.3...HEAD
+[1.0.3]: https://github.com/adamtabrams/fig/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/adamtabrams/fig/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/adamtabrams/fig/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/adamtabrams/fig/compare/0.11.8...1.0.0
