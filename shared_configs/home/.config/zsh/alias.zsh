@@ -42,6 +42,13 @@ bak() { cp -r "$1" "$1.bak" }
 unbak() { mv "$1" $(sed "s/.bak$//" <<< "$1") }
 
 glog() { git log --oneline --no-decorate "-${1:-5}" ${@:2} }
+gclone() {
+    dir=$(echo $1 | sed "s|^.*\.com/\(.*\)\.git$|\1|" )
+    cd "$HOME/repos" || { echo "error moving to ~/repos" >&2; return 1; }
+    [ -e $dir ] && { echo "already exists" >&2; return 2; }
+    git clone $1 "$dir"
+    cd "$dir" && echo "cd $dir"
+}
 gcurl() {
     url=$(echo "$1" | sed -e 's|://github\.com|://raw.githubusercontent.com|' -e 's|\(://github\..*\.com\)|\1/raw|' -e 's|/blob/|/|')
     file=${2:-$(basename "$url")}
@@ -61,21 +68,16 @@ cl() {
 #### Quick Select ################################
 # list quick-select commands
 ghelp() {
-    echo "gl  - goto latest dirs"
     echo "gr  - goto repo"
     echo "gg  - goto root of repo"
+    echo "gl  - goto latest dir"
+    echo "gi  - goto latest dir inside current"
     echo "or  - open repo in browser"
     echo "lr  - open repo(s) in lazygit"
     echo "gt  - goto/open from ~/temp"
     echo "gs  - goto/open from ~/save"
     echo "g.c - goto/open from ~/.config"
     echo "g.l - goto/open from ~/.local"
-}
-
-# go to one of the lastest dirs
-gl() {
-    goto=$(cat "$DIRSTACKFILE" | $SELECTOR)
-    [ "$goto" ] && cd "$goto"
 }
 
 # go to a repo
@@ -89,6 +91,18 @@ gr() {
 gg() {
     dot_git_path="$(git rev-parse --git-dir 2>/dev/null)"
     [  "$dot_git_path" ] && cd "$(dirname "$dot_git_path")"
+}
+
+# go to one of the lastest dirs
+gl() {
+    goto=$(cat "$DIRSTACKFILE" | $SELECTOR)
+    [ "$goto" ] && cd "$goto"
+}
+
+# go to one of the lastest dirs below current directory
+gi() {
+    goto=$(cat "$DIRSTACKFILE" | grep "^$(pwd)." | $SELECTOR)
+    [ "$goto" ] && cd "$goto"
 }
 
 # open a repo in the browser
@@ -106,15 +120,15 @@ lr() {
 # helper funcion to go to dir or open file for a given path
 _goto_or_open() {
     parent_path="$1"
-    sel="$parent_path/$(cd "$parent_path" && fd | $SELECTOR)"
+    sel="$parent_path/$(cd "$parent_path" && fd "${@:2}" | $SELECTOR)"
     [ -d "$sel" ] && cd "$sel"
     [ -f "$sel" ] && "$EDITOR" "$sel"
 }
 
 gt() { _goto_or_open "$HOME/temp" }
 gs() { _goto_or_open "$HOME/save" }
-g.c() { _goto_or_open "$XDG_CONFIG_HOME" }
-g.l() { _goto_or_open "$XDG_DATA_HOME" }
+g.c() { _goto_or_open "$XDG_CONFIG_HOME" --follow }
+g.l() { _goto_or_open "$XDG_DATA_HOME" --follow }
 
 #### Save lf Dir #################################
 lfcd () {

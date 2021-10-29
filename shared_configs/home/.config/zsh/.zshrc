@@ -98,6 +98,7 @@ preexec() { echo -ne '\e[5 q' ;}
 #### Plugins #####################################
 [ -f "$ZDOTDIR/fzf.zsh" ] && source "$ZDOTDIR/fzf.zsh"
 [ -f "$ZDOTDIR/alias.zsh" ] && source "$ZDOTDIR/alias.zsh"
+[ -f "$ZDOTDIR/docker.zsh" ] && source "$ZDOTDIR/docker.zsh"
 [ -f "$ZDOTDIR/rust.zsh" ] && source "$ZDOTDIR/rust.zsh"
 [ -f "$ZDOTDIR/go.zsh" ] && source "$ZDOTDIR/go.zsh"
 [ -f "$ZDOTDIR/gcloud.zsh" ] && source "$ZDOTDIR/gcloud.zsh"

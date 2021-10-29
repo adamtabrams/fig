@@ -20,7 +20,7 @@ gui:
   mouseEvents: true
   skipUnstageLineWarning: false
   skipStashWarning: false
-  showFileTree: false
+  showFileTree: true
   showListFooter: false
   showRandomTip: true
   showCommandLog: true
