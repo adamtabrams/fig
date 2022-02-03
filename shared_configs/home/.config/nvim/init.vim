@@ -130,11 +130,11 @@ highlight! link MatchParen SpellBad
 autocmd BufWritePre  *  %s:\s\+$::e
 autocmd TermOpen     *  setlocal nonu nornu | IndentLinesDisable | startinsert
 
-autocmd BufNewFile,BufRead  *               set formatoptions-=o conceallevel=0
-autocmd BufNewFile,BufRead  Jenkinsfile     setlocal filetype=groovy
-autocmd BufNewFile,BufRead  *.mom           setlocal filetype=groff
-autocmd BufNewFile,BufRead  *.avsc          setlocal filetype=json
-autocmd BufNewFile,BufRead  calcurse-note*  setlocal filetype=markdown
+autocmd BufNewFile,BufRead  *                set formatoptions-=o conceallevel=0
+autocmd BufNewFile,BufRead  Jenkinsfile      setlocal filetype=groovy
+autocmd BufNewFile,BufRead  *.mom            setlocal filetype=groff
+autocmd BufNewFile,BufRead  *.avsc           setlocal filetype=json
+autocmd BufNewFile,BufRead  calcurse-note*   setlocal filetype=markdown
 
 autocmd FileType  yaml,json                set ts=2 sw=2
 autocmd FileType  json,markdown,text,help  IndentLinesDisable
@@ -145,41 +145,37 @@ autocmd BufEnter * if isdirectory(expand('%')) | call DelBufferOrQuit()
 
 "### Functions ##################################
 function! ResizeMode()
-    let nr = getchar()
-    let char = nr2char(nr)
+    let saved_win = win_getid(winnr())
+    exe "norm \<c-w>t"
+    let char = getcharstr()
     while char != "q" && char != "\<ESC>"
-        if char == "h" || nr == "\<Left>"
+        if char == "h" || char == "\<Left>"
             vertical resize -5
-        elseif char == "l" || nr == "\<Right>"
+        elseif char == "l" || char == "\<Right>"
             vertical resize +5
-        elseif char == "j" || nr == "\<Down>"
+        elseif char == "j" || char == "\<Down>"
             resize +5
-        elseif char == "k" || nr == "\<Up>"
+        elseif char == "k" || char == "\<Up>"
             resize -5
         elseif char == "="
             wincmd =
         endif
         redraw
-        let nr = getchar()
-        let char = nr2char(nr)
+        let char = getcharstr()
     endwhile
+    call win_gotoid(saved_win)
     return ""
 endfunction
 
 function! GetMotion()
-    let a = getchar()
+    let a = getcharstr()
     let b = ""
-    let c = ""
-    if a >= char2nr("0") && a <= char2nr("9")
+    if a >= "0" && a <= "9"
         let b = GetMotion()
-    elseif a == char2nr("i") || a == char2nr("a")
-        let c = getchar()
-    elseif a == char2nr("t") || a == char2nr("f")
-        let c = getchar()
-    elseif a == char2nr("T") || a == char2nr("F")
-        let c = getchar()
+    elseif a == "i" || a == "a" || a == "t" || a == "f" || a == "T" || a == "F"
+        let b = getcharstr()
     endif
-    return nr2char(a) . b . nr2char(c)
+    return a . b
 endfunction
 
 function! ChangeReplace(...)
@@ -265,10 +261,6 @@ endfunction
 "### Remappings ##################################
 "--- Functions -----------------------------------
 nnoremap <silent> gC       :call ChangeReplace()<CR>
-
-nnoremap <silent> <c-w>r   <c-w>t:call ResizeMode()<CR>
-nnoremap <silent> <c-w>R   :call ResizeMode()<CR>
-
 nnoremap <silent> gy       :call YankAppend()<CR>
 
 nnoremap <silent> gh       :let @+ = GitFileUrl()<CR>
@@ -276,6 +268,8 @@ nnoremap <silent> gH       :silent exe "!open ".GitFileUrl()<CR>
 
 nnoremap <silent> gA       i<c-r>=AlignWithMark()<CR><ESC>
 vnoremap <silent> gA       I<c-r>=AlignWithMark()<CR><ESC>
+
+nnoremap <silent> <c-w>r   :call ResizeMode()<CR>
 
 inoremap <silent> <c-c>    <c-r>=CompletionStatus()<CR>
 
@@ -291,12 +285,9 @@ nnoremap <silent> x      "_x
 tnoremap <silent> <c-\>  <c-\><c-n>
 tmap     <silent> <c-w>  <c-\><c-w>
 
-cnoremap w!!  execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+cnoremap W!  execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 "--- Testing -------------------------------------
-nnoremap <c-d>         <c-d>zz
-nnoremap <c-u>         <c-u>zz
-
 nnoremap <silent> gW     ZZ
 nnoremap <silent> gQ     ZQ
 
@@ -405,7 +396,7 @@ nnoremap <silent> <Leader>l  :call TempTerm("lf")<CR>
 let maplocalleader = "\<Space>"
 nnoremap <LocalLeader>g  :GFiles<CR>
 nnoremap <LocalLeader>s  :GFiles?<CR>
-nnoremap <LocalLeader>F  :Files<CR>
+nnoremap <LocalLeader>c  :Files<CR>
 nnoremap <LocalLeader>L  :Lines<CR>
 nnoremap <LocalLeader>t  :Filetypes<CR>
 nnoremap <LocalLeader>T  :set filetype=<CR>
@@ -426,5 +417,3 @@ nmap <LocalLeader><LocalLeader>  <Plug>(easymotion-overwin-w)
 nmap <LocalLeader>a              <Plug>(easymotion-jumptoanywhere)
 nmap <LocalLeader>f              <Plug>(easymotion-bd-wl)
 nmap <LocalLeader>l              <Plug>(easymotion-sol-bd-jk)
-nmap <LocalLeader>j              <Plug>(easymotion-sol-j)
-nmap <LocalLeader>k              <Plug>(easymotion-sol-k)
