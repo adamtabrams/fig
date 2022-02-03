@@ -243,7 +243,7 @@ colors:
     # Allowed values are CellForeground/CellBackground, which reference the
     # affected cell, or hexadecimal colors like #ff00ff.
     end:
-      foreground: '#dc322f' # red
+      foreground: '#b58900' # yellow
       background: '#002b36' # base03
 
   # Line indicator
