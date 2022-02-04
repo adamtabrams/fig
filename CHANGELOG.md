@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2022-02-03
+### Added
+- Improve zsh functions that list docker containers.
+
+### Fixed
+- Improve alacritty vi mode colors.
+- Clean up custom nvim functions.
+
 ## [1.0.4] - 2021-10-29
 ### Fixed
 - Improve zsh functions and update lazygit config.
@@ -220,7 +228,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/1.0.4...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/adamtabrams/fig/compare/1.0.4...1.1.0
 [1.0.4]: https://github.com/adamtabrams/fig/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/adamtabrams/fig/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/adamtabrams/fig/compare/1.0.1...1.0.2
