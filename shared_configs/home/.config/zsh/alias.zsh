@@ -23,7 +23,7 @@ alias cll="printf '\033\143'"
 alias :q="exit"
 alias loc="tokei -s code"
 alias top="btm -ufgl --autohide_time --hide_table_gap --mem_as_value"
-alias topgrade="topgrade --disable system node pip3 gcloud"
+alias topgrade="topgrade --disable system node pip3 containers"
 
 #### Configs #####################################
 alias .zsh="$EDITOR $ZDOTDIR/.zshrc"

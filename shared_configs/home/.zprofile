@@ -3,7 +3,6 @@
 #### Flatnvim ####################################
 export EDITOR="$HOME/repos/flatnvim/bin/flatnvim"
 export FLATNVIM_EDITOR="nvim"
-export FLATNVIM_EXTRA_COMMAND="if exists(':AirlineRefresh') == 2 | AirlineRefresh | endif"
 
 #### General #####################################
 # export EDITOR="nvim"
@@ -47,7 +46,7 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview-window=':hidden'"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --bind=ctrl-u:page-up"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --bind=ctrl-d:page-down"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --bind=ctrl-f:jump"
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --bind=ctrl-t:toggle-preview"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --bind=ctrl-p:toggle-preview"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$fzf_base_command --type directory --type symlink"

@@ -451,7 +451,7 @@ mouse:
 # and pipe it to other applications.
 hints:
   # Keys used for the hint labels.
-  alphabet: "arseiodhflu"
+  alphabet: "xwchmuloriaefds"
 
   # List with all available hints
   #
@@ -856,8 +856,8 @@ key_bindings:
   - { key: Period,         mods: Alt,                        action: IncreaseFontSize      }
   - { key: M,              mods: Alt,                        action: ResetFontSize         }
   - { key: Slash,          mods: Alt,     mode: ~Search,     action: SearchBackward        }
-  - { key: U,              mods: Alt,                        action: ScrollPageUp          }
-  - { key: D,              mods: Alt,                        action: ScrollPageDown        }
+  - { key: U,              mods: Alt,                        action: ScrollHalfPageUp      }
+  - { key: D,              mods: Alt,                        action: ScrollHalfPageDown    }
   - { key: V,              mods: Alt,     mode: ~Search,     action: ToggleViMode          }
   - { key: V,              mods: Alt,     mode: Vi|~Search,  action: ScrollToBottom        }
 
