@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2022-04-15
+### Fixed
+- Add back flatnvim env var to refresh Airline status bar.
+
 ## [1.1.1] - 2022-04-15
 ### Fixed
 - Improve hint characters, vim bindings, and vim functions.
@@ -232,7 +236,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Created basic script for proof of concept.
 
-[Unreleased]: https://github.com/adamtabrams/fig/compare/1.1.1...HEAD
+[Unreleased]: https://github.com/adamtabrams/fig/compare/1.1.2...HEAD
+[1.1.2]: https://github.com/adamtabrams/fig/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/adamtabrams/fig/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/adamtabrams/fig/compare/1.0.4...1.1.0
 [1.0.4]: https://github.com/adamtabrams/fig/compare/1.0.3...1.0.4
