@@ -9,7 +9,6 @@
     "Valid modifiers are": [
         "option",
         "shift",
-        "control",
         "command"
     ],
     "mod1": [
@@ -54,11 +53,11 @@
     },
     "focus-screen-ccw": {
         "mod": "mod1",
-        "key": "right"
+        "key": "h"
     },
     "focus-screen-cw": {
         "mod": "mod1",
-        "key": "left"
+        "key": "l"
     },
     "focus-screen-1": {
         "mod": "",
@@ -110,11 +109,11 @@
     },
     "focus-ccw": {
         "mod": "mod1",
-        "key": "up"
+        "key": "k"
     },
     "focus-cw": {
         "mod": "mod1",
-        "key": "down"
+        "key": "j"
     },
     "focus-main": {
         "mod": "",
@@ -122,19 +121,19 @@
     },
     "swap-screen-ccw": {
         "mod": "mod2",
-        "key": "right"
+        "key": "h"
     },
     "swap-screen-cw": {
         "mod": "mod2",
-        "key": "left"
+        "key": "l"
     },
     "swap-ccw": {
         "mod": "mod2",
-        "key": "up"
+        "key": "k"
     },
     "swap-cw": {
         "mod": "mod2",
-        "key": "down"
+        "key": "j"
     },
     "swap-main": {
         "mod": "mod1",

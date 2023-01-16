@@ -91,6 +91,33 @@ echo -ne '\e[5 q'
 # Use beam shape cursor for each new prompt.
 preexec() { echo -ne '\e[5 q' ;}
 
+# surround
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+  for c in {a,i}{\',\",\`}; do
+    bindkey -M $m $c select-quoted
+  done
+done
+
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+  for c in {a,i}${(s..)^:-'()[]{}<>'}; do
+    bindkey -M $m $c select-bracketed
+  done
+done
+
+# surround bindings
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+# bindkey -a cs change-surround
+# bindkey -a ds delete-surround
+# bindkey -a ys add-surround
+# bindkey -M visual S add-surround
+
 #### OS Extras ###################################
 [ $(uname) = Darwin ] && [ -f "$ZDOTDIR/mac.zsh" ] && source "$ZDOTDIR/mac.zsh"
 [ $(uname) = Linux ] && [ -f "$ZDOTDIR/linux.zsh" ] && source "$ZDOTDIR/linux.zsh"
@@ -102,7 +129,7 @@ preexec() { echo -ne '\e[5 q' ;}
 [ -f "$ZDOTDIR/rust.zsh" ] && source "$ZDOTDIR/rust.zsh"
 [ -f "$ZDOTDIR/go.zsh" ] && source "$ZDOTDIR/go.zsh"
 [ -f "$ZDOTDIR/gcloud.zsh" ] && source "$ZDOTDIR/gcloud.zsh"
-# source <(kubectl completion zsh)
+[ -f "$ZDOTDIR/kubectl.zsh" ] && source "$ZDOTDIR/kubectl.zsh"
 # source <(helm completion zsh)
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2> /dev/null
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 $HOME/.local/bin/historybackup

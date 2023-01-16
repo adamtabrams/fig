@@ -43,12 +43,14 @@ command! -bang -nargs=* Bindings
     \ fzf#vim#with_preview({'options': ['--delimiter=:', '--with-nth=3..']}), <bang>0)
 
 let g:ale_fixers = {
-    \   'go':         ['goimports'],
+    \   'go':         ['goimports', 'gofumpt'],
     \   'rust':       ['rustfmt'],
     \   'python':     ['black'],
     \   'vue':        ['prettier'],
     \   'javascript': ['prettier']
     \}
+    " \   'go':         ['goimports'],
+    " \   'go':         ['goimports', 'golines', 'gofumpt'],
 
 let g:ale_rust_rls_config = {
     \   'rust': {
@@ -62,9 +64,12 @@ let g:ale_linters = {
     \}
     " \   'rust': ['rls', 'cargo', 'rustc']
 
-let g:ale_go_golangci_lint_options = "--enable-all -D lll,gomnd -E EXC0002 --skip-files _test.go"
+" let g:ale_go_golangci_lint_options = "--enable-all -D lll,gomnd -E EXC0002 --skip-files _test.go"
+let g:ale_go_golangci_lint_options = "--config ~/.golangci.yaml"
+let g:ale_go_golangci_lint_package = 1
 let g:ale_rust_ignore_error_codes = ['E0601']
 let g:ale_hover_cursor = 0
+let g:ale_virtualtext_cursor = 1
 
 let g:go_highlight_extra_types = 1
 let g:go_highlight_space_tab_error = 1
@@ -107,6 +112,8 @@ let g:indentLine_char = '│'
 
 let g:EasyMotion_keys = "xwchmuloriaefds"
 
+autocmd TermClose * if !v:event.status | exe 'bdelete! '..expand('<abuf>') | endif
+autocmd TermLeave * AirlineRefresh
 autocmd TermOpen * setlocal laststatus=0 noshowmode noruler
   \| autocmd TermClose * setlocal laststatus=2 showmode ruler
 
@@ -135,20 +142,22 @@ set termguicolors
 colorscheme NeoSolarized
 syntax enable
 highlight! link MatchParen SpellBad
+highlight! link EasyMotionTarget2First EasyMotionTargetDefault
 
 "### Autocmds ####################################
 autocmd BufWritePre  *  %s:\s\+$::e
 autocmd TermOpen     *  setlocal nonu nornu | IndentLinesDisable | startinsert
 
 autocmd BufNewFile,BufRead  *                set formatoptions-=o conceallevel=0
-autocmd BufNewFile,BufRead  Jenkinsfile      setlocal filetype=groovy
+autocmd BufNewFile,BufRead  Jenkinsfile*     setlocal filetype=groovy
 autocmd BufNewFile,BufRead  *.mom            setlocal filetype=groff
 autocmd BufNewFile,BufRead  *.avsc           setlocal filetype=json
 autocmd BufNewFile,BufRead  calcurse-note*   setlocal filetype=markdown
 
 autocmd FileType  yaml,json                set ts=2 sw=2
 autocmd FileType  json,markdown,text,help  IndentLinesDisable
-autocmd FileType  markdown,text            setlocal spell lbr
+autocmd FileType  markdown                 setlocal spell lbr
+" autocmd FileType  markdown,text            setlocal spell lbr
 
 let g:loaded_netrw = 1
 autocmd BufEnter * if isdirectory(expand('%')) | call DelBufferOrQuit()
@@ -219,6 +228,7 @@ function! YankComment(...)
     if a:0 == 0
         let motion = GetMotion()
     endif
+    norm mp
     if motion == "c"
         norm yy
     elseif motion == "ip"
@@ -226,7 +236,9 @@ function! YankComment(...)
     else
         exe 'norm y'.motion
     endif
-    exe 'norm gc'.motion
+    norm 'p
+    " exe 'norm gc'.motion
+    exe 'norm yc'.motion
     call repeat#set(":call YankComment('".motion."')\<CR>",-1)
     return ""
 endfunction
@@ -259,7 +271,6 @@ endfunction
 
 function! TempTerm(...)
     let command = get(a:, 1)
-    exe "autocmd TermClose * ++once b#|bd!#"
     exe "terminal ".command
     return ""
 endfunction
@@ -269,7 +280,7 @@ function! DelBufferOrQuit()
         exe "q"
     else
         let closedbufname = bufname()
-        exe "b#|bw!#"
+        exe "bd! ".closedbufname
         echo "closed buffer: ".closedbufname
     endif
     return ""
@@ -299,7 +310,11 @@ inoremap <silent> <c-b>  <c-x><c-p>
 "^ <c-x><c-p> block complete (continue completing where left off)
 
 "--- Functions -----------------------------------
-nnoremap <silent> yc   :call YankComment()<CR>
+" TODO test auto yank with every comment
+" nnoremap <silent> yc   :call YankComment()<CR>
+let g:tcomment_opleader1 = 'yc'
+nnoremap <silent> gc   :call YankComment()<CR>
+" TODO improve implementation if keeping
 nnoremap <silent> gy   :call YankAppend()<CR>
 nnoremap <silent> gr   :call ChangeReplace()<CR>
 nnoremap <silent> gR   :call ChangeReplace("$")<CR>
@@ -317,7 +332,7 @@ inoremap <silent> <Tab>    <c-r>=CleverTab()<CR>
 inoremap <silent> <s-Tab>  <c-r>=OmniTab()<CR>
 
 "--- Surround ------------------------------------
-nmap <silent> gs   ys
+" nmap <silent> gs   ys
 nmap <silent> g'   ysiW"
 nmap <silent> dsf  dt(ds(
 

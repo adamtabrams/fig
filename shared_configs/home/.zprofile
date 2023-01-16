@@ -3,7 +3,9 @@
 #### Flatnvim ####################################
 export EDITOR="$HOME/repos/flatnvim/bin/flatnvim"
 export FLATNVIM_EDITOR="nvim"
-export FLATNVIM_EXTRA_COMMAND="if exists(':AirlineRefresh') == 2 | AirlineRefresh | endif"
+export FLATNVIM_LOGFILE="$HOME/repos/flatnvim/log.txt"
+# export FLATNVIM_EXTRA_COMMAND="echo 'it works' | sleep"
+# export FLATNVIM_EXTRA_COMMAND="if exists(':AirlineRefresh') == 2 | AirlineRefresh | endif"
 
 #### General #####################################
 # export EDITOR="nvim"

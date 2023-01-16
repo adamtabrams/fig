@@ -14,6 +14,7 @@ alias B="hub browse"
 alias j="jump"
 alias pager="$PAGER --paging=always"
 alias bat="bat --paging=never"
+alias hist="fc -l -ndfD"
 alias la="ls -HpA"
 alias ll="ls -Hpl"
 alias ca="calcurse"
@@ -41,7 +42,22 @@ mksh() { echo "#!/bin/sh" >> "$1" && chmod +x "$1" && "$EDITOR" "$1" }
 bak() { cp -r "$1" "$1.bak" }
 unbak() { mv "$1" $(sed "s/.bak$//" <<< "$1") }
 
+cl() {
+    printf "\n\n"
+    for i in $(seq "$(tput cols)"); do
+        printf "%s" "${1:-#}"
+    done
+    clear
+}
+
 glog() { git log --oneline --no-decorate "-${1:-5}" ${@:2} }
+
+gopen() {
+    remote=$(git remote | head -1)
+    url=$(git remote get-url $remote | head -1)
+    open "$url"
+}
+
 gclone() {
     dir=$(echo $1 | sed "s|^.*\.com/\(.*\)\.git$|\1|" )
     cd "$HOME/repos" || { echo "error moving to ~/repos" >&2; return 1; }
@@ -49,20 +65,13 @@ gclone() {
     git clone $1 "$dir"
     cd "$dir" && echo "cd $dir"
 }
+
 gcurl() {
     url=$(echo "$1" | sed -e 's|://github\.com|://raw.githubusercontent.com|' -e 's|\(://github\..*\.com\)|\1/raw|' -e 's|/blob/|/|')
     file=${2:-$(basename "$url")}
     [ ! "$url" ] && { echo "no url provided"; return; }
     [ -e "$file" ] && { echo "already exists: $file"; return; }
     curl "$url" > "$file"
-}
-
-cl() {
-    printf "\n\n"
-    for i in $(seq "$(tput cols)"); do
-        printf "%s" "${1:-#}"
-    done
-    clear
 }
 
 #### Quick Select ################################
@@ -80,6 +89,9 @@ ghelp() {
     echo "g.l - goto/open from ~/.local"
 }
 
+# TODO add ~/.amethyst.yml to fig
+# TODO also sort by most recent
+# TODO maybe pwd
 # go to a repo
 gr() {
     repo="$(cd ~/repos && fd -d3 -t d -I -H "^.git$" |
