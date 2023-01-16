@@ -1,0 +1,98 @@
+layouts:
+  - tall
+  - fullscreen
+  - floating
+  - wide
+  - bsp
+
+window-margins: true
+window-margin-size: 5
+mouse-follows-focus: true
+enables-layout-hud-on-space-change: false
+screen-padding-top: 10
+screen-padding-bottom: 10
+screen-padding-left: 10
+screen-padding-right: 10
+
+mod1:
+  - command
+mod2:
+  - command
+  - shift
+
+cycle-layout:
+  mod: mod2
+  key: "x"
+cycle-layout-backward:
+  mod: mod2
+  key: "c"
+shrink-main:
+  mod: mod1
+  key: ","
+expand-main:
+  mod: mod1
+  key: "."
+increase-main:
+  mod: mod2
+  key: "."
+decrease-main:
+  mod: mod2
+  key: ","
+focus-ccw:
+  mod: mod1
+  key: "k"
+focus-cw:
+  mod: mod1
+  key: "j"
+# focus-main:
+#   mod: mod1
+#   key: "enter"
+focus-screen-ccw:
+  mod: mod1
+  key: "h"
+focus-screen-cw:
+  mod: mod1
+  key: "l"
+swap-screen-ccw:
+  mod: mod2
+  key: "h"
+swap-screen-cw:
+  mod: mod2
+  key: "l"
+swap-ccw:
+  mod: mod2
+  key: "k"
+swap-cw:
+  mod: mod2
+  key: "j"
+swap-main:
+  mod: mod1
+  key: "enter"
+throw-space-left:
+  mod: mod2
+  key: "p"
+throw-space-right:
+  mod: mod2
+  key: "n"
+toggle-float:
+  mod: mod2
+  key: "space"
+relaunch-amethyst:
+  mod: mod2
+  key: "z"
+
+# select-tall-layout:
+#   mod: mod2
+#   key: "t"
+# select-fullscreen-layout:
+#   mod: mod2
+#   key: "m"
+# select-floating-layout:
+#   mod: mod2
+#   key: "x"
+# select-wide-layout:
+#   mod: mod2
+#   key: "w"
+# select-bsp-layout:
+#   mod: mod2
+#   key: "s"
