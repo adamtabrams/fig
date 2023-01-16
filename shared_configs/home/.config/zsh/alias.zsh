@@ -89,7 +89,6 @@ ghelp() {
     echo "g.l - goto/open from ~/.local"
 }
 
-# TODO add ~/.amethyst.yml to fig
 # TODO also sort by most recent
 # TODO maybe pwd
 # go to a repo
