@@ -22,10 +22,10 @@ mod2:
 
 cycle-layout:
   mod: mod2
-  key: "x"
+  key: "c"
 cycle-layout-backward:
   mod: mod2
-  key: "c"
+  key: "x"
 shrink-main:
   mod: mod1
   key: ","
@@ -38,15 +38,21 @@ increase-main:
 decrease-main:
   mod: mod2
   key: ","
+
+# command1: {"mod":"","key":""}
+# command2: {"mod":"","key":""}
+# command3: {"mod":"","key":""}
+# command4: {"mod":"","key":""}
+
 focus-ccw:
   mod: mod1
   key: "k"
 focus-cw:
   mod: mod1
   key: "j"
-# focus-main:
-#   mod: mod1
-#   key: "enter"
+focus-main: {"mod":"","key":""}
+  # mod: mod1
+  # key: "enter"
 focus-screen-ccw:
   mod: mod1
   key: "h"
@@ -68,31 +74,57 @@ swap-cw:
 swap-main:
   mod: mod1
   key: "enter"
+reevaluate-windows: {"mod":"","key":""}
 throw-space-left:
   mod: mod2
   key: "p"
 throw-space-right:
   mod: mod2
   key: "n"
+
+throw-space-1: {"mod":"","key":""}
+throw-space-2: {"mod":"","key":""}
+throw-space-3: {"mod":"","key":""}
+throw-space-4: {"mod":"","key":""}
+throw-space-5: {"mod":"","key":""}
+throw-space-6: {"mod":"","key":""}
+throw-space-7: {"mod":"","key":""}
+throw-space-8: {"mod":"","key":""}
+throw-space-9: {"mod":"","key":""}
+throw-space-10: {"mod":"","key":""}
+focus-screen-1: {"mod":"","key":""}
+throw-screen-1: {"mod":"","key":""}
+focus-screen-2: {"mod":"","key":""}
+throw-screen-2: {"mod":"","key":""}
+focus-screen-3: {"mod":"","key":""}
+throw-screen-3: {"mod":"","key":""}
+focus-screen-4: {"mod":"","key":""}
+throw-screen-4: {"mod":"","key":""}
+
 toggle-float:
   mod: mod2
   key: "space"
+display-current-layout: {"mod":"","key":""}
+toggle-focus-follows-mouse: {"mod":"","key":""}
+toggle-tiling: {"mod":"","key":""}
+
+select-tall-layout: {"mod":"","key":""}
+  # mod: mod2
+  # key: "t"
+select-wide-layout: {"mod":"","key":""}
+  # mod: mod2
+  # key: "w"
+select-fullscreen-layout: {"mod":"","key":""}
+  # mod: mod2
+  # key: "m"
+select-column-layout: {"mod":"","key":""}
+select-floating-layout: {"mod":"","key":""}
+  # mod: mod2
+  # key: "x"
+select-bsp-layout: {"mod":"","key":""}
+  # mod: mod2
+  # key: "s"
+
 relaunch-amethyst:
   mod: mod2
   key: "z"
-
-# select-tall-layout:
-#   mod: mod2
-#   key: "t"
-# select-fullscreen-layout:
-#   mod: mod2
-#   key: "m"
-# select-floating-layout:
-#   mod: mod2
-#   key: "x"
-# select-wide-layout:
-#   mod: mod2
-#   key: "w"
-# select-bsp-layout:
-#   mod: mod2
-#   key: "s"
