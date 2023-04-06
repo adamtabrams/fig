@@ -9,8 +9,9 @@ export FLATNVIM_LOGFILE="$HOME/repos/flatnvim/log.txt"
 
 #### General #####################################
 # export EDITOR="nvim"
-export TERMINAL="alacritty"
 export SELECTOR="fzf"
+export TERMINAL="alacritty"
+export TERMINALAPP="/Applications/Alacritty.app"
 
 export LANG="en_US.UTF-8"
 export SHELL="zsh"

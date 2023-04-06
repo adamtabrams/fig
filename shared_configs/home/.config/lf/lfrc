@@ -21,7 +21,7 @@ map x $$f
 map X !$f
 map D :delete
 map L $lazygit
-map B $hub browse
+map B $git ls-remote --get-url | xargs open
 map E $$EDITOR $fx
 
 ### Columns ###

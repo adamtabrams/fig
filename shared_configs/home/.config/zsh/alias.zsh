@@ -10,7 +10,6 @@ alias lf="lfcd"
 alias l="lfcd"
 alias lg="lazygit"
 alias L="lazygit"
-alias B="hub browse"
 alias j="jump"
 alias pager="$PAGER --paging=always"
 alias bat="bat --paging=never"
@@ -21,7 +20,6 @@ alias ca="calcurse"
 alias ldk="lazydocker"
 alias yay="pacapt"
 alias cll="printf '\033\143'"
-alias :q="exit"
 alias loc="tokei -s code"
 alias top="btm -ufgl --autohide_time --hide_table_gap --mem_as_value"
 alias topgrade="topgrade --disable system node pip3 containers"
@@ -52,11 +50,7 @@ cl() {
 
 glog() { git log --oneline --no-decorate "-${1:-5}" ${@:2} }
 
-gopen() {
-    remote=$(git remote | head -1)
-    url=$(git remote get-url $remote | head -1)
-    open "$url"
-}
+gopen() { open $(git ls-remote --get-url) }
 
 gclone() {
     dir=$(echo $1 | sed "s|^.*\.com/\(.*\)\.git$|\1|" )
@@ -77,8 +71,9 @@ gcurl() {
 #### Quick Select ################################
 # list quick-select commands
 ghelp() {
-    echo "gr  - goto repo"
     echo "gg  - goto root of repo"
+    echo "gr  - goto repo"
+    echo "grr - goto recent repo"
     echo "gl  - goto latest dir"
     echo "gi  - goto latest dir inside current"
     echo "or  - open repo in browser"
@@ -89,8 +84,12 @@ ghelp() {
     echo "g.l - goto/open from ~/.local"
 }
 
-# TODO also sort by most recent
-# TODO maybe pwd
+# goto root dir of current repo
+gg() {
+    dot_git_path="$(git rev-parse --git-dir 2>/dev/null)"
+    [  "$dot_git_path" ] && cd "$(dirname "$dot_git_path")"
+}
+
 # go to a repo
 gr() {
     repo="$(cd ~/repos && fd -d3 -t d -I -H "^.git$" |
@@ -98,10 +97,11 @@ gr() {
     [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
-# goto root dir of current repo
-gg() {
-    dot_git_path="$(git rev-parse --git-dir 2>/dev/null)"
-    [  "$dot_git_path" ] && cd "$(dirname "$dot_git_path")"
+# go to a recent repo
+grr() {
+    repo="$(cd ~/repos && fd -d3 -t d -I -H --changed-within 4weeks "^.git$" |
+        rev | cut -c 6- | rev | $SELECTOR)"
+    [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
 # go to one of the lastest dirs
@@ -118,7 +118,7 @@ gi() {
 
 # open a repo in the browser
 or() {
-    prev_dir=$(pwd) && gr && hub browse; cd "$prev_dir"
+    prev_dir=$(pwd) && gr && gopen; cd "$prev_dir"
 }
 
 # use lazygit on one or more repos
@@ -153,6 +153,37 @@ lfcd () {
                 cd "$dir"
     }
 }
+
+#### Session Save ################################
+savefile="$XDG_DATA_HOME/savepaths/paths"
+
+list_savepaths() { cat "$savefile" }
+clear_savepaths() { printf '' > "$savefile" }
+save_path() { pwd >> "$savefile" }
+
+save_path_quit() {
+    save_path
+    exit
+}
+
+pop_savepath() {
+    lines=$(cat "$savefile")
+    [ ! "$lines" ] && { echo "no saved paths" >&2; return; }
+    first=$(echo "$lines" | head -n 1)
+    echo "opening $first" >&2
+    cd "$first"
+    open -n "$TERMINALAPP"
+    echo "$lines" | tail -n +2 > "$savefile"
+}
+
+alias :clear="clear_savepaths"
+alias :pop="pop_savepath"
+alias :ls="list_savepaths"
+alias :wq="save_path_quit"
+alias :w="save_path"
+alias :q="exit"
+alias gW="save_path_quit"
+alias gw="save_path"
 
 #### Jump ########################################
 # marks: lists all marks
