@@ -6,7 +6,7 @@ gcloudPathFile="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/pat
 gcloudCompFile="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 [ -f $gcloudCompFile ] && source $gcloudCompFile
 
-swap-gcloud-project() {
+ls-gcloud-projects() {
     proj=$(gcloud projects list | tail -n +2 | fzf | cut -d ' ' -f 1)
     [ ! "$proj" ] && return
     gcloud config set project "$proj"

@@ -291,7 +291,7 @@ function! GitFileUrl()
     let branch = FugitiveHead()
     let tree = substitute(FugitivePath(), "^".FugitiveWorkTree(), "", "")
     let line = line(".")
-    return repo_url."/blob/".branch.tree."\\#L".line
+    return repo_url."/blob/".branch.tree."#L".line
 endfunction
 
 "### Bindings ####################################
@@ -352,7 +352,7 @@ nnoremap <Leader>s  :%s//g<Left><Left>
 nnoremap <Leader>S  :%s/<c-r><c-w>//g<Left><Left>
 
 nnoremap <silent> <Leader>g  :let @+ = GitFileUrl()<CR>
-nnoremap <silent> <Leader>G  :silent exe "!open ".GitFileUrl()<CR>
+nnoremap <silent> <Leader>G  :silent exe "!open ".escape(GitFileUrl(), "#")<CR>
 
 nnoremap <silent> <Leader><Leader>h  :set hlsearch!<CR>
 nnoremap <silent> <Leader><Leader>i  :IndentLinesToggle<CR>
