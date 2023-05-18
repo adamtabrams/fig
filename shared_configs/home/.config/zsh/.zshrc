@@ -130,6 +130,5 @@ zle -N change-surround surround
 [ -f "$ZDOTDIR/go.zsh" ] && source "$ZDOTDIR/go.zsh"
 [ -f "$ZDOTDIR/gcloud.zsh" ] && source "$ZDOTDIR/gcloud.zsh"
 [ -f "$ZDOTDIR/kubectl.zsh" ] && source "$ZDOTDIR/kubectl.zsh"
-# source <(helm completion zsh)
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-$HOME/.local/bin/historybackup
+history_backup

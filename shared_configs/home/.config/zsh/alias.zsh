@@ -141,8 +141,79 @@ gs() { _goto_or_open "$HOME/save" }
 g.c() { _goto_or_open "$XDG_CONFIG_HOME" --follow }
 g.l() { _goto_or_open "$XDG_DATA_HOME" --follow }
 
+#### History #####################################
+history_check_backup() {
+    [ ! "$MYHIST" ] && { echo "No MYHIST env var defined" >&2; return 1; }
+    backup="${MYHIST}.bak"
+
+    echo "History file lines: $(wc -l < "$MYHIST")" >&2
+    echo "Backup file lines:  $(wc -l < "$backup")" >&2
+}
+
+history_fix() {
+    [ ! "$MYHIST" ] && { echo "No MYHIST env var defined" >&2; return 1; }
+    backup="${MYHIST}.bak"
+
+    history_check_backup
+    echo "Would you like append current history to backup? (y/n)" >&2
+    read -r answer
+    [ "$answer" = "y" ] && cat "$MYHIST" >> "$backup"
+    echo "Would you like replace current history with backup? (y/n)" >&2
+    read -r answer
+    [ "$answer" = "y" ] && cp "$backup" "$MYHIST"
+    echo "DONE" >&2
+    history_check_backup
+}
+
+history_backup() {
+    [ ! "$MYHIST" ] && { echo "No MYHIST env var defined" >&2; return 1; }
+
+    parent_dir=$(dirname "$MYHIST")
+    [ ! -d "$parent_dir" ] && mkdir -p "$parent_dir"
+    [ ! -f "$MYHIST" ] && touch "$MYHIST"
+
+    backup="${MYHIST}.bak"
+    last_changed=$(stat -t "%Y%m%d" -qf "%Sc" "$backup")
+    touch "$backup"
+
+    today=$(date +%Y%m%d)
+    histfile_ln=$(wc -l < "$MYHIST")
+    backup_ln=$(wc -l < "$backup")
+
+    [ "$last_changed" != "$today" ] && [ "$histfile_ln" -gt "$backup_ln" ] &&
+        { cp "$MYHIST" "$backup"; return; }
+
+    [ "$histfile_ln" -ge "$backup_ln" ] && return
+
+    history_fix
+}
+
+#### Clipedit ####################################
+clipedit() {
+    editor_cmd=${EDITOR:-vim}
+    copy_cmd=${COPYCMD:-pbcopy}
+    paste_cmd=${PASTECMD:-pbpaste}
+    temp_file=$(mktemp)
+
+    "$paste_cmd" > "$temp_file"
+    "$editor_cmd" "$temp_file"
+    "$copy_cmd" < "$temp_file"
+    rm "$temp_file"
+}
+
+#### Nvim Swap ###################################
+nvim_swap_rm() {
+    # swap_dir="$XDG_DATA_HOME/nvim/swap"
+    swap_dir="$XDG_STATE_HOME/nvim/swap"
+    rm_files=$(cd "$swap_dir" && find . -type f | fzf -m)
+
+    for file in $rm_files; do
+        rm "$swap_dir/$file"
+    done
+}
+
 #### Save lf Dir #################################
-lfcd () {
+lfcd() {
     tmp="$(mktemp)"
     command lf -last-dir-path="$tmp" "$@"
     [ -f "$tmp" ] && {
@@ -155,11 +226,11 @@ lfcd () {
 }
 
 #### Session Save ################################
-savefile="$XDG_DATA_HOME/savepaths/paths"
+_savefile="$XDG_DATA_HOME/savepaths/paths"
 
-list_savepaths() { cat "$savefile" }
-clear_savepaths() { printf '' > "$savefile" }
-save_path() { pwd >> "$savefile" }
+list_savepaths() { cat "$_savefile" }
+clear_savepaths() { printf '' > "$_savefile" }
+save_path() { pwd >> "$_savefile" }
 
 save_path_quit() {
     save_path
@@ -167,13 +238,13 @@ save_path_quit() {
 }
 
 pop_savepath() {
-    lines=$(cat "$savefile")
+    lines=$(cat "$_savefile")
     [ ! "$lines" ] && { echo "no saved paths" >&2; return; }
-    first=$(echo "$lines" | head -n 1)
-    echo "opening $first" >&2
-    cd "$first"
+    last=$(echo "$lines" | tail -n 1)
+    echo "opening $last" >&2
+    cd "$last"
     open -n "$TERMINALAPP"
-    echo "$lines" | tail -n +2 > "$savefile"
+    echo "$lines" | sed -n '$!p' > "$_savefile"
 }
 
 alias :clear="clear_savepaths"
@@ -191,9 +262,9 @@ alias gw="save_path"
 # mark z: create mark called "z" for current dir
 # unmark z: delete the mark called "z"
 
-markfile="$XDG_DATA_HOME/lf/marks"
+_markfile="$XDG_DATA_HOME/lf/marks"
 
-marks() { cat "$markfile" | tr ':' ' ' }
+marks() { cat "$_markfile" | tr ':' ' ' }
 
 jump() {
     new_dir=$(marks | $SELECTOR | cut -f 2 -d ' ')
@@ -209,17 +280,17 @@ mark() {
         echo "argument must be 1 char" &&
         return 1
 
-    grep "^${1}:" "$markfile" &&
+    grep "^${1}:" "$_markfile" &&
         echo "that char is already assigned" &&
         return 1
 
-    echo "${1}:$PWD" >> "$markfile"
+    echo "${1}:$PWD" >> "$_markfile"
 }
 
 unmark() {
     [[ $(uname -s) == Darwin ]] &&
-        sed -i '' -e "/^${1}:/d" "$markfile" &&
+        sed -i '' -e "/^${1}:/d" "$_markfile" &&
         return 0
 
-    sed -i "/^${1}:/d" "$markfile"
+    sed -i "/^${1}:/d" "$_markfile"
 }
