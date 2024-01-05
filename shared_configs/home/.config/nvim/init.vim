@@ -24,6 +24,7 @@ Plug 'dense-analysis/ale'
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 "### Plugins #####################################
@@ -59,9 +60,10 @@ let g:ale_rust_rls_config = {
     \ }
 
 let g:ale_linters = {
-    \   'go': ['gopls', 'gobuild', 'golangci-lint'],
+    \   'go': ['golangci-lint'],
     \   'rust': ['rls', 'cargo']
     \}
+    " \   'go': ['gopls', 'gobuild', 'golangci-lint'],
     " \   'rust': ['rls', 'cargo', 'rustc']
 
 " let g:ale_go_golangci_lint_options = "--enable-all -D lll,gomnd -E EXC0002 --skip-files _test.go"
@@ -140,9 +142,33 @@ set iskeyword+=-
 set nojoinspaces
 set termguicolors
 colorscheme NeoSolarized
-syntax enable
+" syntax enable
 highlight! link MatchParen SpellBad
 highlight! link EasyMotionTarget2First EasyMotionTargetDefault
+
+"### Lua #########################################
+
+" lua << EOF
+" require'nvim-treesitter.configs'.setup {
+"     highlight = { enable = true },
+"     indent = { enable = true },
+"     incremental_selection = { enable = true },
+"     textobjects = { enable = true },
+"     -- folding = { enable = true },
+"     locals = { enable = true },
+" }
+
+" vim.lsp.start({
+"     name = 'golang-lsp',
+"     cmd = {'gopls'},
+"     root_dir = vim.fs.dirname(vim.fs.find({'go.mod'}, { upward = true })[1]),
+" })
+
+" -- vim.opt.omnifunc = "v:lua.vim.lsp.omnifunc()"
+" EOF
+
+" set omnifunc=v:lua.vim.lsp.omnifunc()
+" " set omnifunc=vim.lsp.omnifunc()
 
 "### Autocmds ####################################
 autocmd BufWritePre  *  %s:\s\+$::e
@@ -154,9 +180,9 @@ autocmd BufNewFile,BufRead  *.mom            setlocal filetype=groff
 autocmd BufNewFile,BufRead  *.avsc           setlocal filetype=json
 autocmd BufNewFile,BufRead  calcurse-note*   setlocal filetype=markdown
 
-autocmd FileType  yaml,json                set ts=2 sw=2
+autocmd FileType  yaml,json,markdown       set ts=2 sw=2
 autocmd FileType  json,markdown,text,help  IndentLinesDisable
-autocmd FileType  markdown                 setlocal spell lbr
+" autocmd FileType  markdown                 setlocal spell lbr
 " autocmd FileType  markdown,text            setlocal spell lbr
 
 let g:loaded_netrw = 1

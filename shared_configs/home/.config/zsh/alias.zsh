@@ -92,15 +92,15 @@ gg() {
 
 # go to a repo
 gr() {
-    repo="$(cd ~/repos && fd -d3 -t d -I -H "^.git$" |
-        rev | cut -c 6- | rev | $SELECTOR)"
+    repo="$(cd ~/repos && fd -d3 -t d -I -H "^.git$" -x dirname |
+        cut -c 3- | sort -r | $SELECTOR)"
     [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
 # go to a recent repo
 grr() {
-    repo="$(cd ~/repos && fd -d3 -t d -I -H --changed-within 4weeks "^.git$" |
-        rev | cut -c 6- | rev | $SELECTOR)"
+    repo="$(cd ~/repos && fd -d3 -t d -I -H --changed-within 4weeks "^.git$" -x dirname |
+        cut -c 3- | sort -r | $SELECTOR)"
     [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
@@ -228,8 +228,9 @@ lfcd() {
 #### Session Save ################################
 _savefile="$XDG_DATA_HOME/savepaths/paths"
 
-list_savepaths() { cat "$_savefile" }
 clear_savepaths() { printf '' > "$_savefile" }
+edit_savepaths() { "$EDITOR" "$_savefile" }
+list_savepaths() { cat "$_savefile" }
 save_path() { pwd >> "$_savefile" }
 
 save_path_quit() {
@@ -248,6 +249,7 @@ pop_savepath() {
 }
 
 alias :clear="clear_savepaths"
+alias :edit="edit_savepaths"
 alias :pop="pop_savepath"
 alias :ls="list_savepaths"
 alias :wq="save_path_quit"

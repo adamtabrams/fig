@@ -1,0 +1,193 @@
+[colors.bright]
+black = "#002b36"
+blue = "#839496"
+cyan = "#93a1a1"
+green = "#586e75"
+magenta = "#6c71c4"
+red = "#cb4b16"
+white = "#fdf6e3"
+yellow = "#657b83"
+
+[colors.cursor]
+cursor = "#839496"
+text = "#002b36"
+
+[colors.footer_bar]
+background = "#002b36"
+foreground = "#268bd2"
+
+[colors.hints.end]
+background = "#002b36"
+foreground = "#b58900"
+
+[colors.hints.start]
+background = "#002b36"
+foreground = "#dc322f"
+
+[colors.normal]
+black = "#073642"
+blue = "#268bd2"
+cyan = "#2aa198"
+green = "#859900"
+magenta = "#d33682"
+red = "#dc322f"
+white = "#eee8d5"
+yellow = "#b58900"
+
+[colors.primary]
+background = "#002b36"
+foreground = "#839496"
+
+[colors.search.focused_match]
+background = "CellForeground"
+foreground = "CellBackground"
+
+[colors.search.matches]
+background = "#002b36"
+foreground = "#b58900"
+
+[colors.selection]
+background = "#859900"
+text = "#002b36"
+
+[colors.vi_mode_cursor]
+cursor = "#dc322f"
+text = "#002b36"
+
+[cursor]
+unfocused_hollow = true
+vi_mode_style = "Block"
+
+[cursor.style]
+blinking = "Never"
+shape = "Beam"
+
+[font]
+size = 14.0
+
+[font.normal]
+family = "FiraCode Nerd Font"
+style = "Retina"
+
+[hints]
+alphabet = "xwchmuloriaefds"
+
+[[hints.enabled]]
+command = "open"
+hyperlinks = true
+post_processing = true
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.binding]
+key = "O"
+mods = "Alt"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "Shift"
+
+[[hints.enabled]]
+action = "MoveViModeCursor"
+regex = ".*"
+
+[hints.enabled.binding]
+key = "L"
+mods = "Alt"
+
+[[hints.enabled]]
+action = "Copy"
+regex = "[^ ][^ ]*"
+
+[hints.enabled.binding]
+key = "A"
+mods = "Alt"
+
+[[hints.enabled]]
+action = "Copy"
+regex = "[^> ].*?  "
+
+[hints.enabled.binding]
+key = "C"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "'"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "None"
+key = "K"
+mode = "~Vi|~Search"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "None"
+key = "H"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "None"
+key = "M"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "None"
+key = "W"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Comma"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Period"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "M"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "SearchBackward"
+key = "Slash"
+mode = "~Search"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "ScrollHalfPageUp"
+key = "U"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "ScrollHalfPageDown"
+key = "D"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "ToggleViMode"
+key = "V"
+mode = "~Search"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "ScrollToBottom"
+key = "V"
+mode = "Vi|~Search"
+mods = "Alt"
+
+[mouse]
+hide_when_typing = true
+
+[scrolling]
+history = 25000
+
+[window]
+decorations = "none"
+
+[window.padding]
+x = 4
+y = 4

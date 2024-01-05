@@ -36,6 +36,7 @@ export LESSHISTFILE="-"
 export CALDIR="$HOME/temp/cal"
 
 #### Path ########################################
+export PATH="$XDG_DATA_HOME/nvim/mason/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 #### Bat #########################################
@@ -46,6 +47,7 @@ export BAT_CONFIG_PATH="$XDG_CONFIG_HOME/bat/bat.conf"
 fzf_base_command="fd --hidden --exclude .git --follow"
 export FZF_DEFAULT_COMMAND="$fzf_base_command --type file"
 export FZF_DEFAULT_OPTS="--preview='bat {} 2> /dev/null'"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-sort"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --reverse"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview-window=':hidden'"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --bind=ctrl-u:page-up"

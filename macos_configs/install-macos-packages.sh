@@ -13,7 +13,7 @@ git-delta
 gnu-sed
 gnupg
 grep
-hub
+gh
 jq
 lazygit
 lf
