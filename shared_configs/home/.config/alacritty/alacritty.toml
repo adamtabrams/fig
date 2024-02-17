@@ -1,58 +1,78 @@
-[colors.bright]
-black = "#002b36"
-blue = "#839496"
-cyan = "#93a1a1"
-green = "#586e75"
-magenta = "#6c71c4"
-red = "#cb4b16"
-white = "#fdf6e3"
-yellow = "#657b83"
+[colors.primary]
+background = "#192330"
+foreground = "#cdcecf"
+dim_foreground = "#aeafb0"
+bright_foreground = "#d6d6d7"
 
 [colors.cursor]
-cursor = "#839496"
-text = "#002b36"
-
-[colors.footer_bar]
-background = "#002b36"
-foreground = "#268bd2"
-
-[colors.hints.end]
-background = "#002b36"
-foreground = "#b58900"
-
-[colors.hints.start]
-background = "#002b36"
-foreground = "#dc322f"
-
-[colors.normal]
-black = "#073642"
-blue = "#268bd2"
-cyan = "#2aa198"
-green = "#859900"
-magenta = "#d33682"
-red = "#dc322f"
-white = "#eee8d5"
-yellow = "#b58900"
-
-[colors.primary]
-background = "#002b36"
-foreground = "#839496"
-
-[colors.search.focused_match]
-background = "CellForeground"
-foreground = "CellBackground"
-
-[colors.search.matches]
-background = "#002b36"
-foreground = "#b58900"
-
-[colors.selection]
-background = "#859900"
-text = "#002b36"
+text = "#cdcecf"
+cursor = "#aeafb0"
 
 [colors.vi_mode_cursor]
-cursor = "#dc322f"
-text = "#002b36"
+text = "#192330"
+cursor = "#c94f6d"
+
+[colors.search.matches]
+foreground = "#192330"
+background = "#dbc074"
+
+[colors.search.focused_match]
+foreground = "#192330"
+background = "#c94f6d"
+
+[colors.footer_bar]
+foreground = "#cdcecf"
+background = "#29394f"
+
+[colors.hints.start]
+foreground = "#c94f6d"
+background = "#192330"
+
+[colors.hints.end]
+foreground = "#dbc074"
+background = "#192330"
+
+[colors.selection]
+text = "#cdcecf"
+background = "#2b3b51"
+
+[colors.normal]
+black = "#393b44"
+red = "#c94f6d"
+green = "#81b29a"
+yellow = "#dbc074"
+blue = "#719cd6"
+magenta = "#9d79d6"
+cyan = "#63cdcf"
+white = "#dfdfe0"
+
+[colors.bright]
+black = "#575860"
+red = "#d16983"
+green = "#8ebaa4"
+yellow = "#e0c989"
+blue = "#86abdc"
+magenta = "#baa1e2"
+cyan = "#7ad5d6"
+white = "#e4e4e5"
+
+[colors.dim]
+black = "#30323a"
+red = "#ab435d"
+green = "#6e9783"
+yellow = "#baa363"
+blue = "#6085b6"
+magenta = "#8567b6"
+cyan = "#54aeb0"
+white = "#bebebe"
+
+[[colors.indexed_colors]]
+index = 16
+color = "#f4a261"
+
+[[colors.indexed_colors]]
+index = 17
+color = "#d67ad2"
 
 [cursor]
 unfocused_hollow = true

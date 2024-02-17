@@ -1,7 +1,7 @@
 #!/bin/sh
 
 bat \
-	--theme="ansi" \
+	--theme="OneHalfDark" \
 	--wrap="never" \
 	--line-range=":$2" \
 	"$1" || true
