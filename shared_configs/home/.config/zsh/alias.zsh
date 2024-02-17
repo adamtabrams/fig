@@ -93,14 +93,14 @@ gg() {
 # go to a repo
 gr() {
     repo="$(cd ~/repos && fd -d3 -t d -I -H "^.git$" -x dirname |
-        cut -c 3- | sort -r | $SELECTOR)"
+        cut -c 3- | $SELECTOR)"
     [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
 # go to a recent repo
 grr() {
     repo="$(cd ~/repos && fd -d3 -t d -I -H --changed-within 4weeks "^.git$" -x dirname |
-        cut -c 3- | sort -r | $SELECTOR)"
+        cut -c 3- | $SELECTOR)"
     [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
