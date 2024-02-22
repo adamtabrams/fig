@@ -1,7 +1,12 @@
+# for profiling
+zmodload zsh/zprof
+
 #### General #####################################
-# eval $(gdircolors $ZDOTDIR/dircolors.ansi-dark)
 export KEYTIMEOUT=1
-setopt autocd notify interactivecomments
+stty stop undef # Disable ctrl-s to freeze terminal
+setopt autocd # Automatically cd into typed directory
+setopt interactivecomments
+setopt notify
 
 #### Prompt ######################################
 autoload -Uz promptinit
@@ -10,22 +15,30 @@ PROMPT='%F{blue}>%f '
 RPROMPT='%F{yellow}%3~%f'
 
 #### Completion ##################################
+autoload -U compinit
 zstyle ':completion:*' menu select
-zstyle ':completion:*' completer _expand _complete _ignored
 zstyle ':completion:*' matcher-list 'm:{a-z\-}={A-Z\_}'
-zstyle ':completion:*' substitute no
-zstyle ':completion:*' glob no
 zmodload zsh/complist
-autoload -Uz compinit
-compinit
-# Include hidden files.
-_comp_options+=(globdots)
+# compinit
+
+for dump in $ZDOTDIR/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
+
+_comp_options+=(globdots) # Include hidden files
 
 #### History #####################################
-HISTFILE="$MYHIST"
-HISTSIZE=SAVEHIST=10000000
-setopt appendhistory extendedhistory incappendhistory
-setopt histfindnodups sharehistory histignorespace
+HISTFILE="$HOME/.local/history/histfile"
+HISTSIZE=10000000
+SAVEHIST=10000000
+
+setopt appendhistory
+setopt extendedhistory
+setopt incappendhistory
+setopt histfindnodups
+setopt sharehistory
+setopt histignorespace
 
 #### History searching ###########################
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
@@ -35,10 +48,8 @@ bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
 #### Dirstack ####################################
-DIRSTACKSIZE=16
-DIRSTACKFILE="$XDG_CACHE_HOME/zsh/dirs"
-[ ! -f "$DIRSTACKFILE" ] &&
-    mkdir -p "$(dirname "$DIRSTACKFILE")" && touch "$DIRSTACKFILE"
+DIRSTACKSIZE=25
+DIRSTACKFILE="$ZDOTDIR/.zdirstack"
 
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
     dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
@@ -49,8 +60,11 @@ chpwd() {
     print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
 }
 
-setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
-setopt PUSHD_IGNORE_DUPS PUSHD_MINUS
+setopt AUTO_PUSHD
+setopt PUSHD_SILENT
+setopt PUSHD_TO_HOME
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_MINUS
 
 #### Vim #########################################
 # j/k history search
@@ -58,7 +72,8 @@ bindkey -M vicmd "k" up-line-or-beginning-search
 bindkey -M vicmd "j" down-line-or-beginning-search
 
 # edit command in vim
-autoload edit-command-line; zle -N edit-command-line
+autoload edit-command-line
+zle -N edit-command-line
 bindkey -M vicmd 'v' edit-command-line
 
 # tab complete menu
@@ -69,27 +84,22 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
 # cursor shape for diff modes
-function zle-keymap-select {
-    [ $KEYMAP = vicmd ] || [ $1 = block ] &&
-        echo -ne '\e[1 q'
-
-    [ $KEYMAP = main ] || [ $KEYMAP = viins ] || [ $KEYMAP = "" ] || [ $1 = beam ] &&
-        echo -ne '\e[5 q'
+function zle-keymap-select() {
+	case $KEYMAP in
+    vicmd) echo -ne '\e[1 q' ;; # block
+    viins | main) echo -ne '\e[5 q' ;; # beam
+	esac
 }
 zle -N zle-keymap-select
 
-#init `vi insert` keymap (is removed if `bindkey -V` has been set elsewhere)
 zle-line-init() {
-    zle -K viins
+    zle -K viins # Init `vi insert` as keymap (removed if `bindkey -V` has been set elsewhere)
     echo -ne "\e[5 q"
 }
 zle -N zle-line-init
 
-# Use beam shape cursor on startup.
-echo -ne '\e[5 q'
-
-# Use beam shape cursor for each new prompt.
-preexec() { echo -ne '\e[5 q' ;}
+echo -ne '\e[5 q' # Use beam shape cursor on startup
+preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt
 
 # surround
 autoload -U select-quoted
@@ -118,17 +128,28 @@ zle -N change-surround surround
 # bindkey -a ys add-surround
 # bindkey -M visual S add-surround
 
-#### OS Extras ###################################
-[ $(uname) = Darwin ] && [ -f "$ZDOTDIR/mac.zsh" ] && source "$ZDOTDIR/mac.zsh"
-[ $(uname) = Linux ] && [ -f "$ZDOTDIR/linux.zsh" ] && source "$ZDOTDIR/linux.zsh"
+#### OS Specific #################################
+case $OSTYPE in
+  linux-gnu*) source "$ZDOTDIR/os/linux.zsh" ;;
+  darwin*) source "$ZDOTDIR/os/mac.zsh" ;;
+esac
 
-#### Plugins #####################################
-[ -f "$ZDOTDIR/fzf.zsh" ] && source "$ZDOTDIR/fzf.zsh"
-[ -f "$ZDOTDIR/alias.zsh" ] && source "$ZDOTDIR/alias.zsh"
-[ -f "$ZDOTDIR/docker.zsh" ] && source "$ZDOTDIR/docker.zsh"
-[ -f "$ZDOTDIR/rust.zsh" ] && source "$ZDOTDIR/rust.zsh"
-[ -f "$ZDOTDIR/go.zsh" ] && source "$ZDOTDIR/go.zsh"
-[ -f "$ZDOTDIR/gcloud.zsh" ] && source "$ZDOTDIR/gcloud.zsh"
-[ -f "$ZDOTDIR/kubectl.zsh" ] && source "$ZDOTDIR/kubectl.zsh"
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-history_backup
+#### Sources #####################################
+source "$ZDOTDIR/alias.zsh"
+
+for file in $ZDOTDIR/plugins/*.zsh; do
+  source "$file"
+done
+
+#### Colors ######################################
+which dircolors &>/dev/null &&
+    eval $(dircolors "$ZDOTDIR/colors/dircolors.ansi-dark") ||
+    echo "need 'dircolors' program to set terminal colors" >&2
+
+# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# see bug: https://github.com/zdharma-continuum/fast-syntax-highlighting/issues/27
+source "$ZSH_HIGHLIGHT_DIR/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+export FAST_HIGHLIGHT[chroma-man]=
+
+# for profiling
+zprof > "$ZDOTDIR/zprof.txt"
