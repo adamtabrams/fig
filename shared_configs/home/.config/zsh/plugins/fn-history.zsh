@@ -23,13 +23,15 @@ _history_backup() {
   [ ! -e "$HISTFILE" ] && { echo "No file exists matching HISTFILE env var" >&2; return 2; }
 
   backup="${HISTFILE}.bak"
-  histfile_ln=$(wc -l < "$HISTFILE")
-  backup_ln=$(wc -l < "$backup")
+  zstat -A sizes +size -- "$HISTFILE" "$backup" ||
+    { echo "zshrc should have: zmodload -F zsh/stat b:zstat" >&2; return 3; }
+  histfile_size=$sizes[1]
+  backup_size=$sizes[2]
 
-  [ "$backup_ln" -gt "$histfile_ln" ] && { _history_fix; return 3; }
+  [ "$backup_size" -gt "$histfile_size" ] && { _history_fix; return 4; }
 
   for file in ${backup}(N.mh+24); do
-    [ "$histfile_ln" -gt "$backup_ln" ] && cp "$HISTFILE" "$backup"
+    [ "$histfile_size" -gt "$backup_size" ] && cp "$HISTFILE" "$backup"
     return
   done
 }
