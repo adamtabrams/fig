@@ -21,8 +21,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z\-}={A-Z\_}'
 zmodload zsh/complist
 # compinit
 
-for dump in $ZDOTDIR/.zcompdump(N.mh+24); do
-  compinit
+for file in $ZDOTDIR/.zcompdump(N.mh+24); do
+  compinit && touch "$file"
 done
 compinit -C
 

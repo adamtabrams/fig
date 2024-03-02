@@ -15,21 +15,32 @@ vim.keymap.set("n", "gq", "<cmd>q<cr>", { desc = "Quit" })
 -- Set Local Leader
 vim.g.maplocalleader = ";"
 
+-- TODO:
+-- improve leap config
+-- goto file in github
+-- golang fill struct
+-- golang alternative file
+
 -- Handle Windows
 vim.keymap.set("n", "<localleader>w", "<c-w>W", { desc = "Window cycle", remap = true })
 vim.keymap.set("n", "<localleader>q", "<c-w>q", { desc = "Window quit", remap = true })
 vim.keymap.set("n", "<localleader>o", "<c-w>o", { desc = "Window only", remap = true })
 
 -- Substitute
+vim.keymap.set("v", "<localleader>s", ":s//g<left><left>", { desc = "Substitute begin" })
 vim.keymap.set("n", "<localleader>s", ":%s//g<left><left>", { desc = "Substitute begin" })
 vim.keymap.set("n", "<localleader>S", ":%s/<c-r><c-w>//g<left><left>", { desc = "Substitute word" })
 
 -- Diagnostic
-vim.keymap.set("n", "<localleader>n", vim.diagnostic.goto_next, { desc = "Quote whole word" })
-vim.keymap.set("n", "<localleader>N", vim.diagnostic.goto_prev, { desc = "Quote whole word" })
+vim.keymap.set("n", "<localleader>n", vim.diagnostic.goto_next, { desc = "Diagnostic next" })
+vim.keymap.set("n", "<localleader>N", vim.diagnostic.goto_prev, { desc = "Diagnostic previous" })
+
+-- Telescope
+vim.keymap.set("n", "<leader>sB", "<cmd>Telescope grep_string grep_open_files=true search=<cr>", { desc = "Grep bufs" })
 
 -- Custom Actions
-vim.keymap.set("n", "<localleader>'", 'ysiW"', { desc = "Quote whole word", remap = true })
+-- vim.keymap.set("n", "<localleader>'", 'ysiW"', { desc = "Quote whole word", remap = true })
+vim.keymap.set("n", "<localleader><localleader>", 'ysiW"', { desc = "Quote whole word", remap = true })
 
 vim.keymap.set("n", "<localleader>r", "<cmd>lua setopfn('v:lua.go_replace')<cr>g@", { desc = "Replace motion" })
 vim.keymap.set("n", "<localleader>R", "<cmd>lua setopfn('v:lua.go_replace')<cr>g@$", { desc = "Replace end" })
