@@ -15,8 +15,33 @@ vim.keymap.set("n", "gq", "<cmd>q<cr>", { desc = "Quit" })
 -- Set Local Leader
 vim.g.maplocalleader = ";"
 
+-- double localleader
+-- double leader
+-- gn gp gN gP
+-- <tab> <s-tab>
+-- gh gj gk gl
+-- gH gJ gK gL
+
+-- Hop
 -- TODO:
--- improve leap config
+-- HopYankWord
+-- HopYankLine
+-- HopYankLines
+-- support insert mode
+-- improve colors?
+-- vim.keymap.set("n", "<leader>a", vim.hop., { desc = "Substitute begin" })
+vim.keymap.del("n", "<leader><leader>")
+vim.keymap.set("n", "<leader><leader>w", ":HopWord<cr>", { desc = "Hop Word" })
+vim.keymap.set("n", "<leader><leader>a", ":HopAnywhere<cr>", { desc = "Hop Anywhere" })
+vim.keymap.set("n", "<leader><leader>t", ":HopChar1<cr>", { desc = "Hop Char1" })
+vim.keymap.set("n", "<leader><leader>T", ":HopChar2<cr>", { desc = "Hop Char2" })
+vim.keymap.set("n", "<leader><leader>n", ":HopNodes<cr>", { desc = "Hop Nodes" })
+vim.keymap.set("n", "<leader><leader>l", ":HopLine<cr>", { desc = "Hop Line" })
+vim.keymap.set("n", "<leader><leader>s", ":HopLineStart<cr>", { desc = "Hop Start" })
+vim.keymap.set("n", "<leader><leader>y", ":HopYankChar1<cr>", { desc = "Hop Yank" })
+vim.keymap.set("n", "<leader><leader>Y", ":HopYankChar1CurrentLine<cr>", { desc = "Hop Yank Current Line" })
+
+-- TODO:
 -- goto file in github
 -- golang fill struct
 -- golang alternative file
