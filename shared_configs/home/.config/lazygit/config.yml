@@ -1,28 +1,29 @@
 gui:
-    expandFocusedSidePanel: true
-    mainPanelSplitMode: "horizontal" # horizontal | flexible | vertical
-    # enlargedSideViewLocation: "top" # left | top
-    theme:
-        lightTheme: false
-        activeBorderColor:
-            - red
-            - bold
-        inactiveBorderColor:
-            - blue
-        unstagedChangesColor:
-            - blue
-    # showListFooter: false
-    # showRandomTip: false
+  expandFocusedSidePanel: true
+  mainPanelSplitMode: "horizontal" # horizontal | flexible | vertical
+  # enlargedSideViewLocation: "top" # left | top
+  theme:
+    activeBorderColor:
+      - red
+      - bold
+    inactiveBorderColor:
+      - blue
+    unstagedChangesColor:
+      - blue
+  # showListFooter: false
+  # showRandomTip: false
 git:
-    paging:
-        colorArg: always
-        pager: delta --paging=never --dark --24-bit-color=never
+  paging:
+    colorArg: always
+    pager: delta --paging=never --dark --24-bit-color=never
 os:
-    opencommand: $EDITOR {{filename}}
-reporting: "off"
+  edit: "$EDITOR {{filename}}"
+  editAtLine: "$EDITOR +{{line}} {{filename}}"
+  editAtLineAndWait: "myeditor --block --line={{line}} {{filename}}"
+  editInTerminal: true
 quitOnTopLevelReturn: true
-notARepository: 'skip' # prompt | create | skip
+notARepository: "skip" # prompt | create | skip
 customCommands:
-    - key: 'B'
-      command: 'git ls-remote --get-url | xargs open'
-      context: 'global'
+  - key: "B"
+    command: "git ls-remote --get-url | xargs open"
+    context: "global"

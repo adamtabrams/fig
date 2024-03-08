@@ -6,9 +6,7 @@ export FLATNVIM_EDITOR="nvim"
 export FLATNVIM_LOGFILE="$HOME/repos/flatnvim/log.txt"
 
 #### General #####################################
-export SELECTOR="fzf"
 export TERMINAL="alacritty"
-
 export LANG="en_US.UTF-8"
 export SHELL="zsh"
 # export SHELL="/usr/local/bin/zsh"

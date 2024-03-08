@@ -15,57 +15,66 @@ ghelp() {
 
 # goto root dir of current repo
 gg() {
-    dot_git_path="$(git rev-parse --git-dir 2>/dev/null)"
+    dot_git_path=$(git rev-parse --git-dir 2>/dev/null)
     [  "$dot_git_path" ] && cd "$(dirname "$dot_git_path")"
 }
 
+# TODO: swapped names for testing
+
 # go to a repo
-gr() {
-    repo="$(cd ~/repos && fd -d3 -t d -I -H "^.git$" -x dirname |
-        cut -c 3- | "$SELECTOR")"
+grr() {
+    repo=$(cd ~/repos && FZF_DEFAULT_COMMAND=$(_fzf_repos_cmd) fzf)
     [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
 # go to a recent repo
-grr() {
-    repo="$(cd ~/repos && fd -d3 -t d -I -H --changed-within 4weeks "^.git$" -x dirname |
-        cut -c 3- | "$SELECTOR")"
+gr() {
+    repo=$(cd ~/repos && FZF_DEFAULT_COMMAND=$(_fzf_repos_cmd --changed-within 4weeks) fzf)
     [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
 # go to one of the lastest dirs
 gl() {
-    goto=$(cat "$DIRSTACKFILE" | "$SELECTOR")
+    goto=$(cat $DIRSTACKFILE | sed "s|^$HOME|~|" | grep -E "^[~]*(/[^/]*){1,4}$" | fzf |  sed "s|^~|$HOME|")
     [ "$goto" ] && cd "$goto"
 }
 
 # go to one of the lastest dirs below current directory
 gi() {
-    goto=$(cat "$DIRSTACKFILE" | grep "^$PWD." | "$SELECTOR")
+    goto=$(grep "^$PWD." "$DIRSTACKFILE" | fzf)
     [ "$goto" ] && cd "$goto"
 }
 
 # open a repo in the browser
 or() {
-    prev_dir=$PWD && gr && gopen; cd "$prev_dir"
+    prev_dir=$PWD && gr && remote_url=$(git ls-remote --get-url) && open "$remote_url"
+    [ $(pwd) != "$prev_dir" ] && cd "$prev_dir"
 }
+
+# TODO: consider lf and gitui
 
 # use lazygit on one or more repos
 lr() {
-    for repo in "$(cd "~/repos" && fd -d1 | "$SELECTOR" --multi)"; do
+    for repo in $(cd ~/repos && FZF_DEFAULT_COMMAND=$(_fzf_repos_cmd) fzf --multi); do
         lazygit -p "$HOME/repos/$repo"
     done
-}
-
-# helper funcion to go to dir or open file for a given path
-_goto_or_open() {
-    parent_path="$1"
-    sel="$parent_path/$(cd "$parent_path" && fd "${@:2}" | "$SELECTOR")"
-    [ -d "$sel" ] && cd "$sel"
-    [ -f "$sel" ] && "$EDITOR" "$sel"
 }
 
 gt() { _goto_or_open "$HOME/temp" }
 gs() { _goto_or_open "$HOME/save" }
 g.c() { _goto_or_open "$XDG_CONFIG_HOME" --follow }
 g.l() { _goto_or_open "$XDG_DATA_HOME" --follow }
+
+# helper funcion to go to dir or open file for a given path
+_goto_or_open() {
+    parent_dir=$1
+    goto=$(cd $parent_dir && fd ${@:2} | fzf)
+    [ ! "$goto" ] && return
+    goto_full="$parent_dir/$goto"
+    [ -d "$goto_full" ] && cd "$goto_full"
+    [ -f "$goto_full" ] && cd $(dirname "$goto_full") && "$EDITOR" "$goto_full"
+}
+
+_fzf_repos_cmd() {
+  echo "fd -d 3 -t d -I -H --strip-cwd-prefix $@ '^.git$' -x dirname"
+}

@@ -13,16 +13,22 @@ set promptfmt "\033[33;1m%d\033[0m\033[34;1m%f\033[0m"
 ### Mappings ###
 map <c-g> $lf -remote "send $id cd '$(~/.config/lf/cd-fzf.sh)'"
 map <c-f> $(~/.config/lf/edit-fzf.sh)
+
 map <enter> shell
 map <esc> quit
-map i $$PAGER $f
 map H push <f-1>
-map x $$f
-map X !$f
 map D :delete
+map X !$f
+map x $$f
+map i $$PAGER $f
+
 map L $lazygit
 map B $git ls-remote --get-url | xargs open
 map E $$EDITOR $fx
+
+map A :rename; cmd-end
+map I :rename; cmd-home
+map C push A<c-u>
 
 ### Columns ###
 cmd recol ${{
