@@ -1,6 +1,7 @@
 alias dircolors=gdircolors
 
-export TERMINALAPP="/Applications/Alacritty.app"
+# export TERMINALAPP="/Applications/Alacritty.app"
+export TERMINALAPP="/Applications/WezTerm.app"
 export BROWSER="/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser"
 
 eval "$(brew shellenv)"

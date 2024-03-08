@@ -12,7 +12,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>new-alacritty-instance</string>
+				<string>new-terminal</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>runWorkflowAsService</string>

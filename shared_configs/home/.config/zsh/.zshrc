@@ -1,5 +1,5 @@
 # for profiling
-zmodload zsh/zprof
+# zmodload zsh/zprof
 
 #### General #####################################
 export KEYTIMEOUT=1
@@ -9,15 +9,16 @@ setopt interactivecomments
 setopt notify
 
 #### Prompt ######################################
-autoload -Uz promptinit
+autoload -U promptinit
 promptinit
 PROMPT='%F{blue}>%f '
 RPROMPT='%F{yellow}%3~%f'
 
 #### Completion ##################################
 autoload -U compinit
-zstyle ':completion:*' menu select
+# autoload -Uz +X compinit
 zstyle ':completion:*' matcher-list 'm:{a-z\-}={A-Z\_}'
+zstyle ':completion:*' menu select
 zmodload zsh/complist
 # compinit
 
@@ -43,7 +44,7 @@ setopt histignorespace
 zmodload -F zsh/stat b:zstat
 
 #### History searching ###########################
-autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+autoload -U up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search
@@ -53,10 +54,10 @@ bindkey "^[[B" down-line-or-beginning-search
 DIRSTACKSIZE=25
 DIRSTACKFILE="$ZDOTDIR/.zdirstack"
 
-if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
-    dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-    [[ -d $dirstack[1] ]] && cd $dirstack[1]
-fi
+# if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+#     dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+#     [[ -d $dirstack[1] ]] && cd $dirstack[1]
+# fi
 
 chpwd() {
     print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
@@ -79,11 +80,13 @@ zle -N edit-command-line
 bindkey -M vicmd 'v' edit-command-line
 
 # tab complete menu
+setopt menu_complete
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
+# bindkey -v 'ESC' backward-delete-char
 
 # cursor shape for diff modes
 function zle-keymap-select() {
@@ -121,7 +124,7 @@ for m in visual viopp; do
 done
 
 # surround bindings
-autoload -Uz surround
+autoload -U surround
 zle -N delete-surround surround
 zle -N add-surround surround
 zle -N change-surround surround
@@ -154,4 +157,4 @@ source "$ZSH_HIGHLIGHT_DIR/zsh-fast-syntax-highlighting/fast-syntax-highlighting
 export FAST_HIGHLIGHT[chroma-man]=
 
 # for profiling
-zprof > "$ZDOTDIR/zprof.txt"
+# zprof > "$ZDOTDIR/zprof.txt"
