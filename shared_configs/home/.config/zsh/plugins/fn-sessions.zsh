@@ -43,6 +43,18 @@ _pop_path() {
   echo "$_remaining_paths" > "$_file"
 }
 
+_session_usage() {
+  echo ":help - view session commands"
+  echo ":e    - open a path from active session"
+  echo ":ls   - change active session"
+  echo ":rm   - delete a session"
+  echo ":w    - save path to active session"
+  echo ":q    - exit shell"
+  echo ":wq   - save path then exit shell"
+  echo "ZZ    - same as :wq"
+}
+
+alias :help="_session_usage"
 alias :e="_pop_path"
 alias :ls="_select_session"
 alias :rm="_rm_session"

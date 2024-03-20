@@ -8,11 +8,10 @@
 // find `KeysList` type in src/keys/key_list.rs for all possible keys.
 // every key not overwritten via the config file will use the default specified there
 
-// TODO: add to fig
 (
     open_help: Some(( code: Char('?'), modifiers: "")),
-    quit: Some(( code: Esc,  modifiers: "")),
-    exit_popup: Some(( code: Char('q'),  modifiers: "")),
+    // quit: Some(( code: Char('q'),  modifiers: "")),
+    // exit_popup: Some(( code: Esc,  modifiers: "")),
 
     move_left: Some(( code: Char('h'), modifiers: "")),
     move_right: Some(( code: Char('l'), modifiers: "")),

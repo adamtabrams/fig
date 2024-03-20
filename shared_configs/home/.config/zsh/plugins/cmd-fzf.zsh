@@ -16,7 +16,7 @@ bindkey '^R' fzf-history-widget
 
 # Default commands
 # ---------------
-fzf_base_command="fd --hidden --exclude .git --follow"
+fzf_base_command="fd --hidden --exclude .git --follow --strip-cwd-prefix"
 export FZF_DEFAULT_COMMAND="$fzf_base_command --type file"
 export FZF_DEFAULT_OPTS="--preview='bat {} 2> /dev/null'"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --reverse"

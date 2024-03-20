@@ -14,7 +14,7 @@ config.cursor_blink_rate = 0
 config.enable_tab_bar = false
 config.window_decorations = "RESIZE | MACOS_FORCE_DISABLE_SHADOW"
 config.window_close_confirmation = "NeverPrompt"
-config.quick_select_alphabet = "xwchmuloriaefds"
+config.quick_select_alphabet = "fjdkslavmeirucwo"
 
 config.keys = {
 	{
@@ -68,7 +68,7 @@ config.keys = {
 		mods = "ALT",
 		action = wezterm.action.QuickSelectArgs({
 			label = "copy anywhere",
-			patterns = { "[^ ]+" },
+			patterns = { "[^ \"']+" },
 			scope_lines = 0,
 		}),
 	},
@@ -116,7 +116,6 @@ config.keys = {
 		action = wezterm.action.QuickSelectArgs({
 			label = "open link in browser",
 			patterns = {
-				"github.com[^ \"']*",
 				"https?://[^ \"']+",
 				"www[.][^ .]+[.][^ \"']+",
 			},
@@ -126,6 +125,27 @@ config.keys = {
 				if not url:find("http", 1) then
 					url = "https://" .. url
 				end
+				wezterm.log_info("opening: " .. url)
+				wezterm.open_with(url)
+			end),
+		}),
+	},
+	{
+		key = "g",
+		mods = "ALT",
+		action = wezterm.action.QuickSelectArgs({
+			label = "open repo in browser",
+			patterns = {
+				"github.com/[^ \"']*",
+				"[^ .\"'/$]+/[^ \"'/]+",
+			},
+			scope_lines = 0,
+			action = wezterm.action_callback(function(window, pane)
+				local url = window:get_selection_text_for_pane(pane)
+				if not url:find("github.com/", 1) then
+					url = "github.com/" .. url
+				end
+				url = "https://" .. url
 				wezterm.log_info("opening: " .. url)
 				wezterm.open_with(url)
 			end),
@@ -148,9 +168,28 @@ table.insert(config.hyperlink_rules, {
 })
 
 -- github repos
+-- TODO:
+-- ignore if traling /
+-- disallow more symbols: [] + * , : =
 table.insert(config.hyperlink_rules, {
-	regex = "[^ .\"'/$]+/[^ \"'/]+",
-	format = "https://github.com/$0",
+	-- regex = "[^ .\"'/$]+/[^ \"'/]+",
+	-- regex = "[\\w]+/[\\w.]+",
+	-- format = "https://github.com/$0",
+	regex = "[\"']([\\w-]+/[\\w.-]+)[\"']",
+	format = "https://github.com/$1",
 })
+
+-- config.disable_default_mouse_bindings = true
+-- config.mouse_bindings = {
+-- 	{
+-- 		event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+-- 		action = wezterm.action.Nop,
+-- 	},
+-- 	{
+-- 		event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+-- 		action = wezterm.action.Nop,
+-- 	},
+-- }
+-- TODO: disable horizontal scrolling
 
 return config

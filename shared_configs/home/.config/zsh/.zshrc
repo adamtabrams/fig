@@ -54,10 +54,11 @@ bindkey "^[[B" down-line-or-beginning-search
 DIRSTACKSIZE=25
 DIRSTACKFILE="$ZDOTDIR/.zdirstack"
 
-# if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
-#     dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-#     [[ -d $dirstack[1] ]] && cd $dirstack[1]
-# fi
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+    dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+    [[ $PWD = $HOME ]] && [[ -d $dirstack[1] ]] && cd $dirstack[1]
+    # [[ -d $dirstack[1] ]] && cd $dirstack[1]
+fi
 
 chpwd() {
     print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
@@ -128,6 +129,7 @@ autoload -U surround
 zle -N delete-surround surround
 zle -N add-surround surround
 zle -N change-surround surround
+# FIXME:
 # bindkey -a cs change-surround
 # bindkey -a ds delete-surround
 # bindkey -a ys add-surround

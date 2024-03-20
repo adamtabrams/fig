@@ -10,16 +10,19 @@ gui:
       - blue
     unstagedChangesColor:
       - blue
+    selectedLineBgColor:
+      - black
   # showListFooter: false
   # showRandomTip: false
 git:
   paging:
     colorArg: always
     pager: delta --paging=never --dark --24-bit-color=never
+    # pager: delta --paging=never --dark
 os:
   edit: "$EDITOR {{filename}}"
   editAtLine: "$EDITOR +{{line}} {{filename}}"
-  editAtLineAndWait: "myeditor --block --line={{line}} {{filename}}"
+  # editAtLineAndWait: "myeditor --block --line={{line}} {{filename}}"
   editInTerminal: true
 quitOnTopLevelReturn: true
 notARepository: "skip" # prompt | create | skip
