@@ -1,11 +1,10 @@
--- TODO: Now
--- golang alternative file
--- neotest? neotest-go?
-
 -- TODO: Plugins
+-- Hop
+-- refine: flatnvim(unloaded bufs and paths)
+-- refine: go.lua and  go-git.lua
+-- neotest? neotest-go?
 -- use lazyvim fileds: 'keys' 'branch' 'event'
 -- colorscheme
--- Hop
 -- LSPs
 -- SchemaStore?
 -- luaSnip? friendly-snippets?
@@ -118,8 +117,8 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = '[D]iagnostic' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = '[D]iagnostic' })
-vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[E]rror messages' })
-vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[Q]uickfix list' })
+vim.keymap.set('n', '<leader>dm', vim.diagnostic.open_float, { desc = '[M]essage' })
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = '[L]ist' })
 
 -- Substitute
 vim.keymap.set('v', '<localleader>s', ':s//g<left><left>', { desc = '[S]ubstitute' })
@@ -216,7 +215,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
 
-  { import = 'custom.plugins' },
+  { import = 'plugins' },
 }, {
   performance = {
     rtp = {

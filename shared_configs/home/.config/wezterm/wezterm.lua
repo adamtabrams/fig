@@ -116,8 +116,8 @@ config.keys = {
 		action = wezterm.action.QuickSelectArgs({
 			label = "open link in browser",
 			patterns = {
-				"https?://[^ \"']+",
-				"www[.][^ .]+[.][^ \"']+",
+				"https?://[^ \"')]+",
+				"www[.][^ .]+[.][^ \"')]+",
 			},
 			scope_lines = 0,
 			action = wezterm.action_callback(function(window, pane)
@@ -136,8 +136,8 @@ config.keys = {
 		action = wezterm.action.QuickSelectArgs({
 			label = "open repo in browser",
 			patterns = {
-				"github.com/[^ \"']*",
-				"[^ .\"'/$]+/[^ \"'/]+",
+				"github.com/[^ \"')]*",
+				"[^ .\"'/$]+/[^ \"')/]+",
 			},
 			scope_lines = 0,
 			action = wezterm.action_callback(function(window, pane)
@@ -157,13 +157,13 @@ config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
 -- link without https prefix
 table.insert(config.hyperlink_rules, {
-	regex = "www[.][^ .]+[.][^ \"']+",
+	regex = "www[.][^ .]+[.][^ \"')]+",
 	format = "https://$0",
 })
 
 -- github links
 table.insert(config.hyperlink_rules, {
-	regex = "github.com[^ \"']*",
+	regex = "github.com[^ \"')]*",
 	format = "https://$0",
 })
 
@@ -175,7 +175,7 @@ table.insert(config.hyperlink_rules, {
 	-- regex = "[^ .\"'/$]+/[^ \"'/]+",
 	-- regex = "[\\w]+/[\\w.]+",
 	-- format = "https://github.com/$0",
-	regex = "[\"']([\\w-]+/[\\w.-]+)[\"']",
+	regex = "[\"']([\\w-]+/[\\w.-]+)[\"')]",
 	format = "https://github.com/$1",
 })
 
