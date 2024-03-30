@@ -46,6 +46,7 @@ _G.append_yank = function(mtype)
   end
 
   vim.fn.getreg '+'
+  --- @diagnostic disable-next-line: param-type-mismatch
   vim.fn.setreg('+', text, 'a')
 end
 

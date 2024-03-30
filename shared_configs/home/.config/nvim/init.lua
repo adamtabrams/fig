@@ -1,11 +1,8 @@
 -- TODO: Plugins
--- Hop
--- refine: flatnvim(unloaded bufs and paths)
--- refine: go.lua and  go-git.lua
 -- neotest? neotest-go?
+-- LSPs: shell
 -- use lazyvim fileds: 'keys' 'branch' 'event'
 -- colorscheme
--- LSPs
 -- SchemaStore?
 -- luaSnip? friendly-snippets?
 
@@ -14,6 +11,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 -- TODO: consider double space
+-- TODO: consider S
 
 -- [[ Options ]]
 
@@ -121,27 +119,32 @@ vim.keymap.set('n', '<leader>dm', vim.diagnostic.open_float, { desc = '[M]essage
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = '[L]ist' })
 
 -- Substitute
-vim.keymap.set('v', '<localleader>s', ':s//g<left><left>', { desc = '[S]ubstitute' })
-vim.keymap.set('n', '<localleader>s', ':%s//g<left><left>', { desc = '[S]ubstitute' })
-vim.keymap.set('n', '<localleader>S', ':%s/<c-r><c-w>//g<left><left>', { desc = '[S]ubstitute Current' })
+vim.keymap.set('v', 'gs', ':s//g<left><left>', { desc = '[S]ubstitute' })
+vim.keymap.set('n', 'gs', ':%s//g<left><left>', { desc = '[S]ubstitute' })
+vim.keymap.set('n', 'gS', ':%s/<c-r><c-w>//g<left><left>', { desc = '[S]ubstitute Current' })
 
 -- Quick quote
-vim.keymap.set('n', "g'", 'gsiW"', { desc = "[']Quote whole word", remap = true })
+-- vim.keymap.set('n', "g'", 'ysiW"', { desc = "[']Quote whole word", remap = true })
+vim.opt.iskeyword:append '$'
+vim.keymap.set('n', "g'", 'ysiw"', { desc = "[']Quote whole word", remap = true })
 
 -- Terminal escape
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+-- vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<c-q>', '<C-\\><C-n>', { desc = '[Q]uit Terminal Mode' })
 
 -- Splits
 vim.keymap.set('n', '<c-h>', '<c-w>W', { desc = 'Next Window' })
 vim.keymap.set('n', '<c-l>', '<c-w>w', { desc = 'Prev Window' })
--- vim.keymap.set('n', '<leader>wq', '<c-w>q', { desc = '[Q]uit' })
--- vim.keymap.set('n', '<leader>wo', '<c-w>o', { desc = '[O]nly' })
 vim.keymap.set('n', 'go', '<c-w>o', { desc = '[O]nly Window' })
+-- vim.keymap.set('n', 'gv', '<c-w>L', { desc = '[V]ertical' })
+-- vim.keymap.set('c', 'help', 'vert help')
+vim.keymap.set('c', 'vh ', 'vert help ')
 
 -- Buffers
 vim.keymap.set('n', '<c-j>', '<cmd>bn<cr>', { silent = true })
 vim.keymap.set('n', '<c-k>', '<cmd>bp<cr>', { silent = true })
-vim.keymap.set('n', '<c-q>', '<cmd>bd<cr>', { desc = '[Q]uit' })
+-- vim.keymap.set('n', '<c-q>', '<cmd>bd<cr>', { desc = '[Q]uit' })
+vim.keymap.set('n', '<c-q>', '<cmd>bd!<cr>', { desc = '[Q]uit' })
 
 -- Better defaults
 vim.keymap.set({ 'n', 'v' }, 'c', '"_c', { silent = true })
@@ -173,7 +176,6 @@ require('lazy').setup({
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]iagnostic', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]indow', _ = 'which_key_ignore' },
       }
     end,
   },

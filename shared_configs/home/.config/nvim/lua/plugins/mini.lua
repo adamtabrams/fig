@@ -6,16 +6,26 @@ return {
     config = function()
       -- Better Around/Inside textobjects
       -- [Y]ank [I]nside [N]ext [)]paren
-      -- [C]hange [I]nside [P]rev [)]paren
-      require('mini.ai').setup { n_lines = 500 }
+      -- [C]hange [I]nside [L]ast [)]paren
+      require('mini.ai').setup {
+        n_lines = 500,
+        -- search_method = 'cover_or_next',
+        mappings = {
+          -- NOTE: review these bindings
+          arount_next = 'an',
+          inside_next = 'in',
+          arount_last = 'aN',
+          inside_last = 'iN',
+        },
+      }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      -- [G]o [S]urround [I]nner [W]ord [)]paren
+      -- [Y]all? [S]urround [I]nner [W]ord [)]paren
       -- [D]elete [S]urround [)]paren
       -- [C]hange [S]urround [)]paren
       require('mini.surround').setup {
         mappings = {
-          add = 'gs',
+          add = 'ys',
           delete = 'ds',
           replace = 'cs',
           find = '',
@@ -24,6 +34,9 @@ return {
           update_n_lines = '',
         },
       }
+
+      -- NOTE: review this keymap
+      vim.keymap.set('n', 'dsf', "dt(mz%x'zx", {})
 
       local iscope = require 'mini.indentscope'
       iscope.setup {

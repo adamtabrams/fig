@@ -19,13 +19,18 @@ local get_file_url = function(branch, root_path)
   return branch .. relative_path .. '#L' .. vim.fn.line '.'
 end
 
-GitLink = function(git_type)
+GitLink = function(git_type, use_main)
   local Job = require 'plenary.job'
-  local git_remote = Job:new { command = 'git', args = { 'config', 'remote.origin.url' } }
+
   local git_branch = Job:new { command = 'git', args = { 'branch', '--show-current' } }
+  local git_remote = Job:new { command = 'git', args = { 'config', 'remote.origin.url' } }
   local git_root = Job:new { command = 'git', args = { 'rev-parse', '--show-toplevel' } }
-  git_remote:start()
+  if use_main then
+    git_branch.args = { 'branch', '--remotes', '--format', '%(symref:lstrip=-1)', '--list', '*/HEAD' }
+  end
+
   git_branch:start()
+  git_remote:start()
   git_root:start()
   Job.join(git_remote, git_branch, git_root)
 
@@ -42,7 +47,10 @@ GitLink = function(git_type)
   vim.print('copied url for: ' .. git_type .. file_url)
 end
 
-vim.keymap.set('n', 'gl', function() GitLink '/blob/' end, { desc = '[L]ink Git' })
-vim.keymap.set('n', 'gb', function() GitLink '/blame/' end, { desc = '[B]lame Git' })
+vim.keymap.set('n', 'ghb', function() GitLink '/blame/' end, { desc = '[B]lame' })
+vim.keymap.set('n', 'ghl', function() GitLink '/blob/' end, { desc = '[L]ink' })
+vim.keymap.set('n', 'ghm', function() GitLink('/blob/', true) end, { desc = '[M]ain' })
+-- vim.keymap.set('n', 'gl', function() GitLink '/blob/' end, { desc = '[L]ink Git' })
+-- vim.keymap.set('n', 'gb', function() GitLink '/blame/' end, { desc = '[B]lame Git' })
 
 return {}

@@ -9,7 +9,7 @@ return {
       toggle.setup {
         direction = 'float',
         -- start_in_insert = true,
-        -- persist_mode = false,
+        persist_mode = false,
       }
 
       local term = require 'toggleterm.terminal'
