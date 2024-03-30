@@ -7,6 +7,7 @@ stty stop undef # Disable ctrl-s to freeze terminal
 setopt autocd # Automatically cd into typed directory
 setopt interactivecomments
 setopt notify
+zle_highlight+=(paste:none)
 
 #### Prompt ######################################
 autoload -U promptinit
@@ -125,11 +126,10 @@ for m in visual viopp; do
 done
 
 # surround bindings
-autoload -U surround
-zle -N delete-surround surround
-zle -N add-surround surround
-zle -N change-surround surround
-# FIXME:
+# autoload -U surround
+# zle -N delete-surround surround
+# zle -N add-surround surround
+# zle -N change-surround surround
 # bindkey -a cs change-surround
 # bindkey -a ds delete-surround
 # bindkey -a ys add-surround

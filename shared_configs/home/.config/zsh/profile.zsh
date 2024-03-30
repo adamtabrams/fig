@@ -1,7 +1,8 @@
 #!/bin/zsh
 
 #### Flatnvim ####################################
-export EDITOR="$HOME/repos/flatnvim/bin/flatnvim"
+export EDITOR="nvim"
+# export EDITOR="$HOME/repos/flatnvim/bin/flatnvim"
 export FLATNVIM_EDITOR="nvim"
 export FLATNVIM_LOGFILE="$HOME/repos/flatnvim/log.txt"
 

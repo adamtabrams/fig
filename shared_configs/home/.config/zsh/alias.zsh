@@ -25,8 +25,9 @@ alias top="btm -ufgl --autohide_time --hide_table_gap --mem_as_value"
 alias topgrade="topgrade --disable system node pip3 containers"
 
 #### Configs #####################################
-alias .zsh="cd $ZDOTDIR"
-alias .env="$EDITOR $HOME/.zprofile"
-alias .nvim="cd $XDG_CONFIG_HOME/nvim/lua"
 alias .hist="$EDITOR $HISTFILE"
-alias .conf="cd $XDG_CONFIG_HOME"
+alias .env="$EDITOR $HOME/.zprofile"
+alias .alias="$EDITOR $ZDOTDIR/alias.zsh"
+alias .zsh="cd $ZDOTDIR && $EDITOR .zshrc"
+alias .nvim="cd $XDG_CONFIG_HOME/nvim && $EDITOR init.lua"
+alias .wez="$EDITOR $XDG_CONFIG_HOME/wezterm/wezterm.lua"

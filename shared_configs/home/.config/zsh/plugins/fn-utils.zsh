@@ -1,3 +1,6 @@
+# recursively find all todo comments
+todos() { rg -. $@ '(NOTE|TODO|FIXME|FIX|BUG|WARN|PERF|TEST|ISSUE|HACK|INFO):' }
+
 # print current local ip
 ip() { ifconfig | grep "inet " | tail -1 | cut -d " " -f 2 }
 
