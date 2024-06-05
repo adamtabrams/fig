@@ -14,7 +14,9 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
         callback = function(event)
-          local map = function(keys, func, desc) vim.keymap.set('n', keys, func, { buffer = event.buf, desc = desc }) end
+          local map = function(keys, func, desc)
+            vim.keymap.set('n', keys, func, { buffer = event.buf, desc = desc })
+          end
 
           -- Opens a popup that displays documentation about the word under your cursor
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -35,7 +37,11 @@ return {
           map('<leader>cs', require('telescope.builtin').lsp_document_symbols, '[S]ymbols in Document')
 
           -- Fuzzy find all the symbols in your current workspace
-          map('<leader>cS', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[S]ymbols in Workspace')
+          map(
+            '<leader>cS',
+            require('telescope.builtin').lsp_dynamic_workspace_symbols,
+            '[S]ymbols in Workspace'
+          )
 
           -- Find references for the word under your cursor.
           map('<leader>cr', require('telescope.builtin').lsp_references, '[R]eferences')
@@ -66,7 +72,8 @@ return {
 
       -- LSP servers and clients are able to communicate to each other what features they support.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities =
+        vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -85,7 +92,7 @@ return {
 
         lua_ls = {
           -- cmd = {...},
-          -- filetypes { ...},
+          -- filetypes = { ...},
           -- capabilities = {},
           settings = {
             Lua = {

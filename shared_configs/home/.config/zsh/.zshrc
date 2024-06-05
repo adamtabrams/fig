@@ -12,7 +12,8 @@ zle_highlight+=(paste:none)
 #### Prompt ######################################
 autoload -U promptinit
 promptinit
-PROMPT='%F{blue}>%f '
+# PROMPT='%F{blue}>%f '
+PROMPT='%F{blue}|>%f '
 RPROMPT='%F{yellow}%3~%f'
 
 #### Completion ##################################
@@ -82,7 +83,7 @@ zle -N edit-command-line
 bindkey -M vicmd 'v' edit-command-line
 
 # tab complete menu
-setopt menu_complete
+# setopt menu_complete
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char

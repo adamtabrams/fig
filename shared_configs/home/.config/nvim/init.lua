@@ -28,8 +28,8 @@ vim.opt.scrolloff = 10
 -- vim.opt.undofile = true
 -- vim.opt.signcolumn = 'yes'
 
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.shiftround = true
 vim.opt.expandtab = true
 
@@ -133,6 +133,7 @@ vim.keymap.set('n', "g'", 'ysiw"', { desc = "[']Quote whole word", remap = true 
 vim.keymap.set('t', '<c-q>', '<C-\\><C-n>', { desc = '[Q]uit Terminal Mode' })
 
 -- Splits
+-- TODO: use <c-h> and <c-l> somewhere?
 vim.keymap.set('n', '<c-h>', '<c-w>W', { desc = 'Next Window' })
 vim.keymap.set('n', '<c-l>', '<c-w>w', { desc = 'Prev Window' })
 vim.keymap.set('n', 'go', '<c-w>o', { desc = '[O]nly Window' })
@@ -141,8 +142,12 @@ vim.keymap.set('n', 'go', '<c-w>o', { desc = '[O]nly Window' })
 vim.keymap.set('c', 'vh ', 'vert help ')
 
 -- Buffers
-vim.keymap.set('n', '<c-j>', '<cmd>bn<cr>', { silent = true })
-vim.keymap.set('n', '<c-k>', '<cmd>bp<cr>', { silent = true })
+-- TODO: use <c-n> and <c-p> somewhere?
+vim.keymap.set('n', '<c-n>', '<cmd>bn<cr>', { silent = true })
+vim.keymap.set('n', '<c-p>', '<cmd>bp<cr>', { silent = true })
+-- vim.keymap.set('n', '<c-j>', '<cmd>bn<cr>', { silent = true })
+-- vim.keymap.set('n', '<c-k>', '<cmd>bp<cr>', { silent = true })
+
 -- vim.keymap.set('n', '<c-q>', '<cmd>bd<cr>', { desc = '[Q]uit' })
 vim.keymap.set('n', '<c-q>', '<cmd>bd!<cr>', { desc = '[Q]uit' })
 
@@ -234,3 +239,6 @@ require('lazy').setup({
     },
   },
 })
+
+-- up to date with commit-sha: 93fde0556e82ead2a5392ccb678359fa59437b98
+-- compare with nvim-lua/kickstart.nvim/compare/{commit-sha}...master

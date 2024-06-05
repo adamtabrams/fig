@@ -44,6 +44,11 @@ return {
           delay = 10,
           animation = iscope.gen_animation.none(),
         },
+        options = {
+          -- border = 'none',
+          border = 'top',
+          indent_at_cursor = false,
+        },
         symbol = '│',
       }
 

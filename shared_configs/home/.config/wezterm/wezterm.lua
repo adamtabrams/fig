@@ -7,8 +7,13 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- config.term = 'wezterm'
+
+config.color_scheme = 'OceanicNext (base16)'
+-- config.color_scheme = 'Solar Flare (base16)'
+-- config.color_scheme = 'nightfox'
 -- config.color_scheme = 'Tokyo Night Storm'
-config.color_scheme = 'nightfox'
+
+config.font = wezterm.font('FiraCode Nerd Font Mono', { weight = 'Medium' })
 config.font_size = 14
 config.audible_bell = 'Disabled'
 config.cursor_blink_rate = 0
@@ -29,7 +34,7 @@ config.keys = {
     action = wezterm.action.Nop,
   },
   {
-    key = "'",
+    key = ';',
     mods = 'SUPER',
     action = wezterm.action.SpawnWindow,
     -- action = wezterm.action.SpawnCommandInNewWindow({cwd = "" }),
@@ -152,8 +157,8 @@ config.keys = {
     action = wezterm.action.QuickSelectArgs {
       label = 'open repo in browser',
       patterns = {
-        'github.com/[^ "\')]*',
-        '[^ ."\'/$]+/[^ "\')/]+',
+        'github.com/[^ "\'),]*',
+        '[^ ."\'/$]+/[^ "\'),/]+',
       },
       scope_lines = 0,
       action = wezterm.action_callback(function(window, pane)
@@ -171,13 +176,13 @@ config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
 -- link without https prefix
 table.insert(config.hyperlink_rules, {
-  regex = 'www[.][^ .]+[.][^ "\')]+',
+  regex = 'www[.][^ .]+[.][^ "\'),]+',
   format = 'https://$0',
 })
 
 -- github links
 table.insert(config.hyperlink_rules, {
-  regex = 'github.com[^ "\')]*',
+  regex = 'github.com[^ "\'),]*',
   format = 'https://$0',
 })
 
@@ -189,7 +194,7 @@ table.insert(config.hyperlink_rules, {
   -- regex = "[^ .\"'/$]+/[^ \"'/]+",
   -- regex = "[\\w]+/[\\w.]+",
   -- format = "https://github.com/$0",
-  regex = '["\']([\\w-]+/[\\w.-]+)["\')]',
+  regex = '["\']([\\w-]+/[\\w.-]+)["\'),]',
   format = 'https://github.com/$1',
 })
 
