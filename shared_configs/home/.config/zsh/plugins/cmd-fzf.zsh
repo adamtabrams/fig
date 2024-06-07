@@ -4,11 +4,13 @@ export PATH="$FZF_COMP_DIR/bin:$PATH"
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "$FZF_COMP_DIR/shell/completion.zsh" 2> /dev/null
+# TODO: disabled for testing
+# [[ $- == *i* ]] && source "$FZF_COMP_DIR/shell/completion.zsh" 2> /dev/null
 
 # Key bindings
 # ------------
-source "$FZF_COMP_DIR/shell/key-bindings.zsh"
+# source "$FZF_COMP_DIR/shell/key-bindings.zsh"
+source <(fzf --zsh)
 
 bindkey '^G' fzf-cd-widget
 bindkey '^F' fzf-file-widget
