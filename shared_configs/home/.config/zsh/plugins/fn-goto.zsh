@@ -13,6 +13,8 @@ ghelp() {
   echo "g.l - goto/open from ~/.local"
 }
 
+# TODO: combine gg and gi
+
 # go to a repo
 # NOTE: still testing this
 gr() {
@@ -67,7 +69,12 @@ gs() { _goto_or_open "$HOME/save" }
 g.c() { _goto_or_open "$XDG_CONFIG_HOME" --follow }
 g.l() { _goto_or_open "$XDG_DATA_HOME" --follow }
 
-# helper funcion to go to dir or open file for a given path
+# helper function to find all git repos with fd
+_fd_repos() {
+  echo "fd -IH -d 3 -t d $@ --format '{//}' --base-directory ~/repos '^.git$'"
+}
+
+# helper function to go to dir or open file for a given path
 _goto_or_open() {
   parent=$1
 
@@ -78,18 +85,25 @@ _goto_or_open() {
   [ "$goto" ] && cd $(dirname "$parent/$goto") && "$EDITOR" "$parent/$goto"
 }
 
-# helper funcion to go to recent dir if only one match exists
+# helper function to go to recent dir if only one match exists
 _filter_recent() {
-  goto=$(sed "s|^$HOME|~|" $DIRSTACKFILE | grep -E "^[~]*(/[^/]*){1,4}$" | fzf --filter="$1" | sed "s|^~|$HOME|")
-  [ $(echo "$goto" | wc -l) = 1 ] && cd "$goto" && return
+  query="$1"
 
-  goto=$(FZF_DEFAULT_COMMAND=$(_fd_repos --changed-within 4weeks) fzf --filter="$1")
-  [ $(echo "$goto" | wc -l) = 1 ] && cd "$HOME/repos/$goto" && return
+  sed "s|^$HOME|~|" $DIRSTACKFILE | grep -E "^[~]*(/[^/]*){1,4}$" |
+    _one_match_goto "$1" && return
+  eval $(_fd_repos --changed-within 4weeks) |
+    _one_match_goto "$1" "$HOME/repos/" && return
+  eval $(_fd_repos) |
+    _one_match_goto "$1" "$HOME/repos/" && return
 
   return 1
 }
 
-# helper funcion to find all git repos with fd
-_fd_repos() {
-  echo "fd -IH -d 3 -t d $@ --format '{//}' --base-directory ~/repos '^.git$'"
+# helper^2 function
+_one_match_goto() {
+  query=$1
+  path_prefix=$2
+  matches=$(sed "s|^$HOME|~|" | grep "$query" | sed "s|^~|$HOME|")
+  [ $(echo "$matches" | wc -l) != 1 ] && return 1
+  cd "$path_prefix$matches"
 }

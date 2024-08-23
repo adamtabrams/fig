@@ -2,13 +2,13 @@ _sessions="$XDG_STATE_HOME/zsh/sessions"
 _active="$_sessions/active"
 
 _select_session() {
-  for _selected in $(cd "$_sessions" && ls | fzf +m --preview-window='default'); do
+  for _selected in $(cd "$_sessions" && ls -1 | sort -rn | fzf +m --preview-window='default'); do
     echo "$_selected" > "$_active"
   done
 }
 
 _rm_session() {
-  for _selected in $(cd "$_sessions" && ls | fzf -m --preview-window='default'); do
+  for _selected in $(cd "$_sessions" && ls -1 | sort -rn | fzf -m --preview-window='default'); do
     rm "$_sessions/$_selected"
   done
 }
