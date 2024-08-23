@@ -10,10 +10,19 @@ gclone() {
     cd "$dir" && echo "cd $dir"
 }
 
+
 gcurl() {
-    url=$(echo "$1" | sed -e 's|://github\.com|://raw.githubusercontent.com|' -e 's|\(://github\..*\.com\)|\1/raw|' -e 's|/blob/|/|')
+    url=$(echo "$1" | sed -e 's|://github\.com/|://api.github\.com/repos/|' -e 's|/blob/[^/]*/|/contents/|')
     file=${2:-$(basename "$url")}
     [ ! "$url" ] && { echo "no url provided"; return; }
     [ -e "$file" ] && { echo "already exists: $file"; return; }
-    curl "$url" > "$file"
+    gh api "$url" -H "Accept: application/vnd.github.raw" > "$file"
 }
+
+# gcurl() {
+#     url=$(echo "$1" | sed -e 's|://github\.com|://raw.githubusercontent.com|' -e 's|\(://github\..*\.com\)|\1/raw|' -e 's|/blob/|/|')
+#     file=${2:-$(basename "$url")}
+#     [ ! "$url" ] && { echo "no url provided"; return; }
+#     [ -e "$file" ] && { echo "already exists: $file"; return; }
+#     curl "$url" > "$file"
+# }

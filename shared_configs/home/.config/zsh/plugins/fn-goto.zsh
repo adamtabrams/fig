@@ -1,10 +1,10 @@
 # list quick-select commands
 ghelp() {
-  echo "gg  - goto root of repo"
   echo "gr  - goto repo"
   echo "grr - goto recent repo"
-  echo "gl  - goto latest dir"
+  echo "gg  - goto root of repo"
   echo "gi  - goto latest dir inside current"
+  echo "gl  - goto latest dir"
   echo "or  - open repo in browser"
   echo "lr  - open repo(s) in lazygit"
   echo "gt  - goto/open from ~/temp"
@@ -13,32 +13,33 @@ ghelp() {
   echo "g.l - goto/open from ~/.local"
 }
 
-# goto root dir of current repo
-gg() {
-  dot_git_path=$(git rev-parse --git-dir 2>/dev/null)
-  [  "$dot_git_path" ] && cd "$(dirname "$dot_git_path")"
-}
-
-# NOTE: swapped names for testing
-
 # go to a repo
-grr() {
-  repo=$(cd ~/repos && FZF_DEFAULT_COMMAND=$(_fzf_repos_cmd) fzf)
+# NOTE: still testing this
+gr() {
+  [ "$1" ] && _filter_recent "$1" && return
+  repo=$(FZF_DEFAULT_COMMAND=$(_fd_repos) fzf --query="$1")
   [ "$repo" ] && cd "$HOME/repos/$repo"
 }
 
 # go to a recent repo
-gr() {
-  repo=$(cd ~/repos && FZF_DEFAULT_COMMAND=$(_fzf_repos_cmd --changed-within 4weeks) fzf)
-  [ "$repo" ] && cd "$HOME/repos/$repo"
-  [ ! "$repo" ] && grr
+# NOTE: still testing this
+grr() {
+  repo=$(FZF_DEFAULT_COMMAND=$(_fd_repos --changed-within 4weeks) fzf --no-clear)
+  [ "$repo" ] && tput rmcup && cd "$HOME/repos/$repo" && return
+  gr
 }
 
 # go to one of the lastest dirs
+# TODO: trim and sort instead of just filter
 gl() {
-  # TODO: trim and sort instead of just filter
   goto=$(cat $DIRSTACKFILE | sed "s|^$HOME|~|" | grep -E "^[~]*(/[^/]*){1,4}$" | fzf |  sed "s|^~|$HOME|")
   [ "$goto" ] && cd "$goto"
+}
+
+# goto root dir of current repo
+gg() {
+  dot_git_path=$(git rev-parse --git-dir 2>/dev/null)
+  [  "$dot_git_path" ] && cd "$(dirname "$dot_git_path")"
 }
 
 # go to one of the lastest dirs below current directory
@@ -54,9 +55,9 @@ or() {
 }
 
 # use lazygit on one or more repos
+# TODO: consider lf and gitui
 lr() {
-  # TODO: consider lf and gitui
-  for repo in $(cd ~/repos && FZF_DEFAULT_COMMAND=$(_fzf_repos_cmd) fzf --multi); do
+  for repo in $(FZF_DEFAULT_COMMAND=$(_fd_repos) fzf --query="$1" --multi); do
     lazygit -p "$HOME/repos/$repo"
   done
 }
@@ -68,14 +69,27 @@ g.l() { _goto_or_open "$XDG_DATA_HOME" --follow }
 
 # helper funcion to go to dir or open file for a given path
 _goto_or_open() {
-  parent_dir=$1
-  goto=$(cd $parent_dir && fd ${@:2} | fzf)
-  [ ! "$goto" ] && return
-  goto_full="$parent_dir/$goto"
-  [ -d "$goto_full" ] && cd "$goto_full"
-  [ -f "$goto_full" ] && cd $(dirname "$goto_full") && "$EDITOR" "$goto_full"
+  parent=$1
+
+  goto=$(cd "$parent" && fd -t d ${@:2} | fzf --no-clear)
+  [ "$goto" ] && tput rmcup && cd "$parent/$goto" && return
+
+  goto=$(cd "$parent" && fd -t f ${@:2} | fzf)
+  [ "$goto" ] && cd $(dirname "$parent/$goto") && "$EDITOR" "$parent/$goto"
 }
 
-_fzf_repos_cmd() {
-  echo "fd -d 3 -t d -I -H --strip-cwd-prefix $@ '^.git$' -x dirname"
+# helper funcion to go to recent dir if only one match exists
+_filter_recent() {
+  goto=$(sed "s|^$HOME|~|" $DIRSTACKFILE | grep -E "^[~]*(/[^/]*){1,4}$" | fzf --filter="$1" | sed "s|^~|$HOME|")
+  [ $(echo "$goto" | wc -l) = 1 ] && cd "$goto" && return
+
+  goto=$(FZF_DEFAULT_COMMAND=$(_fd_repos --changed-within 4weeks) fzf --filter="$1")
+  [ $(echo "$goto" | wc -l) = 1 ] && cd "$HOME/repos/$goto" && return
+
+  return 1
+}
+
+# helper funcion to find all git repos with fd
+_fd_repos() {
+  echo "fd -IH -d 3 -t d $@ --format '{//}' --base-directory ~/repos '^.git$'"
 }
