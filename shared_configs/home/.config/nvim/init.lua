@@ -176,11 +176,15 @@ require('lazy').setup({
     'folke/which-key.nvim',
     event = 'VeryLazy',
     config = function()
-      require('which-key').setup()
-      require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]iagnostic', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+      require('which-key').setup {
+        icons = {
+          mappings = false,
+        },
+      }
+      require('which-key').add {
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>d', group = '[D]iagnostic' },
+        { '<leader>s', group = '[S]earch' },
       }
     end,
   },
