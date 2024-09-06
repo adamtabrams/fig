@@ -2,6 +2,7 @@ vim.keymap.set('n', ',t', '<cmd>term<cr>', { desc = '[T]erminal', silent = true 
 vim.keymap.set('n', ',l', '<cmd>term lf<cr>', { desc = '[L]F', silent = true })
 vim.keymap.set('n', ',L', '<cmd>term lazygit<cr>', { desc = '[L]azygit', silent = true })
 vim.keymap.set('n', ',h', '<cmd>term lazygit -f %<cr>', { desc = '[H]istory', silent = true })
+vim.keymap.set('n', ',b', '<cmd>term git blame %<cr>', { desc = '[B]lame', silent = true })
 
 vim.api.nvim_create_autocmd('TermOpen', {
   desc = 'Configure window for builtin terminal',

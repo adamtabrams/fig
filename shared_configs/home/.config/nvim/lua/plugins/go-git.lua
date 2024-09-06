@@ -47,10 +47,27 @@ GitLink = function(git_type, use_main)
   vim.print('copied url for: ' .. git_type .. file_url)
 end
 
-vim.keymap.set('n', 'ghb', function() GitLink '/blame/' end, { desc = '[B]lame' })
+SimpleBlame = function()
+  local file = vim.fn.expand '%'
+  local line = vim.fn.line '.'
+  local cmd = require('plenary.job'):new {
+    command = 'git',
+    args = {
+      'log',
+      '--format="%as %an"',
+      '--no-patch',
+      '-L' .. line .. ',+1:' .. file,
+    },
+  }
+  cmd:sync()
+  vim.print(cmd:result()[1])
+end
+
+vim.keymap.set('n', 'ghB', function() GitLink '/blame/' end, { desc = '[B]lame' })
 vim.keymap.set('n', 'ghl', function() GitLink '/blob/' end, { desc = '[L]ink' })
 vim.keymap.set('n', 'ghm', function() GitLink('/blob/', true) end, { desc = '[M]ain' })
 -- vim.keymap.set('n', 'gl', function() GitLink '/blob/' end, { desc = '[L]ink Git' })
 -- vim.keymap.set('n', 'gb', function() GitLink '/blame/' end, { desc = '[B]lame Git' })
+vim.keymap.set('n', 'ghb', function() SimpleBlame() end, { desc = '[B]lame simple' })
 
 return {}
