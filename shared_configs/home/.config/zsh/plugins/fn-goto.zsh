@@ -104,6 +104,7 @@ _one_match_goto() {
   query=$1
   path_prefix=$2
   matches=$(sed "s|^$HOME|~|" | grep "$query" | sed "s|^~|$HOME|")
+  [ ! "$matches" ] && return 1
   [ $(echo "$matches" | wc -l) != 1 ] && return 1
   cd "$path_prefix$matches"
 }

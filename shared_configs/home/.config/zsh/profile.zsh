@@ -16,8 +16,7 @@ export VISUAL="$EDITOR"
 export PAGER="bat"
 export GIT_PAGER="delta"
 export GIT_EDITOR="$EDITOR"
-# export MANPAGER="col -bx | $PAGER --language=man"
-export MANPAGER="sh -c \"col -bx | $PAGER -p --language=man\""
+export MANPAGER="sh -c 'col -bx | bat -p --language=man'"
 
 #### Files/Dirs ##################################
 # export MYHIST="$HOME/.local/history/histfile"
