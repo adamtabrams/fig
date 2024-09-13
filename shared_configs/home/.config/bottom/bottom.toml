@@ -1,0 +1,9 @@
+[flags]
+group_processes = true
+current_usage = true
+unnormalized_cpu = true
+process_memory_as_value = true
+hide_time = true
+battery = true
+cpu_left_legend = true
+temperature_type = "fahrenheit"
