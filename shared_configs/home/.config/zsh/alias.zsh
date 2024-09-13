@@ -3,8 +3,8 @@ alias ls="ls -Hp"
 alias bc="bc -q"
 
 #### Shortcut ####################################
-alias vim="$EDITOR"
-alias vi="$EDITOR"
+# alias vim="$EDITOR"
+# alias vi="$EDITOR"
 alias v="$EDITOR"
 alias lf="lfcd"
 alias l="lfcd"
@@ -19,7 +19,6 @@ alias ldk="lazydocker"
 alias yay="pacapt"
 alias cll="printf '\033\143'"
 alias loc="tokei -s code"
-alias top="btm -ufgl --autohide_time --hide_table_gap --mem_as_value"
 alias topgrade="topgrade --disable system node pip3 containers"
 
 #### Configs #####################################

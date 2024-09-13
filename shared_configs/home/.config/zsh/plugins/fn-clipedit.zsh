@@ -9,3 +9,5 @@ clipedit() {
     "$copy_cmd" < "$temp_file"
     rm "$temp_file"
 }
+
+alias ce='clipedit'
