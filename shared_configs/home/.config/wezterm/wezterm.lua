@@ -156,9 +156,11 @@ config.keys = {
     mods = 'ALT',
     action = wezterm.action.QuickSelectArgs {
       label = 'open repo in browser',
+      -- patterns = { 'github.com/[^ "\'),]*', '[^ ."\'/$]+/[^ "\'),/]+' },
       patterns = {
-        'github.com/[^ "\'),]*',
-        '[^ ."\'/$]+/[^ "\'),/]+',
+        'github.com/[0-9A-Za-z._-]+/[0-9A-Za-z._-]+',
+        'github.com/[0-9A-Za-z._-]+',
+        '[0-9A-Za-z._-]+/[0-9A-Za-z._-]+',
       },
       scope_lines = 0,
       action = wezterm.action_callback(function(window, pane)
@@ -182,21 +184,17 @@ table.insert(config.hyperlink_rules, {
 
 -- github links
 table.insert(config.hyperlink_rules, {
-  regex = 'github.com[^ "\'),]*',
+  regex = 'github.com/[0-9A-Za-z._-]+/[0-9A-Za-z._-]+',
   format = 'https://$0',
 })
 
 -- github repos
--- TODO:
--- ignore if traling /
--- disallow more symbols: [] + * , : =
 table.insert(config.hyperlink_rules, {
-  -- regex = "[^ .\"'/$]+/[^ \"'/]+",
-  -- regex = "[\\w]+/[\\w.]+",
-  -- format = "https://github.com/$0",
-  regex = '["\']([\\w-]+/[\\w.-]+)["\'),]',
+  regex = '["\' ]([0-9A-Za-z._-]+/[0-9A-Za-z._-]+)["\' ,@]',
   format = 'https://github.com/$1',
 })
+
+-- TODO: disable horizontal scrolling
 
 -- config.disable_default_mouse_bindings = true
 -- config.mouse_bindings = {
@@ -209,6 +207,5 @@ table.insert(config.hyperlink_rules, {
 -- 		action = wezterm.action.Nop,
 -- 	},
 -- }
--- TODO: disable horizontal scrolling
 
 return config
