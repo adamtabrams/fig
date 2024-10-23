@@ -34,6 +34,11 @@ config.keys = {
     action = wezterm.action.Nop,
   },
   {
+    key = 'w',
+    mods = 'SUPER',
+    action = wezterm.action.Nop,
+  },
+  {
     key = ';',
     mods = 'SUPER',
     action = wezterm.action.SpawnWindow,
@@ -114,13 +119,13 @@ config.keys = {
     },
   },
   -- {
-  -- 	key = "o",
-  -- 	mods = "ALT|SHIFT",
-  -- 	action = wezterm.action.QuickSelectArgs({
-  -- 		label = "copy output",
-  -- 		patterns = { "(?sm:arch.*valid2)" },
-  -- 		-- scope_lines = 0,
-  -- 	}),
+  --   key = 'o',
+  --   mods = 'ALT|SHIFT',
+  --   action = wezterm.action.QuickSelectArgs {
+  --     label = 'copy output',
+  --     patterns = { '(?ms)[^ |>].*[^ |>]' },
+  --     -- scope_lines = 0,
+  --   },
   -- },
   -- {
   -- 	key = "l",

@@ -1,5 +1,5 @@
 # for profiling
-# zmodload zsh/zprof
+zmodload zsh/zprof
 
 #### General #####################################
 export KEYTIMEOUT=1
@@ -13,10 +13,14 @@ zle_highlight+=(paste:none)
 autoload -U promptinit
 promptinit
 # PROMPT='%F{blue}>%f '
-PROMPT='%F{blue}|>%f '
-RPROMPT='%F{yellow}%3~%f'
+# PROMPT='%F{blue}|>%f '
+# RPROMPT='%F{yellow}%3~%f'
+PROMPT='
+%F{yellow}%3~%f
+%F{blue}|>%f '
 
 #### Completion ##################################
+# TODO: replace with fzf?
 autoload -U compinit
 # autoload -Uz +X compinit
 zstyle ':completion:*' matcher-list 'm:{a-z\-}={A-Z\_}'
@@ -160,4 +164,4 @@ source "$ZSH_HIGHLIGHT_DIR/zsh-fast-syntax-highlighting/fast-syntax-highlighting
 export FAST_HIGHLIGHT[chroma-man]=
 
 # for profiling
-# zprof > "$ZDOTDIR/zprof.txt"
+zprof > "$ZDOTDIR/zprof.txt"

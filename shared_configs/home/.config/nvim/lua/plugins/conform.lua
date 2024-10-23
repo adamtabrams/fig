@@ -1,5 +1,6 @@
 -- if true then return {} end
 
+-- TODO: combine with lsp.lua
 -- TODO: try event VeryLazy
 
 return {

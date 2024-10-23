@@ -16,15 +16,16 @@ ghelp() {
 # TODO: combine gg and gi
 
 # go to a repo
-# NOTE: still testing this
+# NOTE: still testing recent changes
 gr() {
   [ "$1" ] && _filter_recent "$1" && return
   repo=$(FZF_DEFAULT_COMMAND=$(_fd_repos) fzf --query="$1")
-  [ "$repo" ] && cd "$HOME/repos/$repo"
+  # [ "$repo" ] && cd "$HOME/repos/$repo"
+  [ "$repo" ] && _cd_latest_subdir "$HOME/repos/$repo"
 }
 
 # go to a recent repo
-# NOTE: still testing this
+# NOTE: still testing recent changes
 grr() {
   repo=$(FZF_DEFAULT_COMMAND=$(_fd_repos --changed-within 4weeks) fzf --no-clear)
   [ "$repo" ] && tput rmcup && cd "$HOME/repos/$repo" && return
@@ -34,7 +35,7 @@ grr() {
 # go to one of the lastest dirs
 # TODO: trim and sort instead of just filter
 gl() {
-  goto=$(cat $DIRSTACKFILE | sed "s|^$HOME|~|" | grep -E "^[~]*(/[^/]*){1,4}$" | fzf |  sed "s|^~|$HOME|")
+  goto=$(sed "s|^$HOME|~|" $DIRSTACKFILE | grep -E "^[~]*(/[^/]*){1,4}$" | fzf |  sed "s|^~|$HOME|")
   [ "$goto" ] && cd "$goto"
 }
 
@@ -46,8 +47,15 @@ gg() {
 
 # go to one of the lastest dirs below current directory
 gi() {
-  goto=$(grep "^$PWD." "$DIRSTACKFILE" | fzf)
+  goto=$(grep "^$PWD/" $DIRSTACKFILE | sed "s,^$PWD/,," | fzf)
   [ "$goto" ] && cd "$goto"
+}
+
+# go to one of the lastest dirs in current repo
+# NOTE: still testing this. this may not be needed
+ga() {
+  gg
+  gi
 }
 
 # open a repo in the browser
@@ -78,33 +86,45 @@ _fd_repos() {
 _goto_or_open() {
   parent=$1
 
+  # select working dir
   goto=$(cd "$parent" && fd -t d ${@:2} | fzf --no-clear)
-  [ "$goto" ] && tput rmcup && cd "$parent/$goto" && return
+  [ "$goto" ] && parent="$parent/$goto" && cd "$parent"
+  # [ "$goto" ] && tput rmcup && cd "$parent/$goto" && return
 
+  # select file to edit
   goto=$(cd "$parent" && fd -t f ${@:2} | fzf)
-  [ "$goto" ] && cd $(dirname "$parent/$goto") && "$EDITOR" "$parent/$goto"
+  [ "$goto" ] && "$EDITOR" "$parent/$goto"
+  # [ "$goto" ] && cd $(dirname "$parent/$goto") && "$EDITOR" "$parent/$goto"
 }
 
-# helper function to go to recent dir if only one match exists
+# helper function to go to recent repo dir if only one match exists
 _filter_recent() {
   query="$1"
 
   sed "s|^$HOME|~|" $DIRSTACKFILE | grep -E "^[~]*(/[^/]*){1,4}$" |
-    _one_match_goto "$1" && return
+    _cd_if_one_match "$1" && return
   eval $(_fd_repos --changed-within 4weeks) |
-    _one_match_goto "$1" "$HOME/repos/" && return
+    _cd_if_one_match "$1" "$HOME/repos/" && return
   eval $(_fd_repos) |
-    _one_match_goto "$1" "$HOME/repos/" && return
+    _cd_if_one_match "$1" "$HOME/repos/" && return
 
   return 1
 }
 
-# helper^2 function
-_one_match_goto() {
+_cd_if_one_match() {
   query=$1
   path_prefix=$2
   matches=$(sed "s|^$HOME|~|" | grep "$query" | sed "s|^~|$HOME|")
   [ ! "$matches" ] && return 1
   [ $(echo "$matches" | wc -l) != 1 ] && return 1
-  cd "$path_prefix$matches"
+  # cd "$path_prefix$matches"
+  _cd_latest_subdir "$path_prefix$matches"
+}
+
+# NOTE: still testing this. this may not be needed
+_cd_latest_subdir() {
+  parentdir=$1
+  subdir=$(grep "^$parentdir" $DIRSTACKFILE | head -n 1)
+  [ "$subdir" ] && cd "$subdir" && return
+  cd "$parentdir"
 }

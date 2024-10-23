@@ -4,7 +4,6 @@ return {
   {
     'echasnovski/mini.nvim',
     config = function()
-      -- Better Around/Inside textobjects
       -- [Y]ank [I]nside [N]ext [)]paren
       -- [C]hange [I]nside [L]ast [)]paren
       require('mini.ai').setup {
@@ -19,13 +18,9 @@ return {
         },
       }
 
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      -- [Y]all? [S]urround [I]nner [W]ord [)]paren
-      -- [D]elete [S]urround [)]paren
-      -- [C]hange [S]urround [)]paren
       require('mini.surround').setup {
         mappings = {
-          add = 'ys',
+          add = 'gs',
           delete = 'ds',
           replace = 'cs',
           find = '',
@@ -35,8 +30,8 @@ return {
         },
       }
 
-      -- NOTE: review this keymap
-      vim.keymap.set('n', 'dsf', "dt(mz%x'zx", {})
+      vim.keymap.set('n', "g'", 'gsiw"', { desc = "[']Quote whole word", remap = true })
+      vim.keymap.set('n', 'dsf', 'dt(ds(', { remap = true, desc = '[D]el [S]urround [F]unction' })
 
       local iscope = require 'mini.indentscope'
       iscope.setup {
@@ -52,15 +47,14 @@ return {
         symbol = '│',
       }
 
-      -- Comment and uncomment lines
-      local yank_lines = function(data)
-        if data.action ~= 'toggle' then return end
-        local lines = vim.api.nvim_buf_get_lines(0, data.line_start - 1, data.line_end, false)
-        vim.fn.setreg('+', lines)
-      end
-
       require('mini.comment').setup {
-        hooks = { pre = yank_lines },
+        hooks = {
+          pre = function(data)
+            if data.action ~= 'toggle' then return end
+            local lines = vim.api.nvim_buf_get_lines(0, data.line_start - 1, data.line_end, false)
+            vim.fn.setreg('+', lines)
+          end,
+        },
       }
 
       -- Simple statusline

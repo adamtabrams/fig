@@ -31,12 +31,19 @@ return {
         yank_register = '+',
       }
 
-      vim.keymap.set('n', '<leader>l', '<cmd>HopLineStart<cr>', { desc = '[L]ine Hop' })
-      vim.keymap.set('n', '<leader>L', '<cmd>HopLine<cr>', { desc = '[L]ine Any Hop' })
-      vim.keymap.set('n', '<leader>n', '<cmd>HopNodes<cr>', { desc = '[N]ode Hope' })
-      vim.keymap.set('n', '<leader>f', '<cmd>HopWordCurrentLine<cr>', { desc = '[F]ind Hop' })
-      vim.keymap.set('n', '<leader>a', '<cmd>HopWord<cr>', { desc = '[A]ny Word Hop' })
+      -- testing
+      vim.keymap.set({ 'n', 'v' }, 'gl', '<cmd>HopLine<cr>', { desc = '[L]ine Any Hop' })
+      -- vim.keymap.set('n', 'ga', '<cmd>HopWordMW<cr>', { desc = '[A]ny Window Hop' })
+      -- vim.keymap.set('n', 'gy', '<cmd>HopLine<cr>yy<c-o>', { desc = '[Y]ank Line Hop' })
+      -- vim.keymap.set('n', '<leader>yy', '<cmd>HopLine<cr>yy<c-o>', { desc = '[Y]ank Line Hop' })
+      -- testing
+
+      -- vim.keymap.set('n', '<leader>L', '<cmd>HopLine<cr>', { desc = '[L]ine Any Hop' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>l', '<cmd>HopLineStart<cr>', { desc = '[L]ine Hop' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>f', '<cmd>HopWordCurrentLine<cr>', { desc = '[F]ind Hop' })
       vim.keymap.set('n', '<leader>A', '<cmd>HopWordMW<cr>', { desc = '[A]ny Window Hop' })
+      vim.keymap.set('n', '<leader>a', '<cmd>HopWord<cr>', { desc = '[A]ny Word Hop' })
+      vim.keymap.set('n', '<leader>n', '<cmd>HopNodes<cr>', { desc = '[N]ode Hope' })
       -- vim.keymap.set('n', '<leader>y', '<cmd>HopYankChar1<cr>', { desc = '[Y]ank Hop' })
     end,
   },

@@ -38,9 +38,19 @@ return {
       vim.keymap.set('n', '<leader>sW', builtin.grep_string, { desc = '[W]ord Current' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[F]iles' })
       vim.keymap.set('n', '<leader>sG', builtin.git_files, { desc = '[G]it Root' })
-      vim.keymap.set('n', '<leader>sg', function() builtin.git_files { use_git_root = false } end, { desc = '[G]it' })
+      vim.keymap.set(
+        'n',
+        '<leader>sg',
+        function() builtin.git_files { use_git_root = false } end,
+        { desc = '[G]it' }
+      )
 
-      vim.keymap.set('n', '<leader>sc', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end, { desc = '[C]onfig' })
+      vim.keymap.set(
+        'n',
+        '<leader>sc',
+        function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end,
+        { desc = '[C]onfig' }
+      )
 
       vim.keymap.set(
         'n',
@@ -54,7 +64,13 @@ return {
         { desc = '[/]Across Buffers' }
       )
 
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ]Change Buffer' })
+      -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ]Change Buffer' })
+
+      -- Testing
+      vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[ ]files' })
+      vim.keymap.set('n', '<leader>t', builtin.builtin, { desc = '[T]elescope' })
+      vim.keymap.set('n', '<leader>h', builtin.help_tags, { desc = '[H]elp' })
+      -- Testing
 
       vim.keymap.set(
         'n',
