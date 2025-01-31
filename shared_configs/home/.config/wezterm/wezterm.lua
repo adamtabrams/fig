@@ -39,7 +39,7 @@ config.keys = {
     action = wezterm.action.Nop,
   },
   {
-    key = ';',
+    key = "'",
     mods = 'SUPER',
     action = wezterm.action.SpawnWindow,
     -- action = wezterm.action.SpawnCommandInNewWindow({cwd = "" }),
