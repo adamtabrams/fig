@@ -8,3 +8,5 @@ eval "$(brew shellenv)"
 
 export FZF_COMP_DIR="$HOMEBREW_PREFIX/opt/fzf"
 export ZSH_HIGHLIGHT_DIR="$HOMEBREW_PREFIX/opt/zsh-fast-syntax-highlighting/share"
+
+alias beep="afplay /System/Library/Sounds/Glass.aiff"

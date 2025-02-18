@@ -95,7 +95,7 @@ config.keys = {
     action = wezterm.action.QuickSelectArgs {
       label = 'copy anywhere',
       -- patterns = { '[^ "\']+' },
-      patterns = { '[^ :/"\']+' },
+      patterns = { '[^ =/:"\']+' },
       scope_lines = 0,
     },
   },
@@ -105,7 +105,7 @@ config.keys = {
     action = wezterm.action.QuickSelectArgs {
       label = 'copy word',
       -- patterns = { '[A-Za-z0-9._-]+' },
-      patterns = { '[^ "\']+' },
+      patterns = { '[^ :"\']+' },
       scope_lines = 0,
     },
   },

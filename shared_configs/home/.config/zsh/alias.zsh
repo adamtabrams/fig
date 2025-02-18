@@ -24,6 +24,7 @@ alias topgrade="topgrade --disable system node pip3 containers"
 #### Configs #####################################
 alias .hist="$EDITOR $HISTFILE"
 alias .env="$EDITOR $HOME/.zprofile"
+alias .zenv="$EDITOR $ZDOTDIR/profile.zsh"
 alias .alias="$EDITOR $ZDOTDIR/alias.zsh"
 alias .zsh="cd $ZDOTDIR && $EDITOR .zshrc"
 alias .nvim="cd $XDG_CONFIG_HOME/nvim && $EDITOR init.lua"
