@@ -15,7 +15,6 @@ config.color_scheme = 'OceanicNext (base16)'
 
 config.font = wezterm.font('FiraCode Nerd Font Mono', { weight = 'Medium' })
 config.font_size = 14
-config.audible_bell = 'Disabled'
 config.cursor_blink_rate = 0
 config.enable_tab_bar = false
 config.window_decorations = 'RESIZE | MACOS_FORCE_DISABLE_SHADOW'
@@ -95,7 +94,7 @@ config.keys = {
     action = wezterm.action.QuickSelectArgs {
       label = 'copy anywhere',
       -- patterns = { '[^ "\']+' },
-      patterns = { '[^ =/:"\']+' },
+      patterns = { '[^ .=/:"\']+' },
       scope_lines = 0,
     },
   },

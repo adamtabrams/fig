@@ -7,6 +7,7 @@ stty stop undef # Disable ctrl-s to freeze terminal
 setopt autocd # Automatically cd into typed directory
 setopt interactivecomments
 setopt notify
+setopt nobeep
 zle_highlight+=(paste:none)
 
 #### Prompt ######################################
