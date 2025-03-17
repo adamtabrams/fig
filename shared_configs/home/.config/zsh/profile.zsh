@@ -16,11 +16,12 @@ export VISUAL="$EDITOR"
 export PAGER="bat"
 export GIT_PAGER="delta"
 export GIT_EDITOR="$EDITOR"
-export MANPAGER="sh -c 'col -bx | bat -p --language=man'"
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 
 #### Files/Dirs ##################################
 # export MYHIST="$HOME/.local/history/histfile"
 export LESSHISTFILE="-"
+export LESS="-Q"
 export CALDIR="$HOME/temp/cal"
 
 #### Path ########################################

@@ -21,13 +21,10 @@ PROMPT='
 %F{blue}|>%f '
 
 #### Completion ##################################
-# TODO: replace with fzf?
 autoload -U compinit
-# autoload -Uz +X compinit
 zstyle ':completion:*' matcher-list 'm:{a-z\-}={A-Z\_}'
 zstyle ':completion:*' menu select
 zmodload zsh/complist
-# compinit
 
 for file in $ZDOTDIR/.zcompdump(N.mh+24); do
   compinit && touch "$file"
@@ -35,6 +32,15 @@ done
 compinit -C
 
 _comp_options+=(globdots) # Include hidden files
+
+# tab complete menu
+# setopt menu_complete
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect '^[' backward-delete-char
+bindkey -v '^?' backward-delete-char
 
 #### History #####################################
 HISTFILE="$HOME/.local/history/histfile"
@@ -87,15 +93,6 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd 'v' edit-command-line
 
-# tab complete menu
-# setopt menu_complete
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
-# bindkey -v 'ESC' backward-delete-char
-
 # cursor shape for diff modes
 function zle-keymap-select() {
 	case $KEYMAP in
@@ -130,16 +127,6 @@ for m in visual viopp; do
     bindkey -M $m $c select-bracketed
   done
 done
-
-# surround bindings
-# autoload -U surround
-# zle -N delete-surround surround
-# zle -N add-surround surround
-# zle -N change-surround surround
-# bindkey -a cs change-surround
-# bindkey -a ds delete-surround
-# bindkey -a ys add-surround
-# bindkey -M visual S add-surround
 
 #### OS Specific #################################
 case $OSTYPE in

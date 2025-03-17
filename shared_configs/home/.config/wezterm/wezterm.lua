@@ -15,6 +15,7 @@ config.color_scheme = 'OceanicNext (base16)'
 
 config.font = wezterm.font('FiraCode Nerd Font Mono', { weight = 'Medium' })
 config.font_size = 14
+config.scrollback_lines = 10000
 config.cursor_blink_rate = 0
 config.enable_tab_bar = false
 config.window_decorations = 'RESIZE | MACOS_FORCE_DISABLE_SHADOW'
@@ -94,7 +95,8 @@ config.keys = {
     action = wezterm.action.QuickSelectArgs {
       label = 'copy anywhere',
       -- patterns = { '[^ "\']+' },
-      patterns = { '[^ .=/:"\']+' },
+      -- patterns = { '[^ .=/:"\']+' },
+      patterns = { '[^[[:punct:]] ][^ .=/:"\' ]+[^[[:punct:]] ]' },
       scope_lines = 0,
     },
   },
@@ -104,7 +106,9 @@ config.keys = {
     action = wezterm.action.QuickSelectArgs {
       label = 'copy word',
       -- patterns = { '[A-Za-z0-9._-]+' },
-      patterns = { '[^ :"\']+' },
+      -- patterns = { '[^ :"\']+' },
+      -- patterns = { '[^ :"(){}\'\\[\\]][^ ]+[^ :"(){}\'\\[\\]]' },
+      patterns = { '[^[[:punct:]] ][^ ]+[^[[:punct:]] ]' },
       scope_lines = 0,
     },
   },
@@ -164,7 +168,8 @@ config.keys = {
       patterns = {
         'github.com/[0-9A-Za-z._-]+/[0-9A-Za-z._-]+',
         'github.com/[0-9A-Za-z._-]+',
-        '[0-9A-Za-z._-]+/[0-9A-Za-z._-]+',
+        -- '[0-9A-Za-z._-]+/[0-9A-Za-z._-]+',
+        '\\w[\\w._-]*\\w/[\\w._-]+',
       },
       scope_lines = 0,
       action = wezterm.action_callback(function(window, pane)
@@ -194,22 +199,10 @@ table.insert(config.hyperlink_rules, {
 
 -- github repos
 table.insert(config.hyperlink_rules, {
-  regex = '["\' ]([0-9A-Za-z._-]+/[0-9A-Za-z._-]+)["\' ,@]',
+  -- regex = '["\' ]([0-9A-Za-z._-]+/[0-9A-Za-z._-]+)["\' ,@]',
+  -- format = 'https://github.com/$1',
+  regex = '["\' ](\\w[\\w._-]*\\w/[\\w._-]+)["\' ,@]',
   format = 'https://github.com/$1',
 })
-
--- TODO: disable horizontal scrolling
-
--- config.disable_default_mouse_bindings = true
--- config.mouse_bindings = {
--- 	{
--- 		event = { Down = { streak = 1, button = { WheelUp = 1 } } },
--- 		action = wezterm.action.Nop,
--- 	},
--- 	{
--- 		event = { Down = { streak = 1, button = { WheelDown = 1 } } },
--- 		action = wezterm.action.Nop,
--- 	},
--- }
 
 return config
