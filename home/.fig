@@ -1,0 +1,5 @@
+all    .zprofile
+all    .scimrc
+all    .fdignore
+all    .bashrc
+darwin .hushlogin
