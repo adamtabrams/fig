@@ -1,7 +1,8 @@
 export BIGTABLE_EMULATOR_HOST=localhost:9035
 
 # gcloudPathFile="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-gcloudPathFile="/usr/local/share/google-cloud-sdk/path.zsh.inc"
+# gcloudPathFile="/usr/local/share/google-cloud-sdk/path.zsh.inc"
+gcloudPathFile="$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc"
 [ -f $gcloudPathFile ] && source $gcloudPathFile
 
 # TODO: disabled for testing

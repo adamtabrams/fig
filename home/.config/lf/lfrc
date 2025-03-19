@@ -4,6 +4,7 @@ set shellopts '-eu:--shwordsplit'
 set ifs "\n"
 set scrolloff 10
 set icons
+set ratios 1:2
 set incsearch
 set findlen 0
 set previewer ~/.config/lf/pv.sh
@@ -31,17 +32,17 @@ map I :rename; cmd-home
 map C push A<c-u>
 
 ### Columns ###
-cmd recol ${{
-    w=$(tput cols)
-    if [ $w -le 95 ]; then
-        lf -remote "send $id set ratios 1:2"
-    else
-        lf -remote "send $id set ratios 1:2:3"
-    fi
-}}
-
-recol
-
-map ZZ $lf -remote "send $id recol"
-map Z2 $lf -remote "send $id set ratios 1:2"
-map Z3 $lf -remote "send $id set ratios 1:2:3"
+# cmd recol ${{
+#     w=$(tput cols)
+#     if [ $w -le 95 ]; then
+#         lf -remote "send $id set ratios 1:2"
+#     else
+#         lf -remote "send $id set ratios 1:2:3"
+#     fi
+# }}
+#
+# recol
+#
+# map ZZ $lf -remote "send $id recol"
+# map Z2 $lf -remote "send $id set ratios 1:2"
+# map Z3 $lf -remote "send $id set ratios 1:2:3"
