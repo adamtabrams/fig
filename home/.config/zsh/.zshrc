@@ -146,8 +146,6 @@ which dircolors &>/dev/null &&
     eval $(dircolors "$ZDOTDIR/colors/dircolors.ansi-dark") ||
     echo "need 'dircolors' program to set terminal colors" >&2
 
-# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# see bug: https://github.com/zdharma-continuum/fast-syntax-highlighting/issues/27
 source "$ZSH_HIGHLIGHT_DIR/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 export FAST_HIGHLIGHT[chroma-man]=
 

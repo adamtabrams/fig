@@ -27,6 +27,7 @@ vim.keymap.set('c', 'vh ', 'vert help ')
 -- TODO: use <c-n> and <c-p> somewhere?
 vim.keymap.set('n', '<c-n>', '<cmd>bn<cr>', { silent = true })
 vim.keymap.set('n', '<c-p>', '<cmd>bp<cr>', { silent = true })
+vim.keymap.set('c', 'bdd', 'bd|bn')
 
 -- vim.keymap.set('n', '<c-q>', '<cmd>bd<cr>', { desc = '[Q]uit' })
 vim.keymap.set('n', '<c-q>', '<cmd>bd!<cr>', { desc = '[Q]uit' })

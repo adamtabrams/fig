@@ -97,39 +97,39 @@ swap-main:
   mod: mod2
   key: enter
 
-focus-screen-1: {"mod":"", "key":""}
-focus-screen-2: {"mod":"", "key":""}
-focus-screen-3: {"mod":"", "key":""}
-focus-screen-4: {"mod":"", "key":""}
-focus-screen-5: {"mod":"", "key":""}
+focus-screen-1: false
+focus-screen-2: false
+focus-screen-3: false
+focus-screen-4: false
+focus-screen-5: false
 
-throw-screen-1: {"mod":"", "key":""}
-throw-screen-2: {"mod":"", "key":""}
-throw-screen-3: {"mod":"", "key":""}
-throw-screen-4: {"mod":"", "key":""}
-throw-screen-5: {"mod":"", "key":""}
+throw-screen-1: false
+throw-screen-2: false
+throw-screen-3: false
+throw-screen-4: false
+throw-screen-5: false
 
-throw-space-1: {"mod":"", "key":""}
-throw-space-2: {"mod":"", "key":""}
-throw-space-3: {"mod":"", "key":""}
-throw-space-4: {"mod":"", "key":""}
-throw-space-5: {"mod":"", "key":""}
-throw-space-6: {"mod":"", "key":""}
-throw-space-7: {"mod":"", "key":""}
-throw-space-8: {"mod":"", "key":""}
-throw-space-9: {"mod":"", "key":""}
-throw-space-10: {"mod":"", "key":""}
+throw-space-1: false
+throw-space-2: false
+throw-space-3: false
+throw-space-4: false
+throw-space-5: false
+throw-space-6: false
+throw-space-7: false
+throw-space-8: false
+throw-space-9: false
+throw-space-10: false
 
-select-tall-layout: {"mod":"", "key":""}
+select-tall-layout: false
   # mod: mod1
   # key: a
-select-wide-layout: {"mod":"", "key":""}
+select-wide-layout: false
   # mod: mod1
   # key: s
-select-fullscreen-layout: {"mod":"", "key":""}
+select-fullscreen-layout: false
   # mod: mod1
   # key: d
-select-column-layout: {"mod":"", "key":""}
+select-column-layout: false
   # mod: mod1
   # key: f
 
@@ -143,16 +143,16 @@ throw-space-right:
 toggle-float:
   mod: mod2
   key: space
-display-current-layout: {"mod":"", "key":""}
+display-current-layout: false
   # mod: mod1
   # key: i
-toggle-tiling: {"mod":"", "key":""}
+toggle-tiling: false
   # mod: mod1
   # key: t
-reevaluate-windows: {"mod":"", "key":""}
+reevaluate-windows: false
   # mod: mod1
   # key: z
-toggle-focus-follows-mouse: {"mod":"", "key":""}
+toggle-focus-follows-mouse: false
   # mod: mod2
   # key: x
 
