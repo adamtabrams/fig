@@ -124,7 +124,7 @@ _cd_if_one_match() {
 # NOTE: still testing this. this may not be needed
 _cd_latest_subdir() {
   parentdir=$1
-  subdir=$(grep "^$parentdir" $DIRSTACKFILE | head -n 1)
+  subdir=$(grep "^$parentdir/" $DIRSTACKFILE | head -n 1)
   [ "$subdir" ] && cd "$subdir" && return
   cd "$parentdir"
 }
