@@ -16,26 +16,24 @@ ghelp() {
 # TODO: combine gg and gi
 
 # go to a repo
-# NOTE: still testing recent changes
 gr() {
   [ "$1" ] && _filter_recent "$1" && return
   repo=$(FZF_DEFAULT_COMMAND=$(_fd_repos) fzf --query="$1")
-  # [ "$repo" ] && cd "$HOME/repos/$repo"
-  [ "$repo" ] && _cd_latest_subdir "$HOME/repos/$repo"
+  [ "$repo" ] && _cd_latest "$HOME/repos/$repo"
 }
 
 # go to a recent repo
 # NOTE: still testing recent changes
 grr() {
-  repo=$(FZF_DEFAULT_COMMAND=$(_fd_repos --changed-within 4weeks) fzf --no-clear)
-  [ "$repo" ] && tput rmcup && cd "$HOME/repos/$repo" && return
+  repo=$(FZF_DEFAULT_COMMAND=$(_fd_repos --changed-within 1weeks) fzf --no-clear)
+  [ "$repo" ] && tput rmcup && _cd_latest "$HOME/repos/$repo" && return
   gr
 }
 
 # go to one of the lastest dirs
 # TODO: trim and sort instead of just filter
 gl() {
-  goto=$(sed "s|^$HOME|~|" $DIRSTACKFILE | grep -E "^[~]*(/[^/]*){1,4}$" | fzf |  sed "s|^~|$HOME|")
+  goto=$(grep -E "^[~]*(/[^/]*){1,4}$" $DIRSTACKFILE | sed "s|^$HOME|~|" | fzf | sed "s|^~|$HOME|")
   [ "$goto" ] && cd "$goto"
 }
 
@@ -72,59 +70,45 @@ lr() {
   done
 }
 
-gt() { _goto_or_open "$HOME/temp" }
-gs() { _goto_or_open "$HOME/save" }
-g.c() { _goto_or_open "$XDG_CONFIG_HOME" --follow }
-g.l() { _goto_or_open "$XDG_DATA_HOME" --follow }
+gt() { _cd_dir_open_file "$HOME/temp" }
+gs() { _cd_dir_open_file "$HOME/save" }
+g.c() { _cd_dir_open_file "$XDG_CONFIG_HOME" --follow }
+g.l() { _cd_dir_open_file "$XDG_DATA_HOME" --follow }
+
+# helper function to go to dir or open file for a given path
+_cd_dir_open_file() {
+  parentdir=$1
+  subdir=$(cd "$parentdir" && fd -t d ${@:2} | fzf --no-clear --header "cd to dir" --header-first)
+  [ "$subdir" ] && parentdir="$parentdir/$subdir" && cd "$parentdir"
+  file=$(cd "$parentdir" && fd -t f ${@:2} | fzf --header "open file" --header-first)
+  [ "$file" ] && "$EDITOR" "$parentdir/$file"
+}
 
 # helper function to find all git repos with fd
 _fd_repos() {
   echo "fd -IH -d 3 -t d $@ --format '{//}' --base-directory ~/repos '^.git$'"
 }
 
-# helper function to go to dir or open file for a given path
-_goto_or_open() {
-  parent=$1
-
-  # select working dir
-  goto=$(cd "$parent" && fd -t d ${@:2} | fzf --no-clear)
-  [ "$goto" ] && parent="$parent/$goto" && cd "$parent"
-  # [ "$goto" ] && tput rmcup && cd "$parent/$goto" && return
-
-  # select file to edit
-  goto=$(cd "$parent" && fd -t f ${@:2} | fzf)
-  [ "$goto" ] && "$EDITOR" "$parent/$goto"
-  # [ "$goto" ] && cd $(dirname "$parent/$goto") && "$EDITOR" "$parent/$goto"
-}
-
 # helper function to go to recent repo dir if only one match exists
 _filter_recent() {
   query="$1"
-
-  sed "s|^$HOME|~|" $DIRSTACKFILE | grep -E "^[~]*(/[^/]*){1,4}$" |
-    _cd_if_one_match "$1" && return
-  eval $(_fd_repos --changed-within 4weeks) |
-    _cd_if_one_match "$1" "$HOME/repos/" && return
-  eval $(_fd_repos) |
-    _cd_if_one_match "$1" "$HOME/repos/" && return
-
+  grep -E "^[~]*(/[^/]*){1,4}$" $DIRSTACKFILE | _cd_if_uniq "$1" && return
+  eval $(_fd_repos --changed-within 4weeks) | _cd_if_uniq "$1" "$HOME/repos/" && return
+  eval $(_fd_repos) | _cd_if_uniq "$1" "$HOME/repos/" && return
   return 1
 }
 
-_cd_if_one_match() {
+_cd_if_uniq() {
   query=$1
   path_prefix=$2
-  matches=$(sed "s|^$HOME|~|" | grep "$query" | sed "s|^~|$HOME|")
-  [ ! "$matches" ] && return 1
-  [ $(echo "$matches" | wc -l) != 1 ] && return 1
-  # cd "$path_prefix$matches"
-  _cd_latest_subdir "$path_prefix$matches"
+  match=$(sed "s|^$HOME|~|" | grep "$query" | sed "s|^~|$HOME|")
+  [ ! "$match" ] || [ $(echo "$match" | wc -l) != 1 ] && return 1
+  _cd_latest "$path_prefix$match"
 }
 
-# NOTE: still testing this. this may not be needed
-_cd_latest_subdir() {
+_cd_latest() {
   parentdir=$1
-  subdir=$(grep "^$parentdir/" $DIRSTACKFILE | head -n 1)
-  [ "$subdir" ] && cd "$subdir" && return
+  latest=$(grep -E "^$parentdir$|^$parentdir/" $DIRSTACKFILE | head -n 1)
+  [ "$latest" ] && cd "$latest" && return
   cd "$parentdir"
 }
