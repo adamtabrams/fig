@@ -1,6 +1,6 @@
 glog() { git log --oneline --no-decorate "-${1:-5}" ${@:2} }
 
-gopen() { open $(git ls-remote --get-url) }
+gopen() { open -u $(git ls-remote --get-url | sed -e 's|\.git$||') }
 
 gclone() {
     dir=$(echo $1 | sed "s|^.*\.com/\(.*\)\.git$|\1|" )

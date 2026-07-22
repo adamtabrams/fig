@@ -10,7 +10,8 @@ gcloudPathFile="$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc"
 # gcloudCompFile="/usr/local/share/google-cloud-sdk/completion.zsh.inc"
 # [ -f $gcloudCompFile ] && source $gcloudCompFile
 
-ctxgcloud() {
+# change context gcloud
+ccg() {
     ctx=$(gcloud projects list | tr -s ' ' '\t' | cut -f1,2 | tail +2 | fzf | cut -f1)
     [ ! "$ctx" ] && return
     gcloud config set project "$ctx"

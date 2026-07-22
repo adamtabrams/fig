@@ -13,10 +13,10 @@ layouts:
   # - 3column-right
   # - 4column-left
   # - 4column-right
-  # - column
+  - column
   - row
   # - floating
-  # - widescreen-tall
+  - widescreen-tall
   # - widescreen-tall-right
   - bsp
 
@@ -83,6 +83,7 @@ focus-screen-cw:
 # swap-screen-ccw:
 #   mod: mod2
 #   key: h
+
 # swap-screen-cw:
 #   mod: mod2
 #   key: l
@@ -97,15 +98,28 @@ swap-main:
   mod: mod2
   key: enter
 
-focus-screen-1: false
-focus-screen-2: false
-focus-screen-3: false
+focus-screen-1:
+  mod: mod1
+  key: w
+focus-screen-2:
+  mod: mod1
+  key: e
+focus-screen-3:
+  mod: mod1
+  key: r
+
+throw-screen-1:
+  mod: mod2
+  key: w
+throw-screen-2:
+  mod: mod2
+  key: e
+throw-screen-3:
+  mod: mod2
+  key: r
+
 focus-screen-4: false
 focus-screen-5: false
-
-throw-screen-1: false
-throw-screen-2: false
-throw-screen-3: false
 throw-screen-4: false
 throw-screen-5: false
 
@@ -120,16 +134,20 @@ throw-space-8: false
 throw-space-9: false
 throw-space-10: false
 
-select-tall-layout: false
+select-tall-layout:
+  false
   # mod: mod1
   # key: a
-select-wide-layout: false
+select-wide-layout:
+  false
   # mod: mod1
   # key: s
-select-fullscreen-layout: false
+select-fullscreen-layout:
+  false
   # mod: mod1
   # key: d
-select-column-layout: false
+select-column-layout:
+  false
   # mod: mod1
   # key: f
 
@@ -143,16 +161,20 @@ throw-space-right:
 toggle-float:
   mod: mod2
   key: space
-display-current-layout: false
+display-current-layout:
+  false
   # mod: mod1
   # key: i
-toggle-tiling: false
+toggle-tiling:
+  false
   # mod: mod1
   # key: t
-reevaluate-windows: false
+reevaluate-windows:
+  false
   # mod: mod1
   # key: z
-toggle-focus-follows-mouse: false
+toggle-focus-follows-mouse:
+  false
   # mod: mod2
   # key: x
 
@@ -173,6 +195,7 @@ floating-is-blacklist: true
 ignore-menu-bar: false
 hide-menu-bar-icon: false
 float-small-windows: true
+small-window-size: 500
 mouse-follows-focus: true
 focus-follows-mouse: false
 mouse-swaps-windows: false
@@ -186,6 +209,7 @@ new-windows-to-main: false
 follow-space-thrown-windows: true
 
 window-resize-step: 5
+
 screen-padding-left: 5
 screen-padding-right: 5
 screen-padding-top: 5

@@ -58,7 +58,8 @@ ga() {
 
 # open a repo in the browser
 or() {
-  prev_dir=$PWD && gr && remote_url=$(git ls-remote --get-url) && open "$remote_url"
+  prev_dir=$PWD
+  gr && url=$(git ls-remote --get-url | sed -e 's|\.git$||') && [ "$url" ] && open -u "$url"
   [ $(pwd) != "$prev_dir" ] && cd "$prev_dir"
 }
 
@@ -82,6 +83,8 @@ _cd_dir_open_file() {
   [ "$subdir" ] && parentdir="$parentdir/$subdir" && cd "$parentdir"
   file=$(cd "$parentdir" && fd -t f ${@:2} | fzf --header "open file" --header-first)
   [ "$file" ] && "$EDITOR" "$parentdir/$file"
+  # NOTE: not sure if the next line will be annoying or useful
+  [ ! "$file" ] && [ ! "$subdir" ] && cd "$1"
 }
 
 # helper function to find all git repos with fd

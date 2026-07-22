@@ -83,6 +83,14 @@ setopt PUSHD_TO_HOME
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_MINUS
 
+# jump backwards keybinding
+popdir() {
+  popd
+  zle reset-prompt
+}
+zle -N popdir
+bindkey '^o' popdir
+
 #### Vim #########################################
 # j/k history search
 bindkey -M vicmd "k" up-line-or-beginning-search
@@ -148,6 +156,7 @@ which dircolors &>/dev/null &&
 
 source "$ZSH_HIGHLIGHT_DIR/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 export FAST_HIGHLIGHT[chroma-man]=
+export FAST_HIGHLIGHT[chroma-make]=
 
 # for profiling
 zprof > "$ZDOTDIR/zprof.txt"

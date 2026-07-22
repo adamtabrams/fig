@@ -17,7 +17,7 @@ require('lazy').setup({ import = 'plugins' }, {
         'matchit',
         'tarPlugin',
         'tohtml',
-        'tutor',
+        -- 'tutor',
         'zipPlugin',
         'netrwPlugin',
         -- 'matchparen',
